@@ -1,0 +1,27 @@
+<div class="col-md-6">
+  <h2 class="text-center">Editar Orden</h2>
+  <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label for="date">Fecha:</label>
+      <input type="date" formControlName="date" placeholder="DD/MM/AAAA" name="date" class="form-control" id="date">
+    </div>
+
+    <div class="form-group">
+      <label for="company">Empresa:</label>
+      <input formControlName="companny" placeholder="Empresa" name="company" class="form-control" id="company">
+    </div>
+
+    <div class="form-group">
+      <label for="product">Producto:</label>
+      <input formControlName="product" placeholder="Producto" name="producto" class="form-control" id="product">
+    </div>
+
+    <div class="form-group">
+      <label for="billOfLoading">Bill of Loading:</label>
+      <input formControlName="billOfLoading" placeholder="Bill of Loading" name="billOfLoading" class="form-control" id="billOfLoading">
+    </div>
+
+    <button class="btn btn-success">Editar</button>
+  </form>
+</div>

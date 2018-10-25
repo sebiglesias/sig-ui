@@ -1,0 +1,17 @@
+<div class="col-md-6">
+  <h2 class="text-center">Editar Producto</h2>
+  <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label for="name">Fecha:</label>
+      <input type="text" formControlName="name" placeholder="Nombre de producto" name="name" class="form-control" id="name">
+    </div>
+
+    <div class="form-group">
+      <label for="productType">Tipo de producto:</label>
+      <input formControlName="productType" placeholder="Tipo de producto" name="productType" class="form-control" id="productType">
+    </div>
+
+    <button class="btn btn-success">Editar</button>
+  </form>
+</div>

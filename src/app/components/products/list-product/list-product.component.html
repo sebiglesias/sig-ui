@@ -1,0 +1,22 @@
+<div class="col-md-6">
+  <h2> Detalles de Productos</h2>
+  <button class="btn btn-danger" (click)="addProduct()"> Agregar nuevo producto</button>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>Nombre</th>
+      <th>Tipo de producto</th>
+      <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let product of products">
+      <td>{{product.id}}</td>
+      <td>{{product.name}}</td>
+      <td>{{product.productType}}</td>
+      <td><button class="btn btn-danger" (click)="editProduct(product)" style="margin-left: 20px;"> Editar</button></td>
+    </tr>
+    </tbody>
+  </table>
+</div>

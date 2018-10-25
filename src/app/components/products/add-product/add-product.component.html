@@ -1,0 +1,16 @@
+<div class="col-md-6">
+  <h2 class="text-center">Agregar un nuevo producto al sistema</h2>
+  <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Nombre:</label>
+      <input type="text" formControlName="name" placeholder="Nombre de producto" name="name" class="form-control" id="name">
+    </div>
+
+    <div class="form-group">
+      <label for="productType">Tipo de producto:</label>
+      <input formControlName="productType" placeholder="Tipo de producto" name="productType" class="form-control" id="productType">
+    </div>
+
+    <button class="btn btn-success">Crear</button>
+  </form>
+</div>
