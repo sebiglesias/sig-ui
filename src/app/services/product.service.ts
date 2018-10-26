@@ -48,7 +48,9 @@ export class ProductService {
   }
 
   updateProduct(productToUpdate: Product): Observable<Boolean> {
-    this.products.filter(product => product.id === productToUpdate.id).map(o => o = productToUpdate);
+    const index = this.products.findIndex(shipment => shipment.id === Number(productToUpdate.id));
+    if (index === -1) { return of(false); }
+    this.products[index] = productToUpdate;
     localStorage.setItem('products', JSON.stringify(this.products));
     return of(true);
   }

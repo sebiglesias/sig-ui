@@ -8,5 +8,5 @@ export class Shipment {
   truck: Truck;
   enterTime: DateTimeFormat;
   leaveTime: DateTimeFormat;
-  order?: Order;
+  order: Order;
 }

@@ -48,7 +48,9 @@ export class CompanyService {
   }
 
   updateCompany(companyToUpdate: Company): Observable<Boolean> {
-    this.companies.filter(company => company.id === companyToUpdate.id).map(o => o = companyToUpdate);
+    const index = this.companies.findIndex(shipment => shipment.id === Number(companyToUpdate.id));
+    if (index === -1) { return of(false); }
+    this.companies[index] = companyToUpdate;
     localStorage.setItem('companies', JSON.stringify(this.companies));
     return of(true);
   }

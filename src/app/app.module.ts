@@ -29,6 +29,13 @@ import { AddBillOfLoadingComponent } from './components/billOfLoadings/add-bill-
 import { EditBillOfLoadingComponent } from './components/billOfLoadings/edit-bill-of-loading/edit-bill-of-loading.component';
 import { ListBillOfLoadingComponent } from './components/billOfLoadings/list-bill-of-loading/list-bill-of-loading.component';
 import {BillOfLoadingService} from './services/bill-of-loading.service';
+import { AddShipmentComponent } from './components/shipments/add-shipment/add-shipment.component';
+import { EditShipmentComponent } from './components/shipments/edit-shipment/edit-shipment.component';
+import { ListShipmentComponent } from './components/shipments/list-shipment/list-shipment.component';
+import {ShipmentService} from './services/shipment.service';
+import { AddShipmentReportComponent } from './components/shipmentReports/add-shipment-report/add-shipment-report.component';
+import { EditShipmentReportComponent } from './components/shipmentReports/edit-shipment-report/edit-shipment-report.component';
+import { ListShipmentReportComponent } from './components/shipmentReports/list-shipment-report/list-shipment-report.component';
 
 const routes: Routes = [
   {path: 'list-order', component: ListOrderComponent},
@@ -52,6 +59,12 @@ const routes: Routes = [
   {path: 'list-companies', component: ListCompanyComponent},
   {path: 'add-companies', component: AddCompanyComponent},
   {path: 'edit-companies', component: EditCompanyComponent},
+  {path: 'list-shipment', component: ListShipmentComponent},
+  {path: 'add-shipment', component: AddShipmentComponent},
+  {path: 'edit-shipment', component: EditShipmentComponent},
+  {path: 'list-shipment-report', component: ListShipmentReportComponent},
+  {path: 'add-shipment-report', component: AddShipmentReportComponent},
+  {path: 'edit-shipment-report', component: EditShipmentReportComponent},
 ];
 
 @NgModule({
@@ -74,7 +87,13 @@ const routes: Routes = [
     ListTruckComponent,
     AddBillOfLoadingComponent,
     EditBillOfLoadingComponent,
-    ListBillOfLoadingComponent
+    ListBillOfLoadingComponent,
+    AddShipmentComponent,
+    EditShipmentComponent,
+    ListShipmentComponent,
+    AddShipmentReportComponent,
+    EditShipmentReportComponent,
+    ListShipmentReportComponent
   ],
   imports: [
     BrowserModule,
@@ -91,6 +110,8 @@ const routes: Routes = [
     ContainerService,
     TruckService,
     BillOfLoadingService,
+    ShipmentService,
+    ShipmentReportService,
   ],
   bootstrap: [AppComponent]
 })

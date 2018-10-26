@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
-import {TruckService} from '../../../services/truck.service';
-import {Truck} from '../../../models/truck';
 import {Order} from '../../../models/order';
 import {OrderService} from '../../../services/order.service';
 

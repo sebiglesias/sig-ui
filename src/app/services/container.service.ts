@@ -48,7 +48,9 @@ export class ContainerService {
   }
 
   updateContainer(containerToUpdate: Container): Observable<Boolean> {
-    this.containers.filter(container => container.id === containerToUpdate.id).map(o => o = containerToUpdate);
+    const index = this.containers.findIndex(shipment => shipment.id === containerToUpdate.id);
+    if (index === -1) { return of(false); }
+    this.containers[index] = containerToUpdate;
     localStorage.setItem('containers', JSON.stringify(this.containers));
     return of(true);
   }

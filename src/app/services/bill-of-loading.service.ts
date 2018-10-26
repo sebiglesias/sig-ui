@@ -48,7 +48,9 @@ export class BillOfLoadingService {
   }
 
   updateBillOfLoading(truckToUpdate: BillOfLoading): Observable<Boolean> {
-    this.billOfLoadings.filter(truck => truck.id === truckToUpdate.id).map(o => o = truckToUpdate);
+    const index = this.billOfLoadings.findIndex(shipment => shipment.id === Number(truckToUpdate.id));
+    if (index === -1) { return of(false); }
+    this.billOfLoadings[index] = truckToUpdate;
     localStorage.setItem('billOfLoadings', JSON.stringify(this.billOfLoadings));
     return of(true);
   }

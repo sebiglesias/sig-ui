@@ -48,7 +48,9 @@ export class TruckService {
   }
 
   updateTruck(truckToUpdate: Truck): Observable<Boolean> {
-    this.trucks.filter(truck => truck.id === truckToUpdate.id).map(o => o = truckToUpdate);
+    const index = this.trucks.findIndex(shipment => shipment.id === Number(truckToUpdate.id));
+    if (index === -1) { return of(false); }
+    this.trucks[index] = truckToUpdate;
     localStorage.setItem('trucks', JSON.stringify(this.trucks));
     return of(true);
   }

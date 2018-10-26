@@ -39,7 +39,7 @@ export class OrderService {
     } else {
       let orderToReturn;
       this.orders.map(order => {
-        if (order.id === orderId) {
+        if (order.id === Number(orderId)) {
           orderToReturn = of(order);
         }
       });
@@ -48,7 +48,9 @@ export class OrderService {
   }
 
   updateOrder(orderToUpdate: Order): Observable<Boolean> {
-    this.orders.filter(order => order.id === orderToUpdate.id).map(o => o = orderToUpdate);
+    const index = this.orders.findIndex(shipment => shipment.id === Number(orderToUpdate.id));
+    if (index === -1) { return of(false); }
+    this.orders[index] = orderToUpdate;
     localStorage.setItem('orders', JSON.stringify(this.orders));
     return of(true);
   }
