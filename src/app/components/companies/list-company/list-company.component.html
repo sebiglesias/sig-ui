@@ -1,0 +1,22 @@
+<div class="col-md-6">
+  <h2> Detalles de Empresas</h2>
+  <button class="btn btn-danger" (click)="addCompany()"> Agregar nueva empresa</button>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>Nombre</th>
+      <th>Dirección</th>
+      <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let company of companies">
+      <td>{{company.id}}</td>
+      <td>{{company.name}}</td>
+      <td>{{company.address}}</td>
+      <td><button class="btn btn-danger" (click)="editCompany(company)" style="margin-left: 20px;">Editar</button></td>
+    </tr>
+    </tbody>
+  </table>
+</div>

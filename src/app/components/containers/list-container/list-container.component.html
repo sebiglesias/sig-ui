@@ -1,0 +1,22 @@
+<div class="col-md-6">
+  <h2> Detalles de Container</h2>
+  <button class="btn btn-danger" (click)="addContainer()"> Agregar nuevo container</button>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Numero de Identificacion</th>
+      <th>Producto que contiene</th>
+      <th>Tamaño</th>
+      <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let container of containers">
+      <td>{{container.id}}</td>
+      <td>{{container.product.id}} - {{container.product.name}}</td>
+      <td>{{container.footSize}}</td>
+      <td><button class="btn btn-danger" (click)="editContainer(container)" style="margin-left: 20px;"> Editar</button></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
