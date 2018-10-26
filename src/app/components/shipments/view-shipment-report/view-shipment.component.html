@@ -1,0 +1,38 @@
+<div class="modal-header">
+  <h2 class="jumbotron">Informe container: {{shipment.container.id}} con {{shipment.container.product.name}}</h2>
+</div>
+<div class="modal-body row">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        Horarios de entrada y salida
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Entrada: {{shipment.enterTime}}</li>
+        <li class="list-group-item">Salida: {{shipment.leaveTime}}</li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Motivo de Multa</th>
+        <th>Monto</th>
+        <th>Acciones</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let more of shipment.more">
+        <td>{{more.reason}}</td>
+        <td>{{more.amount}} {{more.currency}}</td>
+        <td>
+          <button class="btn btn-success">Agregar multa</button>
+          <button class="btn btn-info">Editar multa</button>
+          <button class="btn btn-red">Eliminar multa</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -38,6 +38,7 @@ import { EditShipmentReportComponent } from './components/shipmentReports/edit-s
 import { ListShipmentReportComponent } from './components/shipmentReports/list-shipment-report/list-shipment-report.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { HomeComponent } from './components/home/home.component';
+import {ViewShipmentComponent} from './components/shipments/view-shipment-report/view-shipment.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -65,6 +66,7 @@ const routes: Routes = [
   {path: 'list-shipment', component: ListShipmentComponent},
   {path: 'add-shipment', component: AddShipmentComponent},
   {path: 'edit-shipment', component: EditShipmentComponent},
+  {path: 'view-shipment/:id', component: ViewShipmentComponent},
   {path: 'list-shipment-report', component: ListShipmentReportComponent},
   {path: 'add-shipment-report', component: AddShipmentReportComponent},
   {path: 'edit-shipment-report', component: EditShipmentReportComponent},
@@ -99,6 +101,7 @@ const routes: Routes = [
     ListShipmentReportComponent,
     NavBarComponent,
     HomeComponent,
+    ViewShipmentComponent,
   ],
   imports: [
     BrowserModule,
