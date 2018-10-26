@@ -1,0 +1,57 @@
+<div class="col-md-6">
+  <h2 class="text-center">Editar Informe de llegada</h2>
+  <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label for="date">Fecha:</label>
+      <input type="date" formControlName="date" name="date" class="form-control" id="date">
+    </div>
+
+    <div class="form-group">
+      <label for="terminal">Terminal:</label>
+      <input type="text" formControlName="terminal" name="terminal" class="form-control" id="terminal">
+    </div>
+
+    <div class="form-group">
+      <label for="port">Puerto:</label>
+      <input type="text" formControlName="port" name="port" class="form-control" id="port">
+    </div>
+
+    <div class="form-group">
+      <label for="loadingPoint">Punto de carga:</label>
+      <input type="text" formControlName="loadingPoint" name="loadingPoint" class="form-control" id="loadingPoint">
+    </div>
+
+    <div class="form-group">
+      <label for="dockingPoint">Docking point:</label>
+      <input type="text" formControlName="dockingPoint" name="dockingPoint" class="form-control" id="dockingPoint">
+    </div>
+
+    <div class="form-group">
+      <label for="boat">Barco:</label>
+      <input type="text" formControlName="boat" name="boat" class="form-control" id="boat">
+    </div>
+
+    <div class="form-group">
+      <label for="deliveryPlace">Delivery place:</label>
+      <input type="text" formControlName="deliveryPlace" name="deliveryPlace" class="form-control" id="deliveryPlace">
+    </div>
+
+    <div class="form-group">
+      <label for="navyCompany">Empresa naviera:</label>
+      <select type="text" formControlName="navyCompany" class="form-control" name="navyCompany" id="navyCompany">
+        <option *ngFor="let navyCompany of navyCompanies" [value]="navyCompany.id">{{navyCompany.name}}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="provider">Empresa proveedora:</label>
+      <select type="text" formControlName="provider" class="form-control" name="provider" id="provider">
+        <option *ngFor="let provider of providers" [value]="provider.id">{{provider.name}}</option>
+      </select>
+    </div>
+
+
+    <button class="btn btn-success">Editar</button>
+  </form>
+</div>

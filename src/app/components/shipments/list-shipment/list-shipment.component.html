@@ -1,0 +1,28 @@
+<div class="col-md-6">
+  <h2> Detalles de entradas de containers a planta</h2>
+  <button class="btn btn-danger" (click)="addShipment()"> Agregar nueva entrada de container a planta</button>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Numero de Identificacion</th>
+      <th>Entrada</th>
+      <th>Salida</th>
+      <th>Camion</th>
+      <th>Container</th>
+      <th>Orden de compra</th>
+      <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let shipment of shipments">
+      <td>{{shipment.id}}</td>
+      <td>{{shipment.enterTime}}</td>
+      <td>{{shipment.leaveTime}}</td>
+      <td>{{shipment.truck.licensePlate}}</td>
+      <td>{{shipment.container.id}}</td>
+      <td>{{shipment.order.id}} - {{shipment.order.date}}</td>
+      <td><button class="btn btn-danger" (click)="editShipment(shipment)" style="margin-left: 20px;">Editar</button></td>
+    </tr>
+    </tbody>
+  </table>
+</div>

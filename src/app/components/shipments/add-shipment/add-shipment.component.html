@@ -1,0 +1,38 @@
+<div class="col-md-6">
+  <h2 class="text-center">Agregar un nuevo ingreso de contenedor a la planta</h2>
+  <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label for="enterTime">Hora de ingreso:</label>
+      <input type="datetime-local" formControlName="enterTime" name="enterTime" class="form-control" id="enterTime">
+    </div>
+
+    <div class="form-group">
+      <label for="leaveTime">Hora de salida:</label>
+      <input type="datetime-local" formControlName="leaveTime" name="leaveTime" class="form-control" id="leaveTime">
+    </div>
+
+    <div class="form-group">
+      <label for="container">Container:</label>
+      <select type="text" formControlName="container" class="form-control" name="container" id="container">
+        <option *ngFor="let container of containers" [value]="container.id">{{container.id}}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="truck">Camión:</label>
+      <select type="text" formControlName="truck" class="form-control" name="truck" id="truck">
+        <option *ngFor="let truck of trucks" [value]="truck.id">{{truck.licensePlate}}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="order">Orden de compra:</label>
+      <select type="text" formControlName="order" name="order" class="form-control" id="order">
+        <option *ngFor="let order of orders" [value]="order.id">{{order.id}} - {{order.product.name}}</option>
+      </select>
+    </div>
+
+    <button class="btn btn-success">Crear</button>
+  </form>
+</div>
