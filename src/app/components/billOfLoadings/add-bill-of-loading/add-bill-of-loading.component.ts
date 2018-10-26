@@ -6,6 +6,7 @@ import {Container} from '../../../models/container';
 import {BillOfLoadingService} from '../../../services/bill-of-loading.service';
 import {CompanyService} from '../../../services/company.service';
 import {Company} from '../../../models/company';
+import {validationMessages} from '../../../models/validationMessages';
 
 @Component({
   selector: 'app-add-bill-of-loading',
@@ -23,9 +24,10 @@ export class AddBillOfLoadingComponent implements OnInit {
   addForm: FormGroup;
   containers: Container[];
   companies: Company[];
+  validationMessages: any;
 
   ngOnInit() {
-
+    this.validationMessages = validationMessages;
     this.containerService.getAllContainers().subscribe( prods => this.containers = prods);
     this.companyService.getAllCompanies().subscribe( prods => this.companies = prods);
 

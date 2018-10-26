@@ -1,16 +1,23 @@
 <div class="col-md-6">
   <h2 class="text-center">Agregar una nueva empresa al sistema</h2>
   <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+
     <div class="form-group">
       <label for="name">Nombre:</label>
       <input type="text" formControlName="name" placeholder="Nombre de la empresa" name="name" class="form-control" id="name">
+      <div class="alert alert-danger" *ngFor="let validation of validationMessages.standardName">
+        <div class="alert" *ngIf="addForm.get('name').hasError(validation.type) && (addForm.get('name').dirty || addForm.get('name').touched)">{{validation.message}}</div>
+      </div>
     </div>
 
     <div class="form-group">
       <label for="address">Dirección:</label>
       <input formControlName="address" placeholder="Dirección de la empresa" name="address" class="form-control" id="address">
+      <div class="alert alert-danger" *ngFor="let validation of validationMessages.address">
+        <div class="alert" *ngIf="addForm.get('address').hasError(validation.type) && (addForm.get('address').dirty || addForm.get('address').touched)">{{validation.message}}</div>
+      </div>
     </div>
 
-    <button class="btn btn-success">Crear</button>
+    <button class="btn btn-success" [disabled]="!addForm.valid">Crear</button>
   </form>
 </div>

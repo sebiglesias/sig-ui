@@ -6,6 +6,7 @@ import {Container} from '../../../models/container';
 import {ContainerService} from '../../../services/container.service';
 import {TruckService} from '../../../services/truck.service';
 import {Truck} from '../../../models/truck';
+import {validationMessages} from '../../../models/validationMessages';
 
 @Component({
   selector: 'app-edit-truck',
@@ -17,12 +18,14 @@ export class EditTruckComponent implements OnInit {
   truck: Truck;
   editForm: FormGroup;
   containers: Container[];
+  validationMessages: any;
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private containerService: ContainerService,
               private truckService: TruckService) { }
 
   ngOnInit() {
+    this.validationMessages = validationMessages;
     this.containerService.getAllContainers().subscribe(prods => this.containers = prods);
     const truckId = localStorage.getItem('editTruckId');
     if (!truckId) {

@@ -8,6 +8,7 @@ import {BillOfLoading} from '../../../models/bill-of-loading';
 import {Company} from '../../../models/company';
 import {CompanyService} from '../../../services/company.service';
 import {BillOfLoadingService} from '../../../services/bill-of-loading.service';
+import {validationMessages} from '../../../models/validationMessages';
 
 @Component({
   selector: 'app-edit-bill-of-loading',
@@ -19,6 +20,8 @@ export class EditBillOfLoadingComponent implements OnInit {
   editForm: FormGroup;
   containers: Container[];
   companies: Company[];
+  validationMessages: any;
+
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private containerService: ContainerService,
@@ -26,6 +29,7 @@ export class EditBillOfLoadingComponent implements OnInit {
               private billOfLoadingService: BillOfLoadingService) { }
 
   ngOnInit() {
+    this.validationMessages = validationMessages;
     this.containerService.getAllContainers().subscribe(prods => this.containers = prods);
     this.companyService.getAllCompanies().subscribe(prods => this.companies = prods);
     const billOfLoadingId = localStorage.getItem('editBillOfLoadingId');

@@ -7,11 +7,17 @@
       <select type="text" formControlName="product" name="product" class="form-control" id="product">
         <option *ngFor="let product of products" [value]="product.id">{{product.name}}</option>
       </select>
+      <div class="alert alert-danger" *ngFor="let validation of validationMessages.standard">
+        <div class="alert" *ngIf="editForm.get('product').hasError(validation.type) && (editForm.get('product').dirty || editForm.get('product').touched)">{{validation.message}}</div>
+      </div>
     </div>
 
     <div class="form-group">
       <label for="date">Fecha:</label>
       <input type="date" formControlName="date" class="form-control" name="date" id="date">
+      <div class="alert alert-danger" *ngFor="let validation of validationMessages.date">
+        <div class="alert" *ngIf="editForm.get('date').hasError(validation.type) && (editForm.get('date').dirty || editForm.get('date').touched)">{{validation.message}}</div>
+      </div>
     </div>
 
     <div class="form-group">
@@ -19,6 +25,9 @@
       <select type="text" formControlName="company" name="company" class="form-control" id="company">
         <option *ngFor="let company of companies" [value]="company.id">{{company.name}}</option>
       </select>
+      <div class="alert alert-danger" *ngFor="let validation of validationMessages.standard">
+        <div class="alert" *ngIf="editForm.get('company').hasError(validation.type) && (editForm.get('company').dirty || editForm.get('company').touched)">{{validation.message}}</div>
+      </div>
     </div>
 
     <div class="form-group">
@@ -26,8 +35,11 @@
       <select type="text" formControlName="billOfLoading" name="billOfLoading" class="form-control" id="billOfLoading">
         <option *ngFor="let billOfLoading of billOfLoadings" [value]="billOfLoading.id">{{billOfLoading.id}}</option>
       </select>
+      <div class="alert alert-danger" *ngFor="let validation of validationMessages.standard">
+        <div class="alert" *ngIf="editForm.get('billOfLoading').hasError(validation.type) && (editForm.get('billOfLoading').dirty || editForm.get('billOfLoading').touched)">{{validation.message}}</div>
+      </div>
     </div>
 
-    <button class="btn btn-success">Editar</button>
+    <button class="btn btn-success" [disabled]="!editForm.valid">Editar</button>
   </form>
 </div>

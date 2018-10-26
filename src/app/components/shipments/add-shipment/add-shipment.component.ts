@@ -8,6 +8,7 @@ import {ShipmentService} from '../../../services/shipment.service';
 import {Order} from '../../../models/order';
 import {Truck} from '../../../models/truck';
 import {Container} from '../../../models/container';
+import {validationMessages} from '../../../models/validationMessages';
 
 @Component({
   selector: 'app-add-shipment',
@@ -27,9 +28,10 @@ export class AddShipmentComponent implements OnInit {
   orders: Order[];
   trucks: Truck[];
   containers: Container[];
+  validationMessages: any;
 
   ngOnInit() {
-
+    this.validationMessages = validationMessages;
     this.orderService.getAllOrders().subscribe( prods => this.orders = prods);
     this.truckService.getAllTrucks().subscribe( prods => this.trucks = prods);
     this.containerService.getAllContainers().subscribe( prods => this.containers = prods);

@@ -8,6 +8,7 @@ import {BillOfLoadingService} from '../../../services/bill-of-loading.service';
 import {BillOfLoading} from '../../../models/bill-of-loading';
 import {Company} from '../../../models/company';
 import {Product} from '../../../models/product';
+import {validationMessages} from '../../../models/validationMessages';
 
 @Component({
   selector: 'app-add-order',
@@ -27,9 +28,10 @@ export class AddOrderComponent implements OnInit {
   products: Product[];
   companies: Company[];
   billOfLoadings: BillOfLoading[];
+  validationMessages: any;
 
   ngOnInit() {
-
+    this.validationMessages = validationMessages;
     this.productService.getAllProducts().subscribe( prods => this.products = prods);
     this.companyService.getAllCompanies().subscribe( prods => this.companies = prods);
     this.billOfLoadingService.getAllBillOfLoadings().subscribe( prods => this.billOfLoadings = prods);

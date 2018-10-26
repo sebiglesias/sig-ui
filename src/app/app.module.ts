@@ -36,8 +36,11 @@ import {ShipmentService} from './services/shipment.service';
 import { AddShipmentReportComponent } from './components/shipmentReports/add-shipment-report/add-shipment-report.component';
 import { EditShipmentReportComponent } from './components/shipmentReports/edit-shipment-report/edit-shipment-report.component';
 import { ListShipmentReportComponent } from './components/shipmentReports/list-shipment-report/list-shipment-report.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
+  {path: '', component: HomeComponent},
   {path: 'list-order', component: ListOrderComponent},
   {path: 'add-order', component: AddOrderComponent},
   {path: 'edit-order', component: EditOrderComponent},
@@ -94,6 +97,8 @@ const routes: Routes = [
     AddShipmentReportComponent,
     EditShipmentReportComponent,
     ListShipmentReportComponent,
+    NavBarComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

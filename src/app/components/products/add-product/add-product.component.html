@@ -4,7 +4,7 @@
     <div class="form-group">
       <label for="name">Nombre:</label>
       <input type="text" formControlName="name" placeholder="Nombre de producto" name="name" class="form-control" id="name">
-      <div class="alert alert-danger" *ngFor="let validation of validationMessages.productName">
+      <div class="alert alert-danger" *ngFor="let validation of validationMessages.standardName">
         <div class="alert" *ngIf="addForm.get('name').hasError(validation.type) && (addForm.get('name').dirty || addForm.get('name').touched)">{{validation.message}}</div>
       </div>
     </div>

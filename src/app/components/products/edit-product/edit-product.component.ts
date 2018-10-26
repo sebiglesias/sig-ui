@@ -4,19 +4,24 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
 import {Product} from '../../../models/product';
 import {ProductService} from '../../../services/product.service';
+import {validationMessages} from '../../../models/validationMessages';
 
 @Component({
   selector: 'app-edit-product',
   templateUrl: './edit-product.component.html',
   styleUrls: ['./edit-product.component.css']
 })
+
 export class EditProductComponent implements OnInit {
 
   product: Product;
   editForm: FormGroup;
+  validationMessages: any;
+
   constructor(private formBuilder: FormBuilder, private router: Router, private productService: ProductService) { }
 
   ngOnInit() {
+    this.validationMessages = validationMessages;
     const productId = localStorage.getItem('editProductId');
     if (!productId) {
       alert('Invalid action.');
@@ -25,8 +30,8 @@ export class EditProductComponent implements OnInit {
     }
     this.editForm = this.formBuilder.group({
       id: [],
-      name: ['', Validators.required],
-      productType: ['', Validators.required],
+      name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
+      productType: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
     });
     this.productService.getProductById(+productId)
       .subscribe( data => {
@@ -45,5 +50,4 @@ export class EditProductComponent implements OnInit {
           alert(error);
         });
   }
-
 }

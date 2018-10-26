@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
 import {Company} from '../../../models/company';
 import {CompanyService} from '../../../services/company.service';
+import {validationMessages} from '../../../models/validationMessages';
 
 @Component({
   selector: 'app-edit-company',
@@ -14,9 +15,12 @@ export class EditCompanyComponent implements OnInit {
 
   company: Company;
   editForm: FormGroup;
+  validationMessages: any;
+
   constructor(private formBuilder: FormBuilder, private router: Router, private companyService: CompanyService) { }
 
   ngOnInit() {
+    this.validationMessages = validationMessages;
     const companyId = localStorage.getItem('editCompanyId');
     if (!companyId) {
       alert('Invalid action.');

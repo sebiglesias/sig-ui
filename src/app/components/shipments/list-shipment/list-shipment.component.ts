@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {Shipment} from '../../../models/shipment';
 import {ShipmentService} from '../../../services/shipment.service';
+import * as $ from 'jquery';
+import {spanishJson} from '../../../models/spanishJson';
 
 @Component({
   selector: 'app-list-shipment',
@@ -11,13 +13,21 @@ import {ShipmentService} from '../../../services/shipment.service';
 export class ListShipmentComponent implements OnInit {
 
   shipments: Shipment[];
+  dataTable: any;
 
-  constructor(private router: Router, private shipmentService: ShipmentService) { }
+  constructor(private router: Router, private shipmentService: ShipmentService, private chRef: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.shipmentService.getAllShipments()
       .subscribe( data => {
         this.shipments = data;
+        this.chRef.detectChanges();
+        const table: any = $('table');
+        this.dataTable = table.DataTable({
+          'language': {
+            'url': spanishJson
+          }
+        });
       });
   }
 

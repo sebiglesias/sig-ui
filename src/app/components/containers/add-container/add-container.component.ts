@@ -4,6 +4,7 @@ import {ContainerService} from '../../../services/container.service';
 import {Router} from '@angular/router';
 import {ProductService} from '../../../services/product.service';
 import {Product} from '../../../models/product';
+import {validationMessages} from '../../../models/validationMessages';
 
 @Component({
   selector: 'app-add-container',
@@ -19,17 +20,17 @@ export class AddContainerComponent implements OnInit {
 
   addForm: FormGroup;
   products: Product[];
+  validationMessages: any;
 
   ngOnInit() {
-
+    this.validationMessages = validationMessages;
     this.productService.getAllProducts().subscribe( prods => this.products = prods);
 
     this.addForm = this.formBuilder.group({
-      id: [],
+      id: ['', [Validators.required]],
       product: ['', Validators.required],
       footSize: ['', Validators.required],
     });
-
   }
 
   onSubmit() {

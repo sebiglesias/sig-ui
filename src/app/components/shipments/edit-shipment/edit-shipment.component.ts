@@ -10,6 +10,7 @@ import {Container} from '../../../models/container';
 import {TruckService} from '../../../services/truck.service';
 import {ContainerService} from '../../../services/container.service';
 import {ShipmentService} from '../../../services/shipment.service';
+import {validationMessages} from '../../../models/validationMessages';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class EditShipmentComponent implements OnInit {
   orders: Order[];
   trucks: Truck[];
   containers: Container[];
+  validationMessages: any;
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
@@ -33,6 +35,7 @@ export class EditShipmentComponent implements OnInit {
               private orderService: OrderService) { }
 
   ngOnInit() {
+    this.validationMessages = validationMessages;
     this.orderService.getAllOrders().subscribe(prods => this.orders = prods);
     this.truckService.getAllTrucks().subscribe(prods => this.trucks = prods);
     this.containerService.getAllContainers().subscribe(prods => this.containers = prods);

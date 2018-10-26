@@ -5,13 +5,19 @@
     <div class="form-group">
       <label for="id">Numero de Identificación:</label>
       <input type="text" formControlName="id" placeholder="Numero de identificacion" name="id" class="form-control" id="id">
+      <div class="alert alert-danger" *ngFor="let validation of validationMessages.containerId">
+        <div class="alert" *ngIf="editForm.get('id').hasError(validation.type) && (editForm.get('id').dirty || editForm.get('id').touched)">{{validation.message}}</div>
+      </div>
     </div>
 
     <div class="form-group">
       <label for="product">Producto que contiene:</label>
       <select type="text" formControlName="product" name="product" class="form-control" id="product">
-        <option *ngFor="let product of products" [value]="product">{{product.id}} - {{product.name}}</option>
+        <option *ngFor="let product of products" [value]="product.id">{{product.id}} - {{product.name}}</option>
       </select>
+      <div class="alert alert-danger" *ngFor="let validation of validationMessages.standard">
+        <div class="alert" *ngIf="editForm.get('product').hasError(validation.type) && (editForm.get('product').dirty || editForm.get('product').touched)">{{validation.message}}</div>
+      </div>
     </div>
 
     <div class="form-group">
@@ -20,8 +26,12 @@
         <option value="20">20 pies</option>
         <option value="40">40 pies</option>
       </select>
+      <div class="alert alert-danger" *ngFor="let validation of validationMessages.standard">
+        <div class="alert" *ngIf="editForm.get('footSize').hasError(validation.type) && (editForm.get('footSize').dirty || editForm.get('footSize').touched)">{{validation.message}}</div>
+      </div>
     </div>
 
-    <button class="btn btn-success">Editar</button>
+
+    <button class="btn btn-success" [disabled]="!editForm.valid">Editar</button>
   </form>
 </div>

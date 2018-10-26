@@ -5,11 +5,17 @@
     <div class="form-group">
       <label for="enterTime">Hora de ingreso:</label>
       <input type="datetime-local" formControlName="enterTime" name="enterTime" class="form-control" id="enterTime">
+      <div class="alert alert-danger" *ngFor="let validation of validationMessages.dateTime">
+        <div class="alert" *ngIf="editForm.get('enterTime').hasError(validation.type) && (editForm.get('enterTime').dirty || editForm.get('enterTime').touched)">{{validation.message}}</div>
+      </div>
     </div>
 
     <div class="form-group">
       <label for="leaveTime">Hora de salida:</label>
       <input type="datetime-local" formControlName="leaveTime" name="leaveTime" class="form-control" id="leaveTime">
+      <div class="alert alert-danger" *ngFor="let validation of validationMessages.dateTime">
+        <div class="alert" *ngIf="editForm.get('leaveTime').hasError(validation.type) && (editForm.get('leaveTime').dirty || editForm.get('leaveTime').touched)">{{validation.message}}</div>
+      </div>
     </div>
 
     <div class="form-group">
@@ -17,6 +23,9 @@
       <select type="text" formControlName="container" class="form-control" name="container" id="container">
         <option *ngFor="let container of containers" [value]="container.id">{{container.id}}</option>
       </select>
+      <div class="alert alert-danger" *ngFor="let validation of validationMessages.standard">
+        <div class="alert" *ngIf="editForm.get('container').hasError(validation.type) && (editForm.get('container').dirty || editForm.get('container').touched)">{{validation.message}}</div>
+      </div>
     </div>
 
     <div class="form-group">
@@ -24,6 +33,9 @@
       <select type="text" formControlName="truck" class="form-control" name="truck" id="truck">
         <option *ngFor="let truck of trucks" [value]="truck.id">{{truck.licensePlate}}</option>
       </select>
+      <div class="alert alert-danger" *ngFor="let validation of validationMessages.standard">
+        <div class="alert" *ngIf="editForm.get('truck').hasError(validation.type) && (editForm.get('truck').dirty || editForm.get('truck').touched)">{{validation.message}}</div>
+      </div>
     </div>
 
     <div class="form-group">
@@ -31,8 +43,11 @@
       <select type="text" formControlName="order" name="order" class="form-control" id="order">
         <option *ngFor="let order of orders" [value]="order.id">{{order.id}} - {{order.product.name}}</option>
       </select>
+      <div class="alert alert-danger" *ngFor="let validation of validationMessages.standard">
+        <div class="alert" *ngIf="editForm.get('order').hasError(validation.type) && (editForm.get('order').dirty || editForm.get('order').touched)">{{validation.message}}</div>
+      </div>
     </div>
 
-    <button class="btn btn-success">Editar</button>
+    <button class="btn btn-success" [disabled]="!editForm.valid">Editar</button>
   </form>
 </div>

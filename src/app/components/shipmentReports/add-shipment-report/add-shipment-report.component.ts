@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {Company} from '../../../models/company';
 import {CompanyService} from '../../../services/company.service';
 import {ShipmentReportService} from '../../../services/shipment-report.service';
+import {validationMessages} from '../../../models/validationMessages';
 
 @Component({
   selector: 'app-add-shipment-report',
@@ -20,9 +21,10 @@ export class AddShipmentReportComponent implements OnInit {
   addForm: FormGroup;
   navyCompanies: Company[];
   providers: Company[];
+  validationMessages: any;
 
   ngOnInit() {
-
+    this.validationMessages = validationMessages;
     this.companyService.getAllCompanies().subscribe( comps => {
       this.navyCompanies = this.providers = comps;
     });

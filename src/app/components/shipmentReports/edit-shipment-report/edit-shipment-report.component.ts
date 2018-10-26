@@ -6,6 +6,7 @@ import {ShipmentReport} from '../../../models/shipment-report';
 import {Company} from '../../../models/company';
 import {ShipmentReportService} from '../../../services/shipment-report.service';
 import {CompanyService} from '../../../services/company.service';
+import {validationMessages} from '../../../models/validationMessages';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class EditShipmentReportComponent implements OnInit {
   editForm: FormGroup;
   navyCompanies: Company[];
   providers: Company[];
+  validationMessages: any;
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
@@ -25,6 +27,7 @@ export class EditShipmentReportComponent implements OnInit {
               private companyService: CompanyService) { }
 
   ngOnInit() {
+    this.validationMessages = validationMessages;
     this.companyService.getAllCompanies().subscribe(comps => {
       this.navyCompanies = comps;
       this.providers = comps;

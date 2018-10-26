@@ -4,6 +4,7 @@ import {TruckService} from '../../../services/truck.service';
 import {Router} from '@angular/router';
 import {ContainerService} from '../../../services/container.service';
 import {Container} from '../../../models/container';
+import {validationMessages} from '../../../models/validationMessages';
 
 @Component({
   selector: 'app-add-truck',
@@ -19,9 +20,11 @@ export class AddTruckComponent implements OnInit {
 
   addForm: FormGroup;
   containers: Container[];
+  validationMessages: any;
 
   ngOnInit() {
 
+    this.validationMessages = validationMessages;
     this.containerService.getAllContainers().subscribe( prods => this.containers = prods);
 
     this.addForm = this.formBuilder.group({

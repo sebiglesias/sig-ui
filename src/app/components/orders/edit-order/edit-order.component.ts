@@ -10,6 +10,7 @@ import {ProductService} from '../../../services/product.service';
 import {CompanyService} from '../../../services/company.service';
 import {BillOfLoadingService} from '../../../services/bill-of-loading.service';
 import {OrderService} from '../../../services/order.service';
+import {validationMessages} from '../../../models/validationMessages';
 
 @Component({
   selector: 'app-edit-order',
@@ -23,6 +24,8 @@ export class EditOrderComponent implements OnInit {
   products: Product[];
   companies: Company[];
   billOfLoadings: BillOfLoading[];
+  validationMessages: any;
+
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private productService: ProductService,
@@ -31,6 +34,7 @@ export class EditOrderComponent implements OnInit {
               private orderService: OrderService) { }
 
   ngOnInit() {
+    this.validationMessages = validationMessages;
     this.productService.getAllProducts().subscribe(prods => this.products = prods);
     this.companyService.getAllCompanies().subscribe(prods => this.companies = prods);
     this.billOfLoadingService.getAllBillOfLoadings().subscribe(prods => this.billOfLoadings = prods);

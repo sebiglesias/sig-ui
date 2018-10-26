@@ -3,15 +3,21 @@
   <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
 
     <div class="form-group">
-      <label for="name">Fecha:</label>
+      <label for="name">Nombre:</label>
       <input type="text" formControlName="name" placeholder="Nombre de producto" name="name" class="form-control" id="name">
+      <div class="alert alert-danger" *ngFor="let validation of validationMessages.standardName">
+        <div class="alert" *ngIf="editForm.get('name').hasError(validation.type) && (editForm.get('name').dirty || editForm.get('name').touched)">{{validation.message}}</div>
+      </div>
     </div>
 
     <div class="form-group">
       <label for="productType">Tipo de producto:</label>
       <input formControlName="productType" placeholder="Tipo de producto" name="productType" class="form-control" id="productType">
+      <div class="alert alert-danger" *ngFor="let validation of validationMessages.productType">
+        <div class="alert" *ngIf="editForm.get('productType').hasError(validation.type) && (editForm.get('name').dirty || editForm.get('name').touched)">{{validation.message}}</div>
+      </div>
     </div>
 
-    <button class="btn btn-success">Editar</button>
+    <button class="btn btn-success" [disabled]="!editForm.valid">Editar</button>
   </form>
 </div>
