@@ -9,13 +9,23 @@ export class ProductService {
   products: Product[] = [];
   lastId = 0;
 
-  constructor() { }
+  constructor() {
+    this.products = JSON.parse(localStorage.getItem('products'));
+    this.lastId = Number(localStorage.getItem('productLastId'));
+    if (this.products === null || this.products === undefined) {
+      this.products = [];
+    }
+    if (this.lastId === null || this.lastId === undefined) {
+      this.lastId = 0;
+    }
+  }
 
   createProduct(product: Product): Observable<Product> {
     if (!product.id) {
-      product.id = +this.lastId;
+      product.id = ++this.lastId;
     }
     this.products.push(product);
+    localStorage.setItem('products', JSON.stringify(this.products));
     return of(product);
   }
 
@@ -27,16 +37,19 @@ export class ProductService {
     if (this.products.length === 0) {
       return of();
     } else {
-      this.products.map(product => {
-        if (product.id === productId) {
-          return of(product);
+      let productToReturn;
+      this.products.forEach((product: Product) => {
+        if (product.id === Number(productId)) {
+          productToReturn = of(product);
         }
       });
+      return productToReturn;
     }
   }
 
   updateProduct(productToUpdate: Product): Observable<Boolean> {
     this.products.filter(product => product.id === productToUpdate.id).map(o => o = productToUpdate);
+    localStorage.setItem('products', JSON.stringify(this.products));
     return of(true);
   }
 }

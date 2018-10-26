@@ -13,6 +13,18 @@ import { AddProductComponent } from './components/products/add-product/add-produ
 import { ListProductComponent } from './components/products/list-product/list-product.component';
 import { EditProductComponent } from './components/products/edit-product/edit-product.component';
 import {ProductService} from './services/product.service';
+import { AddCompanyComponent } from './components/companies/add-company/add-company.component';
+import { EditCompanyComponent } from './components/companies/edit-company/edit-company.component';
+import { ListCompanyComponent } from './components/companies/list-company/list-company.component';
+import { AddContainerComponent } from './components/containers/add-container/add-container.component';
+import { EditContainerComponent } from './components/containers/edit-container/edit-container.component';
+import { ListContainerComponent } from './components/containers/list-container/list-container.component';
+import {CompanyService} from './services/company.service';
+import {ContainerService} from './services/container.service';
+import { AddTruckComponent } from './components/trucks/add-truck/add-truck.component';
+import { EditTruckComponent } from './components/trucks/edit-truck/edit-truck.component';
+import { ListTruckComponent } from './components/trucks/list-truck/list-truck.component';
+import {TruckService} from './services/truck.service';
 
 const routes: Routes = [
   {path: 'list-order', component: ListOrderComponent},
@@ -21,6 +33,15 @@ const routes: Routes = [
   {path: 'list-product', component: ListProductComponent},
   {path: 'add-product', component: AddProductComponent},
   {path: 'edit-product', component: EditProductComponent},
+  {path: 'list-company', component: ListCompanyComponent},
+  {path: 'add-company', component: AddCompanyComponent},
+  {path: 'edit-company', component: EditCompanyComponent},
+  {path: 'list-container', component: ListContainerComponent},
+  {path: 'add-container', component: AddContainerComponent},
+  {path: 'edit-container', component: EditContainerComponent},
+  {path: 'list-truck', component: ListTruckComponent},
+  {path: 'add-truck', component: AddTruckComponent},
+  {path: 'edit-truck', component: EditTruckComponent},
 ];
 
 @NgModule({
@@ -31,7 +52,16 @@ const routes: Routes = [
     ListOrderComponent,
     AddProductComponent,
     ListProductComponent,
-    EditProductComponent
+    EditProductComponent,
+    AddCompanyComponent,
+    EditCompanyComponent,
+    ListCompanyComponent,
+    AddContainerComponent,
+    EditContainerComponent,
+    ListContainerComponent,
+    AddTruckComponent,
+    EditTruckComponent,
+    ListTruckComponent
   ],
   imports: [
     BrowserModule,
@@ -44,6 +74,9 @@ const routes: Routes = [
     OrderService,
     ShipmentReportService,
     ProductService,
+    CompanyService,
+    ContainerService,
+    TruckService,
   ],
   bootstrap: [AppComponent]
 })

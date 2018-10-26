@@ -1,0 +1,26 @@
+<div class="col-md-6">
+  <h2 class="text-center">Agregar un nuevo container al sistema</h2>
+  <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="id">Numero de Identificación:</label>
+      <input type="text" formControlName="id" placeholder="Numero de identificacion" name="id" class="form-control" id="id">
+    </div>
+
+    <div class="form-group">
+      <label for="product">Producto que contiene:</label>
+      <select type="text" formControlName="product" name="product" class="form-control" id="product">
+        <option *ngFor="let product of products" [value]="product.id">{{product.id}} - {{product.name}}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="footSize">Tamaño del contenedor:</label>
+      <select formControlName="footSize" name="productType" class="form-control" id="footSize">
+        <option value="20">20 pies</option>
+        <option value="40">40 pies</option>
+      </select>
+    </div>
+
+    <button class="btn btn-success">Crear</button>
+  </form>
+</div>
