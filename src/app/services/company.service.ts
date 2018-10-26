@@ -9,13 +9,23 @@ export class CompanyService {
   companies: Company[] = [];
   lastId = 0;
 
-  constructor() { }
+  constructor() {
+    this.companies = JSON.parse(localStorage.getItem('companies'));
+    this.lastId = Number(localStorage.getItem('companyLastId'));
+    if (this.companies === null || this.companies === undefined) {
+      this.companies = [];
+    }
+    if (this.lastId === null || this.lastId === undefined) {
+      this.lastId = 0;
+    }
+  }
 
   createCompany(company: Company): Observable<Company> {
     if (!company.id) {
       company.id = ++this.lastId;
     }
     this.companies.push(company);
+    localStorage.setItem('companies', JSON.stringify(this.companies));
     return of(company);
   }
 
@@ -27,16 +37,19 @@ export class CompanyService {
     if (this.companies.length === 0) {
       return of();
     } else {
+      let companyToReturn;
       this.companies.map(company => {
-        if (company.id === companyId) {
-          return of(company);
+        if (company.id === Number(companyId)) {
+          companyToReturn = of(company);
         }
       });
+      return companyToReturn;
     }
   }
 
   updateCompany(companyToUpdate: Company): Observable<Boolean> {
     this.companies.filter(company => company.id === companyToUpdate.id).map(o => o = companyToUpdate);
+    localStorage.setItem('companies', JSON.stringify(this.companies));
     return of(true);
   }
 }

@@ -11,14 +11,14 @@ import {Company} from '../../../models/company';
 })
 export class ListCompanyComponent implements OnInit {
 
-  companys: Company[];
+  companies: Company[];
 
   constructor(private router: Router, private companyService: CompanyService) { }
 
   ngOnInit() {
     this.companyService.getAllCompanies()
       .subscribe( data => {
-        this.companys = data;
+        this.companies = data;
       });
   }
 

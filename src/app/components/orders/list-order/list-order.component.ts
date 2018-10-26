@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
-import {OrderService} from '../../../services/order.service';
+import {TruckService} from '../../../services/truck.service';
+import {Truck} from '../../../models/truck';
 import {Order} from '../../../models/order';
-
+import {OrderService} from '../../../services/order.service';
 
 @Component({
   selector: 'app-list-order',

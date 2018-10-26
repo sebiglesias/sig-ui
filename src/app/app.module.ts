@@ -25,6 +25,10 @@ import { AddTruckComponent } from './components/trucks/add-truck/add-truck.compo
 import { EditTruckComponent } from './components/trucks/edit-truck/edit-truck.component';
 import { ListTruckComponent } from './components/trucks/list-truck/list-truck.component';
 import {TruckService} from './services/truck.service';
+import { AddBillOfLoadingComponent } from './components/billOfLoadings/add-bill-of-loading/add-bill-of-loading.component';
+import { EditBillOfLoadingComponent } from './components/billOfLoadings/edit-bill-of-loading/edit-bill-of-loading.component';
+import { ListBillOfLoadingComponent } from './components/billOfLoadings/list-bill-of-loading/list-bill-of-loading.component';
+import {BillOfLoadingService} from './services/bill-of-loading.service';
 
 const routes: Routes = [
   {path: 'list-order', component: ListOrderComponent},
@@ -42,6 +46,12 @@ const routes: Routes = [
   {path: 'list-truck', component: ListTruckComponent},
   {path: 'add-truck', component: AddTruckComponent},
   {path: 'edit-truck', component: EditTruckComponent},
+  {path: 'list-bill-of-loading', component: ListBillOfLoadingComponent},
+  {path: 'add-bill-of-loading', component: AddBillOfLoadingComponent},
+  {path: 'edit-bill-of-loading', component: EditBillOfLoadingComponent},
+  {path: 'list-companies', component: ListCompanyComponent},
+  {path: 'add-companies', component: AddCompanyComponent},
+  {path: 'edit-companies', component: EditCompanyComponent},
 ];
 
 @NgModule({
@@ -61,7 +71,10 @@ const routes: Routes = [
     ListContainerComponent,
     AddTruckComponent,
     EditTruckComponent,
-    ListTruckComponent
+    ListTruckComponent,
+    AddBillOfLoadingComponent,
+    EditBillOfLoadingComponent,
+    ListBillOfLoadingComponent
   ],
   imports: [
     BrowserModule,
@@ -77,6 +90,7 @@ const routes: Routes = [
     CompanyService,
     ContainerService,
     TruckService,
+    BillOfLoadingService,
   ],
   bootstrap: [AppComponent]
 })

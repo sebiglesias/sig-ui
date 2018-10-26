@@ -1,0 +1,26 @@
+<div class="col-md-6">
+  <h2 class="text-center">Agregar un nuevo Bill of Loading</h2>
+  <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label for="container">Container:</label>
+      <select type="text" formControlName="container" name="id" class="form-control" id="container">
+        <option *ngFor="let container of containers" [value]="container.id">{{container.id}}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="date">Fecha:</label>
+      <input type="date" formControlName="date" class="form-control" name="date" id="date">
+    </div>
+
+    <div class="form-group">
+      <label for="company">Empresa Naviera:</label>
+      <select type="text" formControlName="company" name="id" class="form-control" id="company">
+        <option *ngFor="let company of companies" [value]="company.id">{{company.name}}</option>
+      </select>
+    </div>
+
+    <button class="btn btn-success">Crear</button>
+  </form>
+</div>

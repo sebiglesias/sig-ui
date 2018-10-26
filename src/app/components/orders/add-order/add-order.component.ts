@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {OrderService} from '../../../services/order.service';
 import {Router} from '@angular/router';
+import {OrderService} from '../../../services/order.service';
+import {ProductService} from '../../../services/product.service';
+import {CompanyService} from '../../../services/company.service';
+import {BillOfLoadingService} from '../../../services/bill-of-loading.service';
+import {BillOfLoading} from '../../../models/bill-of-loading';
+import {Company} from '../../../models/company';
+import {Product} from '../../../models/product';
 
 @Component({
   selector: 'app-add-order',
@@ -10,26 +16,53 @@ import {Router} from '@angular/router';
 })
 export class AddOrderComponent implements OnInit {
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private orderService: OrderService) { }
+  constructor(private formBuilder: FormBuilder,
+              private router: Router,
+              private orderService: OrderService,
+              private productService: ProductService,
+              private companyService: CompanyService,
+              private billOfLoadingService: BillOfLoadingService) { }
 
   addForm: FormGroup;
+  products: Product[];
+  companies: Company[];
+  billOfLoadings: BillOfLoading[];
 
   ngOnInit() {
 
+    this.productService.getAllProducts().subscribe( prods => this.products = prods);
+    this.companyService.getAllCompanies().subscribe( prods => this.companies = prods);
+    this.billOfLoadingService.getAllBillOfLoadings().subscribe( prods => this.billOfLoadings = prods);
+
     this.addForm = this.formBuilder.group({
       id: [],
-      date: ['', Validators.required],
       product: ['', Validators.required],
-      company: ['', Validators.required]
+      date: ['', Validators.required],
+      company: ['', Validators.required],
+      billOfLoading: ['', Validators.required],
     });
 
   }
 
   onSubmit() {
-    this.orderService.createOrder(this.addForm.value)
-      .subscribe( data => {
-        this.router.navigate(['list-user']);
-      });
+    const order = this.addForm.value;
+    const productById = this.productService.getProductById(order.product);
+    const companyById = this.companyService.getCompanyById(order.company);
+    const billOfLoadingById = this.billOfLoadingService.getBillOfLoadingById(order.billOfLoading);
+    productById.subscribe(prod => {
+      order.product = prod;
+      companyById.subscribe( company => {
+          order.company = company;
+          billOfLoadingById.subscribe( bof => {
+            order.billOfLoading = bof;
+            this.orderService.createOrder(order)
+              .subscribe( data => {
+                this.router.navigate(['list-order']);
+              });
+          });
+        }
+      );
+    });
   }
 
 }

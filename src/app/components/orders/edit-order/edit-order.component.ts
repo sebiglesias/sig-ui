@@ -3,6 +3,12 @@ import {Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
 import {Order} from '../../../models/order';
+import {Company} from '../../../models/company';
+import {Product} from '../../../models/product';
+import {BillOfLoading} from '../../../models/bill-of-loading';
+import {ProductService} from '../../../services/product.service';
+import {CompanyService} from '../../../services/company.service';
+import {BillOfLoadingService} from '../../../services/bill-of-loading.service';
 import {OrderService} from '../../../services/order.service';
 
 @Component({
@@ -14,9 +20,20 @@ export class EditOrderComponent implements OnInit {
 
   order: Order;
   editForm: FormGroup;
-  constructor(private formBuilder: FormBuilder, private router: Router, private orderService: OrderService) { }
+  products: Product[];
+  companies: Company[];
+  billOfLoadings: BillOfLoading[];
+  constructor(private formBuilder: FormBuilder,
+              private router: Router,
+              private productService: ProductService,
+              private companyService: CompanyService,
+              private billOfLoadingService: BillOfLoadingService,
+              private orderService: OrderService) { }
 
   ngOnInit() {
+    this.productService.getAllProducts().subscribe(prods => this.products = prods);
+    this.companyService.getAllCompanies().subscribe(prods => this.companies = prods);
+    this.billOfLoadingService.getAllBillOfLoadings().subscribe(prods => this.billOfLoadings = prods);
     const orderId = localStorage.getItem('editOrderId');
     if (!orderId) {
       alert('Invalid action.');
@@ -25,13 +42,21 @@ export class EditOrderComponent implements OnInit {
     }
     this.editForm = this.formBuilder.group({
       id: [],
-      email: ['', Validators.required],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required]
+      product: ['', Validators.required],
+      date: ['', Validators.required],
+      company: ['', Validators.required],
+      billOfLoading: ['', Validators.required],
     });
-    this.orderService.getOrderById(+orderId)
+    this.orderService.getOrderById(Number(orderId))
       .subscribe( data => {
-        this.editForm.setValue(data);
+        const truckData = {
+          id: data.id,
+          product: data.product.id,
+          date: data.date,
+          company: data.company.id,
+          billOfLoading: data.billOfLoading.id
+        };
+        this.editForm.setValue(truckData);
       });
   }
 
@@ -46,5 +71,4 @@ export class EditOrderComponent implements OnInit {
           alert(error);
         });
   }
-
 }
