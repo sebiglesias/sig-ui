@@ -4,13 +4,19 @@
     <div class="form-group">
       <label for="name">Nombre:</label>
       <input type="text" formControlName="name" placeholder="Nombre de producto" name="name" class="form-control" id="name">
+      <div class="alert alert-danger" *ngFor="let validation of validationMessages.productName">
+        <div class="alert" *ngIf="addForm.get('name').hasError(validation.type) && (addForm.get('name').dirty || addForm.get('name').touched)">{{validation.message}}</div>
+      </div>
     </div>
 
     <div class="form-group">
       <label for="productType">Tipo de producto:</label>
       <input formControlName="productType" placeholder="Tipo de producto" name="productType" class="form-control" id="productType">
+      <div class="alert alert-danger" *ngFor="let validation of validationMessages.productType">
+        <div class="alert" *ngIf="addForm.get('productType').hasError(validation.type) && (addForm.get('name').dirty || addForm.get('name').touched)">{{validation.message}}</div>
+      </div>
     </div>
 
-    <button class="btn btn-success">Crear</button>
+    <button class="btn btn-success" [disabled]="!addForm.valid">Crear</button>
   </form>
 </div>

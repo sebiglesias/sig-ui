@@ -93,7 +93,7 @@ const routes: Routes = [
     ListShipmentComponent,
     AddShipmentReportComponent,
     EditShipmentReportComponent,
-    ListShipmentReportComponent
+    ListShipmentReportComponent,
   ],
   imports: [
     BrowserModule,
