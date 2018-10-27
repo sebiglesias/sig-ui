@@ -23,11 +23,9 @@
       <td>{{shipment.order.id}} - {{shipment.order.date}}</td>
       <td>
         <div class="btn-toolbar" role="toolbar" aria-label="Action toolbar">
-          <div class="btn-group">
-            <a class="btn btn-success" href="/view-shipment/{{shipment.id}}" style="margin-left: 20px;">Ver</a>
-          </div>
-          <div class="btn-group">
-            <button class="btn btn-danger" (click)="editShipment(shipment)" style="margin-left: 20px;">Editar</button>
+          <div class="btn-group" role="group">
+            <a class="btn btn-info" href="/view-shipment/{{shipment.id}}" style="margin-left: 20px;"><i class="fas fa-eye"></i></a>
+            <button class="btn btn-success" (click)="editShipment(shipment)" style="margin-left: 20px;"><i class="fas fa-edit"></i></button>
           </div>
         </div>
       </td>

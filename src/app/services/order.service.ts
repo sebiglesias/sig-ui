@@ -23,6 +23,7 @@ export class OrderService {
   createOrder(order: Order): Observable<Order> {
     if (!order.id) {
       order.id = ++this.lastId;
+      localStorage.setItem('orderLastId', JSON.stringify(this.lastId));
     }
     this.orders.push(order);
     localStorage.setItem('orders', JSON.stringify(this.orders));

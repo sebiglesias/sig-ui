@@ -23,6 +23,7 @@ export class BillOfLoadingService {
   createBillOfLoading(billOfLoading: BillOfLoading): Observable<BillOfLoading> {
     if (!billOfLoading.id) {
       billOfLoading.id = ++this.lastId;
+      localStorage.setItem('billOfLoadingLastId', JSON.stringify(this.lastId));
     }
     this.billOfLoadings.push(billOfLoading);
     localStorage.setItem('billOfLoadings', JSON.stringify(this.billOfLoadings));

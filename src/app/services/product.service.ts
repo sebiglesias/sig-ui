@@ -23,6 +23,7 @@ export class ProductService {
   createProduct(product: Product): Observable<Product> {
     if (!product.id) {
       product.id = ++this.lastId;
+      localStorage.setItem('productLastId', JSON.stringify(this.lastId));
     }
     this.products.push(product);
     localStorage.setItem('products', JSON.stringify(this.products));

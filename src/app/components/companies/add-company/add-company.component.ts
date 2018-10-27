@@ -20,8 +20,8 @@ export class AddCompanyComponent implements OnInit {
     this.validationMessages = validationMessages;
     this.addForm = this.formBuilder.group({
       id: [],
-      name: ['', Validators.required],
-      address: ['', Validators.required],
+      name: ['', Validators.required, Validators.minLength(3), Validators.maxLength(20)],
+      address: ['', Validators.required, Validators.minLength(3), Validators.maxLength(30)],
     });
 
   }

@@ -5,8 +5,8 @@
     <div class="form-group">
       <label for="id">Numero de Identificación:</label>
       <input type="text" formControlName="id" placeholder="Numero de identificacion" name="id" class="form-control" id="id">
-      <div class="alert alert-danger" *ngFor="let validation of validationMessages.containerId">
-        <div class="alert" *ngIf="addForm.get('id').hasError(validation.type) && (addForm.get('id').dirty || addForm.get('id').touched)">{{validation.message}}</div>
+      <div *ngFor="let validation of validationMessages.containerId">
+        <div class="alert alert-danger" *ngIf="addForm.get('id').hasError(validation.type) && (addForm.get('id').dirty || addForm.get('id').touched)">{{validation.message}}</div>
       </div>
     </div>
 
@@ -15,8 +15,8 @@
       <select type="text" formControlName="product" name="product" class="form-control" id="product">
         <option *ngFor="let product of products" [value]="product.id">{{product.id}} - {{product.name}}</option>
       </select>
-      <div class="alert alert-danger" *ngFor="let validation of validationMessages.standard">
-        <div class="alert" *ngIf="addForm.get('product').hasError(validation.type) && (addForm.get('product').dirty || addForm.get('product').touched)">{{validation.message}}</div>
+      <div *ngFor="let validation of validationMessages.standard">
+        <div class="alert alert-danger" *ngIf="addForm.get('product').hasError(validation.type) && (addForm.get('product').dirty || addForm.get('product').touched)">{{validation.message}}</div>
       </div>
     </div>
 
@@ -26,8 +26,8 @@
         <option value="20">20 pies</option>
         <option value="40">40 pies</option>
       </select>
-      <div class="alert alert-danger" *ngFor="let validation of validationMessages.standard">
-        <div class="alert" *ngIf="addForm.get('footSize').hasError(validation.type) && (addForm.get('footSize').dirty || addForm.get('footSize').touched)">{{validation.message}}</div>
+      <div *ngFor="let validation of validationMessages.standard">
+        <div class="alert alert-danger" *ngIf="addForm.get('footSize').hasError(validation.type) && (addForm.get('footSize').dirty || addForm.get('footSize').touched)">{{validation.message}}</div>
       </div>
     </div>
 

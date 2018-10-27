@@ -8,13 +8,20 @@
         Horarios de entrada y salida
       </div>
       <ul class="list-group list-group-flush">
-        <li class="list-group-item">Entrada: {{shipment.enterTime}}</li>
-        <li class="list-group-item">Salida: {{shipment.leaveTime}}</li>
+        <li class="list-group-item">
+          Horario de Ingreso: {{shipment.enterTime}}
+          <button class="btn btn-success" data-toggle="modal" data-target="#enterTimeModal"><i class="fas fa-edit"></i></button>
+        </li>
+        <li class="list-group-item">
+          Horario de Salida: {{shipment.leaveTime}}
+          <button class="btn btn-success" data-toggle="modal" data-target="#leaveTimeModal"><i class="fas fa-edit"></i></button>
+        </li>
       </ul>
     </div>
   </div>
   <div class="col-md-6">
-    <table class="table table-striped">
+    <button class="btn btn-success" data-toggle="modal" data-target="#fineModal">Agregar multa</button>
+    <table class="table table-striped" *ngIf="shipment.fine">
       <thead>
       <tr>
         <th>Motivo de Multa</th>
@@ -23,16 +30,93 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let more of shipment.more">
-        <td>{{more.reason}}</td>
-        <td>{{more.amount}} {{more.currency}}</td>
+      <tr *ngFor="let fine of shipment.fine">
+        <td>{{fine.reason}}</td>
+        <td>{{fine.amount}} {{fine.currency}}</td>
         <td>
-          <button class="btn btn-success">Agregar multa</button>
-          <button class="btn btn-info">Editar multa</button>
-          <button class="btn btn-red">Eliminar multa</button>
+          <button class="btn btn-red" (click)="deleteFine(fine.id)"><i class="fas fa-trash"></i></button>
         </td>
       </tr>
       </tbody>
     </table>
+  </div>
+  <!-- Edit enterTime modal -->
+  <div class="modal fade" id="enterTimeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form [formGroup]="editEnterTimeForm" (ngSubmit)="submitEnterTime()">
+          <div class="modal-header">
+            <h5 class="modal-title" id="enterTimeModalLabel">Editar Horario de Entrada Container</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <label for="enterTime">Hora de ingreso:</label>
+            <input type="datetime-local" formControlName="enterTime" name="enterTime" class="form-control" id="enterTime" [value]="shipment.enterTime">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Edit leaveTime modal -->
+  <div class="modal fade" id="leaveTimeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form [formGroup]="editLeaveTimeForm" (ngSubmit)="submitLeaveTime()">
+          <div class="modal-header">
+            <h5 class="modal-title" id="leaveTimeModalLabel">Editar Horario de Salida Container</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <label for="leaveTime">Hora de ingreso:</label>
+            <input type="datetime-local" formControlName="leaveTime" name="leaveTime" class="form-control" id="leaveTime" [value]="shipment.leaveTime">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Add fine modal -->
+  <div class="modal fade" id="fineModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form [formGroup]="addFineForm" (ngSubmit)="submitAddFine()">
+          <div class="modal-header">
+            <h5 class="modal-title" id="fineModalLabel">Agregar multa</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="reason">Motivo:</label>
+              <input type="text" formControlName="reason" name="reason" class="form-control" id="reason">
+            </div>
+            <div class="form-group">
+              <label for="amount">Cantidad:</label>
+              <input type="number" formControlName="amount" name="amount" class="form-control" id="amount">
+            </div>
+            <div class="form-group">
+              <label for="currency">Moneda:</label>
+              <input type="text" formControlName="currency" name="currency" class="form-control" id="currency">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 </div>

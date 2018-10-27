@@ -7,24 +7,24 @@
       <select type="text" formControlName="container" name="id" class="form-control" id="container">
         <option *ngFor="let container of containers" [value]="container.id">{{container.id}}</option>
       </select>
-      <div class="alert alert-danger" *ngFor="let validation of validationMessages.standard">
-        <div class="alert" *ngIf="editForm.get('container').hasError(validation.type) && (editForm.get('container').dirty || editForm.get('container').touched)">{{validation.message}}</div>
+      <div *ngFor="let validation of validationMessages.standard">
+        <div class="alert alert-danger" *ngIf="editForm.get('container').hasError(validation.type) && (editForm.get('container').dirty || editForm.get('container').touched)">{{validation.message}}</div>
       </div>
     </div>
 
     <div class="form-group">
       <label for="driver">Conductor:</label>
       <input type="text" formControlName="driver" placeholder="Conductor" class="form-control" name="driver" id="driver">
-      <div class="alert alert-danger" *ngFor="let validation of validationMessages.standardName">
-        <div class="alert" *ngIf="editForm.get('driver').hasError(validation.type) && (editForm.get('driver').dirty || editForm.get('driver').touched)">{{validation.message}}</div>
+      <div *ngFor="let validation of validationMessages.standardName">
+        <div class="alert alert-danger" *ngIf="editForm.get('driver').hasError(validation.type) && (editForm.get('driver').dirty || editForm.get('driver').touched)">{{validation.message}}</div>
       </div>
     </div>
 
     <div class="form-group">
       <label for="licensePlate">Patente:</label>
       <input type="text" formControlName="licensePlate" placeholder="Patente del camion" name="licensePlate" class="form-control" id="licensePlate">
-      <div class="alert alert-danger" *ngFor="let validation of validationMessages.licensePlate">
-        <div class="alert" *ngIf="editForm.get('licensePlate').hasError(validation.type) && (editForm.get('licensePlate').dirty || editForm.get('licensePlate').touched)">{{validation.message}}</div>
+      <div *ngFor="let validation of validationMessages.licensePlate">
+        <div class="alert alert-danger" *ngIf="editForm.get('licensePlate').hasError(validation.type) && (editForm.get('licensePlate').dirty || editForm.get('licensePlate').touched)">{{validation.message}}</div>
       </div>
     </div>
 

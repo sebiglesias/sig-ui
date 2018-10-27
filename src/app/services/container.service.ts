@@ -23,6 +23,8 @@ export class ContainerService {
   createContainer(container: Container): Observable<Container> {
     if (!container.id) {
       container.id = String(+this.lastId);
+      localStorage.setItem('containerLastId', JSON.stringify(this.lastId));
+
     }
     this.containers.push(container);
     localStorage.setItem('containers', JSON.stringify(this.containers));

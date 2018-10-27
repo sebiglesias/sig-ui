@@ -23,6 +23,8 @@ export class ShipmentReportService {
   createShipmentReport(shipment: ShipmentReport): Observable<ShipmentReport> {
     if (!shipment.id) {
       shipment.id = ++this.lastId;
+      localStorage.setItem('shipmentReportLastId', JSON.stringify(this.lastId));
+
     }
     this.shipmentReports.push(shipment);
     localStorage.setItem('shipmentReports', JSON.stringify(this.shipmentReports));

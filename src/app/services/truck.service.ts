@@ -23,6 +23,7 @@ export class TruckService {
   createTruck(truck: Truck): Observable<Truck> {
     if (!truck.id) {
       truck.id = ++this.lastId;
+      localStorage.setItem('truckLastId', JSON.stringify(this.lastId));
     }
     this.trucks.push(truck);
     localStorage.setItem('trucks', JSON.stringify(this.trucks));

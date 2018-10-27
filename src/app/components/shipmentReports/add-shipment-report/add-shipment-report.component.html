@@ -5,56 +5,56 @@
     <div class="form-group">
       <label for="date">Fecha:</label>
       <input type="date" formControlName="date" name="date" class="form-control" id="date">
-      <div class="alert alert-danger" *ngFor="let validation of validationMessages.date">
-        <div class="alert" *ngIf="addForm.get('date').hasError(validation.type) && (addForm.get('date').dirty || addForm.get('date').touched)">{{validation.message}}</div>
+      <div  *ngFor="let validation of validationMessages.date">
+        <div class="alert alert-danger" *ngIf="addForm.get('date').hasError(validation.type) && (addForm.get('date').dirty || addForm.get('date').touched)">{{validation.message}}</div>
       </div>
     </div>
 
     <div class="form-group">
       <label for="terminal">Terminal:</label>
       <input type="text" formControlName="terminal" name="terminal" class="form-control" id="terminal">
-      <div class="alert alert-danger" *ngFor="let validation of validationMessages.standardText">
-        <div class="alert" *ngIf="addForm.get('terminal').hasError(validation.type) && (addForm.get('terminal').dirty || addForm.get('terminal').touched)">{{validation.message}}</div>
+      <div  *ngFor="let validation of validationMessages.standardText">
+        <div class="alert alert-danger" *ngIf="addForm.get('terminal').hasError(validation.type) && (addForm.get('terminal').dirty || addForm.get('terminal').touched)">{{validation.message}}</div>
       </div>
     </div>
 
     <div class="form-group">
       <label for="port">Puerto:</label>
       <input type="text" formControlName="port" name="port" class="form-control" id="port">
-      <div class="alert alert-danger" *ngFor="let validation of validationMessages.standardText">
-        <div class="alert" *ngIf="addForm.get('port').hasError(validation.type) && (addForm.get('port').dirty || addForm.get('port').touched)">{{validation.message}}</div>
+      <div  *ngFor="let validation of validationMessages.standardText">
+        <div class="alert alert-danger" *ngIf="addForm.get('port').hasError(validation.type) && (addForm.get('port').dirty || addForm.get('port').touched)">{{validation.message}}</div>
       </div>
     </div>
 
     <div class="form-group">
       <label for="loadingPoint">Punto de carga:</label>
       <input type="text" formControlName="loadingPoint" name="loadingPoint" class="form-control" id="loadingPoint">
-      <div class="alert alert-danger" *ngFor="let validation of validationMessages.standardText">
-        <div class="alert" *ngIf="addForm.get('loadingPoint').hasError(validation.type) && (addForm.get('loadingPoint').dirty || addForm.get('loadingPoint').touched)">{{validation.message}}</div>
+      <div  *ngFor="let validation of validationMessages.standardText">
+        <div class="alert alert-danger" *ngIf="addForm.get('loadingPoint').hasError(validation.type) && (addForm.get('loadingPoint').dirty || addForm.get('loadingPoint').touched)">{{validation.message}}</div>
       </div>
     </div>
 
     <div class="form-group">
       <label for="dockingPoint">Docking point:</label>
       <input type="text" formControlName="dockingPoint" name="dockingPoint" class="form-control" id="dockingPoint">
-      <div class="alert alert-danger" *ngFor="let validation of validationMessages.standardText">
-        <div class="alert" *ngIf="addForm.get('dockingPoint').hasError(validation.type) && (addForm.get('dockingPoint').dirty || addForm.get('dockingPoint').touched)">{{validation.message}}</div>
+      <div  *ngFor="let validation of validationMessages.standardText">
+        <div class="alert alert-danger" *ngIf="addForm.get('dockingPoint').hasError(validation.type) && (addForm.get('dockingPoint').dirty || addForm.get('dockingPoint').touched)">{{validation.message}}</div>
       </div>
     </div>
 
     <div class="form-group">
       <label for="boat">Barco:</label>
       <input type="text" formControlName="boat" name="boat" class="form-control" id="boat">
-      <div class="alert alert-danger" *ngFor="let validation of validationMessages.standardText">
-        <div class="alert" *ngIf="addForm.get('boat').hasError(validation.type) && (addForm.get('boat').dirty || addForm.get('boat').touched)">{{validation.message}}</div>
+      <div  *ngFor="let validation of validationMessages.standardText">
+        <div class="alert alert-danger" *ngIf="addForm.get('boat').hasError(validation.type) && (addForm.get('boat').dirty || addForm.get('boat').touched)">{{validation.message}}</div>
       </div>
     </div>
 
     <div class="form-group">
       <label for="deliveryPlace">Delivery place:</label>
       <input type="text" formControlName="deliveryPlace" name="deliveryPlace" class="form-control" id="deliveryPlace">
-      <div class="alert alert-danger" *ngFor="let validation of validationMessages.standardText">
-        <div class="alert" *ngIf="addForm.get('deliveryPlace').hasError(validation.type) && (addForm.get('deliveryPlace').dirty || addForm.get('deliveryPlace').touched)">{{validation.message}}</div>
+      <div  *ngFor="let validation of validationMessages.standardText">
+        <div class="alert alert-danger" *ngIf="addForm.get('deliveryPlace').hasError(validation.type) && (addForm.get('deliveryPlace').dirty || addForm.get('deliveryPlace').touched)">{{validation.message}}</div>
       </div>
     </div>
 
@@ -63,8 +63,8 @@
       <select type="text" formControlName="navyCompany" class="form-control" name="navyCompany" id="navyCompany">
         <option *ngFor="let navyCompany of navyCompanies" [value]="navyCompany.id">{{navyCompany.name}}</option>
       </select>
-      <div class="alert alert-danger" *ngFor="let validation of validationMessages.standard">
-        <div class="alert" *ngIf="addForm.get('navyCompany').hasError(validation.type) && (addForm.get('navyCompany').dirty || addForm.get('navyCompany').touched)">{{validation.message}}</div>
+      <div  *ngFor="let validation of validationMessages.standard">
+        <div class="alert alert-danger" *ngIf="addForm.get('navyCompany').hasError(validation.type) && (addForm.get('navyCompany').dirty || addForm.get('navyCompany').touched)">{{validation.message}}</div>
       </div>
     </div>
 
@@ -73,8 +73,8 @@
       <select type="text" formControlName="provider" class="form-control" name="provider" id="provider">
         <option *ngFor="let provider of providers" [value]="provider.id">{{provider.name}}</option>
       </select>
-      <div class="alert alert-danger" *ngFor="let validation of validationMessages.standard">
-        <div class="alert" *ngIf="addForm.get('provider').hasError(validation.type) && (addForm.get('provider').dirty || addForm.get('provider').touched)">{{validation.message}}</div>
+      <div  *ngFor="let validation of validationMessages.standard">
+        <div class="alert alert-danger" *ngIf="addForm.get('provider').hasError(validation.type) && (addForm.get('provider').dirty || addForm.get('provider').touched)">{{validation.message}}</div>
       </div>
     </div>
 

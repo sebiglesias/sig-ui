@@ -2,7 +2,8 @@ import {Truck} from './truck';
 import {Container} from './container';
 import {Order} from './order';
 
-export class More {
+export class Fine {
+  id: number;
   reason: string;
   amount: number;
   currency: string;
@@ -15,5 +16,5 @@ export class Shipment {
   enterTime: DateTimeFormat;
   leaveTime: DateTimeFormat;
   order: Order;
-  more?: More[];
+  fine: Fine[];
 }

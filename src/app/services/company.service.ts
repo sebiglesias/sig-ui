@@ -23,6 +23,8 @@ export class CompanyService {
   createCompany(company: Company): Observable<Company> {
     if (!company.id) {
       company.id = ++this.lastId;
+      localStorage.setItem('companyLastId', JSON.stringify(this.lastId));
+
     }
     this.companies.push(company);
     localStorage.setItem('companies', JSON.stringify(this.companies));
