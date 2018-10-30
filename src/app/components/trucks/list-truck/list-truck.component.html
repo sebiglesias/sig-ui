@@ -1,24 +1,37 @@
-<div class="col-md-6">
-  <h2> Detalles de Camiones</h2>
-  <button class="btn btn-danger" (click)="addTruck()"> Agregar nuevo camion</button>
-  <table class="table table-striped">
-    <thead>
-    <tr>
-      <th>Numero de Identificacion</th>
-      <th>Patente</th>
-      <th>Conductor</th>
-      <th>Container</th>
-      <th>Acciones</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let truck of trucks">
-      <td>{{truck.id}}</td>
-      <td>{{truck.licensePlate}}</td>
-      <td>{{truck.driver}}</td>
-      <td>{{truck.container.id}}</td>
-      <td><button class="btn btn-success" (click)="editTruck(truck)" style="margin-left: 20px;"><i class="fas fa-edit"></i></button></td>
-    </tr>
-    </tbody>
-  </table>
+<div class="row">
+  <div class="col-12">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h2> Detalles de Camiones</h2>
+          <button class="btn btn-danger" (click)="addTruck()"> Agregar nuevo camion</button>
+        </div>
+        <div class="col-12" style="overflow-x: scroll;">
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th>Numero de Identificacion</th>
+              <th>Patente</th>
+              <th>Conductor</th>
+              <th>Container</th>
+              <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let truck of trucks">
+              <td>{{truck.id}}</td>
+              <td>{{truck.licensePlate}}</td>
+              <td>{{truck.driver}}</td>
+              <td>{{truck.container.id}}</td>
+              <td>
+                <button class="btn btn-success" (click)="editTruck(truck)" style="margin-left: 20px;"><i
+                  class="fas fa-edit"></i></button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

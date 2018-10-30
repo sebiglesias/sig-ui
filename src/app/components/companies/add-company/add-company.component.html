@@ -4,7 +4,7 @@
 
     <div class="form-group">
       <label for="name">Nombre:</label>
-      <input type="text" formControlName="name" placeholder="Nombre de la empresa" name="name" class="form-control" id="name">
+      <input type="text" formControlName="name" name="name" class="form-control" id="name">
       <div *ngFor="let validation of validationMessages.standardName">
         <div class="alert alert-danger" *ngIf="addForm.get('name').hasError(validation.type) && (addForm.get('name').dirty || addForm.get('name').touched)">{{validation.message}}</div>
       </div>
@@ -12,7 +12,7 @@
 
     <div class="form-group">
       <label for="address">Dirección:</label>
-      <input formControlName="address" placeholder="Dirección de la empresa" name="address" class="form-control" id="address">
+      <input formControlName="address" name="address" class="form-control" id="address">
       <div *ngFor="let validation of validationMessages.address">
         <div class="alert alert-danger" *ngIf="addForm.get('address').hasError(validation.type) && (addForm.get('address').dirty || addForm.get('address').touched)">{{validation.message}}</div>
       </div>

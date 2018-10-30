@@ -9,7 +9,6 @@ import {Order} from '../../../models/order';
 import {Truck} from '../../../models/truck';
 import {Container} from '../../../models/container';
 import {validationMessages} from '../../../models/validationMessages';
-import {Shipment} from '../../../models/shipment';
 
 @Component({
   selector: 'app-add-shipment',

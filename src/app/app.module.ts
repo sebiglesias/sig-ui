@@ -39,6 +39,9 @@ import { ListShipmentReportComponent } from './components/shipmentReports/list-s
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { HomeComponent } from './components/home/home.component';
 import {ViewShipmentComponent} from './components/shipments/view-shipment-report/view-shipment.component';
+import { AddProductTypeComponent } from './components/products/product-type/add-product-type/add-product-type.component';
+import { EditProductTypeComponent } from './components/products/product-type/edit-product-type/edit-product-type.component';
+import { ListProductTypeComponent } from './components/products/product-type/list-product-type/list-product-type.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -102,6 +105,9 @@ const routes: Routes = [
     NavBarComponent,
     HomeComponent,
     ViewShipmentComponent,
+    AddProductTypeComponent,
+    EditProductTypeComponent,
+    ListProductTypeComponent,
   ],
   imports: [
     BrowserModule,
