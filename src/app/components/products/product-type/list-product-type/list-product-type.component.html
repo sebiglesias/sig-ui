@@ -3,8 +3,8 @@
     <div class="container">
       <div class="row">
         <div class="col-12">
-          <h2> Detalles de Productos</h2>
-          <button class="btn btn-danger" (click)="addProduct()"> Agregar nuevo producto</button>
+          <h2> Detalles de Tipo de Productos</h2>
+          <button class="btn btn-danger" (click)="addProductType()"> Agregar nuevo tipo de producto</button>
         </div>
         <div class="col-12" style="overflow-x: scroll;">
           <table class="table table-striped">
@@ -12,16 +12,19 @@
             <tr>
               <th>Id</th>
               <th>Nombre</th>
-              <th>Tipo de producto</th>
+              <th>Material</th>
+              <th>Color</th>
+              <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let product of products">
-              <td>{{product.id}}</td>
-              <td>{{product.name}}</td>
-              <td>{{product.productType}}</td>
+            <tr *ngFor="let productType of productTypes">
+              <td>{{productType.id}}</td>
+              <td>{{productType.name}}</td>
+              <td>{{productType.material}}</td>
+              <td>{{productType.color}}</td>
               <td>
-                <button class="btn btn-success" (click)="editProduct(product)" style="margin-left: 20px;">
+                <button class="btn btn-success" (click)="editProductType(productType)" style="margin-left: 20px;">
                   <i class="fas fa-edit">Editar</i>
                 </button>
               </td>

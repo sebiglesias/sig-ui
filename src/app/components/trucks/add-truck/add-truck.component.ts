@@ -19,7 +19,7 @@ export class AddTruckComponent implements OnInit {
               private containerService: ContainerService) { }
 
   addForm: FormGroup;
-  containers: Container[];
+  containers: Container[] = [];
   validationMessages: any;
 
   ngOnInit() {
@@ -48,4 +48,7 @@ export class AddTruckComponent implements OnInit {
     });
   }
 
+  goToContainer() {
+    this.router.navigate(['add-container']);
+  }
 }

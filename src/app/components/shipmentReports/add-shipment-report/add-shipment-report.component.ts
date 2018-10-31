@@ -19,8 +19,8 @@ export class AddShipmentReportComponent implements OnInit {
               private shipmentReportService: ShipmentReportService) { }
 
   addForm: FormGroup;
-  navyCompanies: Company[];
-  providers: Company[];
+  navyCompanies: Company[] = [];
+  providers: Company[] = [];
   validationMessages: any;
 
   ngOnInit() {
@@ -59,5 +59,9 @@ export class AddShipmentReportComponent implements OnInit {
         }
       );
     });
+  }
+
+  goToCompany() {
+    this.router.navigate(['add-company']);
   }
 }

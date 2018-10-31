@@ -25,9 +25,9 @@ export class AddOrderComponent implements OnInit {
               private billOfLoadingService: BillOfLoadingService) { }
 
   addForm: FormGroup;
-  products: Product[];
-  companies: Company[];
-  billOfLoadings: BillOfLoading[];
+  products: Product[] = [];
+  companies: Company[] = [];
+  billOfLoadings: BillOfLoading[] = [];
   validationMessages: any;
 
   ngOnInit() {
@@ -67,4 +67,15 @@ export class AddOrderComponent implements OnInit {
     });
   }
 
+  goToBillOfLoading() {
+    this.router.navigate(['add-bill-of-loading']);
+  }
+
+  goToCompany() {
+    this.router.navigate(['add-company']);
+  }
+
+  goToProduct() {
+    this.router.navigate(['add-product']);
+  }
 }

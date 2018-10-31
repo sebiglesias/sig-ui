@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ProductService} from '../../../services/product.service';
 import {Router} from '@angular/router';
 import {validationMessages} from '../../../models/validationMessages';
+import {ProductType} from '../../../models/product';
+import {ProductTypeService} from '../../../services/product-type.service';
 
 @Component({
   selector: 'app-add-product',
@@ -11,10 +13,18 @@ import {validationMessages} from '../../../models/validationMessages';
 })
 export class AddProductComponent implements OnInit {
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private productService: ProductService) { }
-
   addForm: FormGroup;
   validationMessages: any;
+  productTypes: ProductType[] = [];
+
+  constructor(private formBuilder: FormBuilder,
+              private router: Router,
+              private productService: ProductService,
+              private productTypeService: ProductTypeService) {
+    this.productTypeService.getAllProductTypes().subscribe(prods => {
+      this.productTypes = prods;
+    });
+  }
 
   ngOnInit() {
     this.validationMessages = validationMessages;
@@ -29,5 +39,9 @@ export class AddProductComponent implements OnInit {
     if (this.addForm.dirty && this.addForm.valid) {
       this.productService.createProduct(this.addForm.value).subscribe(data => this.router.navigate(['list-product']));
     }
+  }
+
+  goToTypeProductView() {
+    this.router.navigate(['add-product-type']);
   }
 }

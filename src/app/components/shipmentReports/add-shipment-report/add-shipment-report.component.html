@@ -1,4 +1,4 @@
-<div class="col-md-6">
+<div class="col-12">
   <h2 class="text-center">Agregar un nuevo informe de llegada</h2>
   <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
 
@@ -60,7 +60,11 @@
 
     <div class="form-group">
       <label for="navyCompany">Empresa naviera:</label>
-      <select type="text" formControlName="navyCompany" class="form-control" name="navyCompany" id="navyCompany">
+      <div class="alert alert-danger" *ngIf="navyCompanies.length === 0">
+        <p>No hay empresa creada.</p>
+        <button class="btn btn-success" (click)="goToCompany()">Crear una empresa</button>
+      </div>
+      <select type="text" formControlName="navyCompany" class="form-control" name="navyCompany" id="navyCompany" *ngIf="navyCompanies.length > 0">
         <option *ngFor="let navyCompany of navyCompanies" [value]="navyCompany.id">{{navyCompany.name}}</option>
       </select>
       <div  *ngFor="let validation of validationMessages.standard">
@@ -70,7 +74,11 @@
 
     <div class="form-group">
       <label for="provider">Empresa proveedora:</label>
-      <select type="text" formControlName="provider" class="form-control" name="provider" id="provider">
+      <div class="alert alert-danger" *ngIf="providers.length === 0">
+        <p>No hay empresa creada.</p>
+        <button class="btn btn-success" (click)="goToCompany()">Crear una empresa</button>
+      </div>
+      <select type="text" formControlName="provider" class="form-control" name="provider" id="provider" *ngIf="providers.length > 0">
         <option *ngFor="let provider of providers" [value]="provider.id">{{provider.name}}</option>
       </select>
       <div  *ngFor="let validation of validationMessages.standard">

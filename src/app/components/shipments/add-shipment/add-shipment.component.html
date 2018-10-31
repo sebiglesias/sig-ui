@@ -1,4 +1,4 @@
-<div class="col-md-6">
+<div class="col-12">
   <h2 class="text-center">Agregar un nuevo ingreso de contenedor a la planta</h2>
   <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
 
@@ -20,7 +20,11 @@
 
     <div class="form-group">
       <label for="container">Container:</label>
-      <select type="text" formControlName="container" class="form-control" name="container" id="container">
+      <div class="alert alert-danger" *ngIf="containers.length === 0">
+        <p>No hay containers creados.</p>
+        <button class="btn btn-success" (click)="goToContainer()">Crear un container</button>
+      </div>
+      <select type="text" formControlName="container" class="form-control" name="container" id="container" *ngIf="containers.length > 0">
         <option *ngFor="let container of containers" [value]="container.id">{{container.id}}</option>
       </select>
       <div *ngFor="let validation of validationMessages.standard">
@@ -30,7 +34,11 @@
 
     <div class="form-group">
       <label for="truck">Camión:</label>
-      <select type="text" formControlName="truck" class="form-control" name="truck" id="truck">
+      <div class="alert alert-danger" *ngIf="trucks.length === 0">
+        <p>No hay camiones creados.</p>
+        <button class="btn btn-success" (click)="goToTruck()">Crear un camion</button>
+      </div>
+      <select type="text" formControlName="truck" class="form-control" name="truck" id="truck" *ngIf="trucks.length > 0">
         <option *ngFor="let truck of trucks" [value]="truck.id">{{truck.licensePlate}}</option>
       </select>
       <div *ngFor="let validation of validationMessages.standard">
@@ -40,7 +48,11 @@
 
     <div class="form-group">
       <label for="order">Orden de compra:</label>
-      <select type="text" formControlName="order" name="order" class="form-control" id="order">
+      <div class="alert alert-danger" *ngIf="orders.length === 0">
+        <p>No hay ordenes creadas.</p>
+        <button class="btn btn-success" (click)="goToOrder()">Crear una orden</button>
+      </div>
+      <select type="text" formControlName="order" name="order" class="form-control" id="order" *ngIf="orders.length > 0">
         <option *ngFor="let order of orders" [value]="order.id">{{order.id}} - {{order.product.name}}</option>
       </select>
       <div  *ngFor="let validation of validationMessages.standard">

@@ -22,8 +22,8 @@ export class AddBillOfLoadingComponent implements OnInit {
               private companyService: CompanyService) { }
 
   addForm: FormGroup;
-  containers: Container[];
-  companies: Company[];
+  containers: Container[] = [];
+  companies: Company[] = [];
   validationMessages: any;
 
   ngOnInit() {
@@ -56,4 +56,11 @@ export class AddBillOfLoadingComponent implements OnInit {
     });
   }
 
+  goToCompany() {
+    this.router.navigate(['add-company']);
+  }
+
+  goToContainer() {
+    this.router.navigate(['add-container']);
+  }
 }

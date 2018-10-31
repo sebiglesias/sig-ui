@@ -1,10 +1,14 @@
-<div class="col-md-6">
+<div class="col-12">
   <h2 class="text-center">Agregar un nuevo camion al sistema</h2>
   <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
 
     <div class="form-group">
       <label for="product">Producto:</label>
-      <select type="text" formControlName="product" name="product" class="form-control" id="product">
+      <div class="alert alert-danger" *ngIf="products.length === 0">
+        <p>No hay productos creados.</p>
+        <button class="btn btn-success" (click)="goToProduct()">Crear un producto</button>
+      </div>
+      <select type="text" formControlName="product" name="product" class="form-control" id="product" *ngIf="products.length > 0">
         <option *ngFor="let product of products" [value]="product.id">{{product.name}}</option>
       </select>
       <div  *ngFor="let validation of validationMessages.standard">
@@ -22,7 +26,11 @@
 
     <div class="form-group">
       <label for="company">Empresa:</label>
-      <select type="text" formControlName="company" name="company" class="form-control" id="company">
+      <div class="alert alert-danger" *ngIf="companies.length === 0">
+        <p>No hay empresas creadas.</p>
+        <button class="btn btn-success" (click)="goToCompany()">Crear una empresa</button>
+      </div>
+      <select type="text" formControlName="company" name="company" class="form-control" id="company" *ngIf="companies.length > 0">
         <option *ngFor="let company of companies" [value]="company.id">{{company.name}}</option>
       </select>
       <div  *ngFor="let validation of validationMessages.standard">
@@ -32,7 +40,11 @@
 
     <div class="form-group">
       <label for="billOfLoading">Bill Of Loading:</label>
-      <select type="text" formControlName="billOfLoading" name="billOfLoading" class="form-control" id="billOfLoading">
+      <div class="alert alert-danger" *ngIf="billOfLoadings.length === 0">
+        <p>No hay bill of loadings creados.</p>
+        <button class="btn btn-success" (click)="goToBillOfLoading()">Crear un bill of loading</button>
+      </div>
+      <select type="text" formControlName="billOfLoading" name="billOfLoading" class="form-control" id="billOfLoading" *ngIf="billOfLoadings.length > 0">
         <option *ngFor="let billOfLoading of billOfLoadings" [value]="billOfLoading.id">{{billOfLoading.id}}</option>
       </select>
       <div  *ngFor="let validation of validationMessages.standard">

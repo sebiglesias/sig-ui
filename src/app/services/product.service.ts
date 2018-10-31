@@ -1,58 +1,29 @@
 import { Injectable } from '@angular/core';
 import {Product} from '../models/product';
 import {Observable} from 'rxjs/Observable';
-import {of} from 'rxjs/observable/of';
+import {dataBaseUrl} from '../../environments/environment';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class ProductService {
 
-  products: Product[] = [];
-  lastId = 0;
+  productUrl = dataBaseUrl + '/Product';
 
-  constructor() {
-    this.products = JSON.parse(localStorage.getItem('products'));
-    this.lastId = Number(localStorage.getItem('productLastId'));
-    if (this.products === null || this.products === undefined) {
-      this.products = [];
-    }
-    if (this.lastId === null || this.lastId === undefined) {
-      this.lastId = 0;
-    }
-  }
+  constructor(private http: HttpClient) { }
 
   createProduct(product: Product): Observable<Product> {
-    if (!product.id) {
-      product.id = ++this.lastId;
-      localStorage.setItem('productLastId', JSON.stringify(this.lastId));
-    }
-    this.products.push(product);
-    localStorage.setItem('products', JSON.stringify(this.products));
-    return of(product);
+    return this.http.post<Product>(this.productUrl, product);
   }
 
   getAllProducts(): Observable<Product[]> {
-    return of(this.products);
+    return this.http.get<Product[]>(this.productUrl);
   }
 
   getProductById(productId: number): Observable<Product> {
-    if (this.products.length === 0) {
-      return of();
-    } else {
-      let productToReturn;
-      this.products.forEach((product: Product) => {
-        if (product.id === Number(productId)) {
-          productToReturn = of(product);
-        }
-      });
-      return productToReturn;
-    }
+    return this.http.get<Product>(this.productUrl + '/' + String(productId));
   }
 
-  updateProduct(productToUpdate: Product): Observable<Boolean> {
-    const index = this.products.findIndex(shipment => shipment.id === Number(productToUpdate.id));
-    if (index === -1) { return of(false); }
-    this.products[index] = productToUpdate;
-    localStorage.setItem('products', JSON.stringify(this.products));
-    return of(true);
+  updateProduct(productToUpdate: Product): Observable<Product> {
+    return this.http.put<Product>(this.productUrl, productToUpdate);
   }
 }

@@ -1,8 +1,8 @@
 export const validationMessages = {
   'standardName': [
-    { type: 'required', message: 'El nombre es un campo obligatorio.' },
-    { type: 'minlength', message: 'El nombre debe tener un minimo de 3 caracteres.' },
-    { type: 'maxlength', message: 'El nombre puede tener un maximo de 20 caracteres.' }
+    { type: 'required', message: 'Es un campo obligatorio.' },
+    { type: 'minlength', message: 'Debe tener un minimo de 3 caracteres.' },
+    { type: 'maxlength', message: 'Puede tener un maximo de 20 caracteres.' }
   ],
   'productType': [
     { type: 'required', message: 'El tipo de producto es un campo obligatorio.' },

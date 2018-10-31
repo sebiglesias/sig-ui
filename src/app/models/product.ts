@@ -7,4 +7,6 @@ export class Product {
 export class ProductType {
   id: number;
   name: string;
+  color: string;
+  material: string;
 }

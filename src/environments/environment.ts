@@ -6,3 +6,5 @@
 export const environment = {
   production: false
 };
+
+export const dataBaseUrl = 'http://localhost:9000/api';

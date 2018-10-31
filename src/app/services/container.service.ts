@@ -1,59 +1,29 @@
 import { Injectable } from '@angular/core';
 import {Container} from '../models/container';
 import {Observable} from 'rxjs/Observable';
-import {of} from 'rxjs/observable/of';
+import {dataBaseUrl} from '../../environments/environment';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class ContainerService {
 
-  containers: Container[] = [];
-  lastId = 0;
+  containerUrl = dataBaseUrl + '/Container';
 
-  constructor() {
-    this.containers = JSON.parse(localStorage.getItem('containers'));
-    this.lastId = Number(localStorage.getItem('containerLastId'));
-    if (this.containers === null || this.containers === undefined) {
-      this.containers = [];
-    }
-    if (this.lastId === null || this.lastId === undefined) {
-      this.lastId = 0;
-    }
-  }
+  constructor(private http: HttpClient) { }
 
   createContainer(container: Container): Observable<Container> {
-    if (!container.id) {
-      container.id = String(+this.lastId);
-      localStorage.setItem('containerLastId', JSON.stringify(this.lastId));
-
-    }
-    this.containers.push(container);
-    localStorage.setItem('containers', JSON.stringify(this.containers));
-    return of(container);
+    return this.http.post<Container>(this.containerUrl, container);
   }
 
   getAllContainers(): Observable<Container[]> {
-    return of(this.containers);
+    return this.http.get<Container[]>(this.containerUrl);
   }
 
   getContainerById(containerId: string): Observable<Container> {
-    if (this.containers.length === 0) {
-      return of();
-    } else {
-      let containerToReturn;
-      this.containers.map(container => {
-        if (container.id === containerId) {
-          containerToReturn = of(container);
-        }
-      });
-      return containerToReturn;
-    }
+    return this.http.get<Container>(this.containerUrl + '/' + String(containerId));
   }
 
   updateContainer(containerToUpdate: Container): Observable<Boolean> {
-    const index = this.containers.findIndex(shipment => shipment.id === containerToUpdate.id);
-    if (index === -1) { return of(false); }
-    this.containers[index] = containerToUpdate;
-    localStorage.setItem('containers', JSON.stringify(this.containers));
-    return of(true);
+    return this.http.put<Boolean>(this.containerUrl, containerToUpdate);
   }
 }

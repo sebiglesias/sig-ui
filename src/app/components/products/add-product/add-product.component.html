@@ -11,8 +11,14 @@
 
     <div class="form-group">
       <label for="productType">Tipo de producto:</label>
-      <input formControlName="productType" placeholder="Tipo de producto" name="productType" class="form-control" id="productType">
-      <div *ngFor="let validation of validationMessages.productType">
+      <div class="alert alert-danger" *ngIf="productTypes.length === 0">
+        <p>No hay tipos de producto creados.</p>
+        <button class="btn btn-success" (click)="goToTypeProductView()">Crear un tipo de producto</button>
+      </div>
+      <select type="text" formControlName="productType" name="productType" class="form-control" id="productType" *ngIf="productTypes.length > 0">
+        <option *ngFor="let productType of productTypes" [value]="productType.id">{{productType.name}} {{productType.material}} {{productType.color}}</option>
+      </select>
+      <div *ngFor="let validation of validationMessages.standard">
         <div class="alert alert-danger" *ngIf="addForm.get('productType').hasError(validation.type) && (addForm.get('name').dirty || addForm.get('name').touched)">{{validation.message}}</div>
       </div>
     </div>

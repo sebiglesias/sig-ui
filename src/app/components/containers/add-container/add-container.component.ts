@@ -19,7 +19,7 @@ export class AddContainerComponent implements OnInit {
               private productService: ProductService) { }
 
   addForm: FormGroup;
-  products: Product[];
+  products: Product[] = [];
   validationMessages: any;
 
   ngOnInit() {
@@ -45,4 +45,7 @@ export class AddContainerComponent implements OnInit {
     });
   }
 
+  goToProductView() {
+    this.router.navigate(['add-product']);
+  }
 }

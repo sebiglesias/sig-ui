@@ -25,9 +25,9 @@ export class AddShipmentComponent implements OnInit {
               private shipmentService: ShipmentService) { }
 
   addForm: FormGroup;
-  orders: Order[];
-  trucks: Truck[];
-  containers: Container[];
+  orders: Order[] = [];
+  trucks: Truck[] = [];
+  containers: Container[] = [];
   validationMessages: any;
 
   ngOnInit() {
@@ -66,5 +66,17 @@ export class AddShipmentComponent implements OnInit {
         }
       );
     });
+  }
+
+  goToContainer() {
+    this.router.navigate(['add-container']);
+  }
+
+  goToOrder() {
+    this.router.navigate(['add-order']);
+  }
+
+  goToTruck() {
+    this.router.navigate(['add-truck']);
   }
 }
