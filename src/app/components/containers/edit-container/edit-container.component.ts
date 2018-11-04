@@ -34,7 +34,7 @@ export class EditContainerComponent implements OnInit {
       return;
     }
     this.editForm = this.formBuilder.group({
-      id: [],
+      id: [{'disabled': true}],
       product: ['', Validators.required],
       footSize: ['', Validators.required],
     });
@@ -50,15 +50,10 @@ export class EditContainerComponent implements OnInit {
   }
 
   onSubmit() {
-    this.containerService.updateContainer(this.editForm.value)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.router.navigate(['list-container']);
-        },
-        error => {
-          alert(error);
-        });
+    this.productService.getProductById(this.editForm.value.product).subscribe( prod => {
+      this.containerService.updateContainer(this.editForm.value, prod).subscribe(
+        x => this.router.navigate(['list-container']));
+    });
   }
 
 }

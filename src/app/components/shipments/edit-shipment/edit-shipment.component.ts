@@ -68,14 +68,24 @@ export class EditShipmentComponent implements OnInit {
   }
 
   onSubmit() {
-    this.shipmentService.updateShipment(this.editForm.value)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.router.navigate(['list-shipment']);
-        },
-        error => {
-          alert(error);
+    const shipment = this.editForm.value;
+    const orderById = this.orderService.getOrderById(shipment.order);
+    const truckById = this.truckService.getTruckById(shipment.truck);
+    const containerById = this.containerService.getContainerById(shipment.container);
+    orderById.subscribe(ord => {
+      truckById.subscribe(truck => {
+        containerById.subscribe(container => {
+          this.shipmentService.updateShipment(this.editForm.value, ord, truck, container)
+            .pipe(first())
+            .subscribe(
+              data => {
+                this.router.navigate(['list-shipment']);
+              },
+              error => {
+                alert(error);
+              });
         });
+      });
+    });
   }
 }

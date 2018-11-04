@@ -53,15 +53,9 @@ export class AddShipmentComponent implements OnInit {
     const truckById = this.truckService.getTruckById(shipment.truck);
     const containerById = this.containerService.getContainerById(shipment.container);
     orderById.subscribe(ord => {
-      shipment.order = ord;
       truckById.subscribe( truck => {
-          shipment.truck = truck;
           containerById.subscribe( container => {
-            shipment.container = container;
-            this.shipmentService.createShipment(shipment)
-              .subscribe( data => {
-                this.router.navigate(['list-shipment']);
-              });
+            this.shipmentService.createShipment(shipment, ord, truck, container);
           });
         }
       );

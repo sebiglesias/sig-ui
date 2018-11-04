@@ -14,17 +14,15 @@
               <th>Fecha</th>
               <th>Producto</th>
               <th>Empresa</th>
-              <th>Bill Of Loading</th>
               <th></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let order of orders">
               <td>{{order.id}}</td>
-              <td>{{order.date}}</td>
+              <td>{{order.date | date: 'dd/MM/yyyy'}}</td>
               <td>{{order.product.name}}</td>
               <td>{{order.company.name}}</td>
-              <td>{{order.billOfLoading.id}}</td>
               <td>
                 <button class="btn btn-success" (click)="editOrder(order)" style="margin-left: 20px;"><i
                   class="fas fa-edit">Editar</i></button>

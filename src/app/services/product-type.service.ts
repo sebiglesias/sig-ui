@@ -12,7 +12,7 @@ export class ProductTypeService {
   constructor(private http: HttpClient) { }
 
   createProductType(productType: ProductType): Observable<ProductType> {
-    return this.http.post<ProductType>(this.productTypeUrl, productType);
+    return this.http.put<ProductType>(this.productTypeUrl, productType);
   }
 
   getAllProductTypes(): Observable<ProductType[]> {
@@ -24,6 +24,6 @@ export class ProductTypeService {
   }
 
   updateProductType(productToUpdate: ProductType): Observable<ProductType> {
-    return this.http.patch<ProductType>(this.productTypeUrl, productToUpdate);
+    return this.http.post<ProductType>(this.productTypeUrl, productToUpdate);
   }
 }

@@ -52,14 +52,16 @@ export class EditTruckComponent implements OnInit {
   }
 
   onSubmit() {
-    this.truckService.updateTruck(this.editForm.value)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.router.navigate(['list-truck']);
-        },
-        error => {
-          alert(error);
-        });
+    this.containerService.getContainerById(this.editForm.value.container).subscribe(container => {
+      this.truckService.updateTruck(this.editForm.value, container)
+        .pipe(first())
+        .subscribe(
+          data => {
+            this.router.navigate(['list-truck']);
+          },
+          error => {
+            alert(error);
+          });
+    });
   }
 }

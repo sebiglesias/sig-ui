@@ -6,7 +6,7 @@
       <label for="name">Nombre:</label>
       <input type="text" formControlName="name" placeholder="Nombre de empresa" name="name" class="form-control" id="name">
       <div *ngFor="let validation of validationMessages.standardName">
-        <div class="alert alert-danger" *ngIf="editForm.get('name').hasError(validation.type) && (editForm.get('name').dirty || editForm.get('name').touched)">{{validation.message}}</div>
+        <div class="alert alert-danger" *ngIf="editForm.get('name') && editForm.get('name').hasError(validation.type) && (editForm.get('name').dirty || editForm.get('name').touched)">{{validation.message}}</div>
       </div>
     </div>
 
@@ -14,7 +14,7 @@
       <label for="address">Dirección:</label>
       <input formControlName="address" placeholder="Direccion de empresa" name="address" class="form-control" id="address">
       <div *ngFor="let validation of validationMessages.address">
-        <div class="alert alert-danger" *ngIf="editForm.get('address').hasError(validation.type) && (editForm.get('address').dirty || editForm.get('address').touched)">{{validation.message}}</div>
+        <div class="alert alert-danger" *ngIf="editForm.get('address') && editForm.get('address').hasError(validation.type) && (editForm.get('address').dirty || editForm.get('address').touched)">{{validation.message}}</div>
       </div>
     </div>
 

@@ -12,7 +12,7 @@ export class CompanyService {
   constructor(private http: HttpClient) { }
 
   createCompany(company: Company): Observable<Company> {
-    return this.http.post<Company>(this.companyUrl, company);
+    return this.http.put<Company>(this.companyUrl, company);
   }
 
   getAllCompanies(): Observable<Company[]> {
@@ -24,6 +24,6 @@ export class CompanyService {
   }
 
   updateCompany(companyToUpdate: Company): Observable<Boolean> {
-    return this.http.put<Boolean>(this.companyUrl, companyToUpdate);
+    return this.http.post<Boolean>(this.companyUrl, companyToUpdate);
   }
 }

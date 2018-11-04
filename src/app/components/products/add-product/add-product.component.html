@@ -16,7 +16,7 @@
         <button class="btn btn-success" (click)="goToTypeProductView()">Crear un tipo de producto</button>
       </div>
       <select type="text" formControlName="productType" name="productType" class="form-control" id="productType" *ngIf="productTypes.length > 0">
-        <option *ngFor="let productType of productTypes" [value]="productType.id">{{productType.name}} {{productType.material}} {{productType.color}}</option>
+        <option *ngFor="let productType of productTypes" [value]="productType.id">{{productType.name}}</option>
       </select>
       <div *ngFor="let validation of validationMessages.standard">
         <div class="alert alert-danger" *ngIf="addForm.get('productType').hasError(validation.type) && (addForm.get('name').dirty || addForm.get('name').touched)">{{validation.message}}</div>

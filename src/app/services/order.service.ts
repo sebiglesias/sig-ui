@@ -1,19 +1,26 @@
 import { Injectable } from '@angular/core';
 import {Order} from '../models/order';
 import {Observable} from 'rxjs/Observable';
-import {of} from 'rxjs/observable/of';
 import {HttpClient} from '@angular/common/http';
 import {dataBaseUrl} from '../../environments/environment';
+import {Product} from '../models/product';
+import {Company} from '../models/company';
+import {BillOfLoading} from '../models/bill-of-loading';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class OrderService {
 
   orderUrl = dataBaseUrl + '/Order';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
-  createOrder(order: Order): Observable<Order> {
-    return this.http.post<Order>(this.orderUrl, order);
+  createOrder(order: Order, product: Product, company: Company) {
+    order.company = null;
+    order.product = null;
+    this.http.put<Order>(this.orderUrl, order).subscribe( o => {
+      this.updateOrder(o, product, company).subscribe(x => this.router.navigate(['list-order']));
+    });
   }
 
   getAllOrders(): Observable<Order[]> {
@@ -24,7 +31,9 @@ export class OrderService {
     return this.http.get<Order>(this.orderUrl + '/' + String(orderId));
   }
 
-  updateOrder(orderToUpdate: Order): Observable<Order> {
-    return this.http.put<Order>(this.orderUrl, orderToUpdate);
+  updateOrder(orderToUpdate: Order, product: Product, company: Company): Observable<Order> {
+    orderToUpdate.product = product;
+    orderToUpdate.company = company;
+    return this.http.post<Order>(this.orderUrl, orderToUpdate);
   }
 }

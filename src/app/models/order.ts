@@ -7,5 +7,4 @@ export class Order {
   product: Product;
   date: Date;
   company: Company;
-  billOfLoading: BillOfLoading;
 }

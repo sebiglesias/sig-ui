@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
 import {Order} from '../../../models/order';
 import {Company} from '../../../models/company';
 import {Product} from '../../../models/product';
-import {BillOfLoading} from '../../../models/bill-of-loading';
 import {ProductService} from '../../../services/product.service';
 import {CompanyService} from '../../../services/company.service';
 import {BillOfLoadingService} from '../../../services/bill-of-loading.service';
@@ -23,21 +22,19 @@ export class EditOrderComponent implements OnInit {
   editForm: FormGroup;
   products: Product[];
   companies: Company[];
-  billOfLoadings: BillOfLoading[];
   validationMessages: any;
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private productService: ProductService,
               private companyService: CompanyService,
-              private billOfLoadingService: BillOfLoadingService,
-              private orderService: OrderService) { }
+              private orderService: OrderService) {
+  }
 
   ngOnInit() {
     this.validationMessages = validationMessages;
     this.productService.getAllProducts().subscribe(prods => this.products = prods);
     this.companyService.getAllCompanies().subscribe(prods => this.companies = prods);
-    this.billOfLoadingService.getAllBillOfLoadings().subscribe(prods => this.billOfLoadings = prods);
     const orderId = localStorage.getItem('editOrderId');
     if (!orderId) {
       alert('Invalid action.');
@@ -49,30 +46,32 @@ export class EditOrderComponent implements OnInit {
       product: ['', Validators.required],
       date: ['', Validators.required],
       company: ['', Validators.required],
-      billOfLoading: ['', Validators.required],
     });
     this.orderService.getOrderById(Number(orderId))
-      .subscribe( data => {
+      .subscribe(data => {
         const truckData = {
           id: data.id,
           product: data.product.id,
           date: data.date,
           company: data.company.id,
-          billOfLoading: data.billOfLoading.id
         };
         this.editForm.setValue(truckData);
       });
   }
 
   onSubmit() {
-    this.orderService.updateOrder(this.editForm.value)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.router.navigate(['list-order']);
-        },
-        error => {
-          alert(error);
-        });
+    this.productService.getProductById(this.editForm.value.product).subscribe(prod => {
+      this.companyService.getCompanyById(this.editForm.value.company).subscribe(comp => {
+        this.orderService.updateOrder(this.editForm.value, prod, comp)
+          .pipe(first())
+          .subscribe(
+            data => {
+              this.router.navigate(['list-order']);
+            },
+            error => {
+              alert(error);
+            });
+      });
+    });
   }
 }

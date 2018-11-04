@@ -30,7 +30,7 @@ export class EditCompanyComponent implements OnInit {
     this.editForm = this.formBuilder.group({
       id: [],
       name: ['', Validators.required],
-      companyType: ['', Validators.required],
+      address: ['', Validators.required],
     });
     this.companyService.getCompanyById(+companyId)
       .subscribe( data => {

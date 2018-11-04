@@ -1,5 +1,5 @@
 <div class="col-12">
-  <h2 class="text-center">Editar Camion</h2>
+  <h2 class="text-center">Editar Orden de compra</h2>
   <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
 
     <div class="form-group">
@@ -27,16 +27,6 @@
       </select>
       <div *ngFor="let validation of validationMessages.standard">
         <div class="alert alert-danger" *ngIf="editForm.get('company').hasError(validation.type) && (editForm.get('company').dirty || editForm.get('company').touched)">{{validation.message}}</div>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="billOfLoading">Bill Of Loading:</label>
-      <select type="text" formControlName="billOfLoading" name="billOfLoading" class="form-control" id="billOfLoading">
-        <option *ngFor="let billOfLoading of billOfLoadings" [value]="billOfLoading.id">{{billOfLoading.id}}</option>
-      </select>
-      <div *ngFor="let validation of validationMessages.standard">
-        <div class="alert alert-danger" *ngIf="editForm.get('billOfLoading').hasError(validation.type) && (editForm.get('billOfLoading').dirty || editForm.get('billOfLoading').touched)">{{validation.message}}</div>
       </div>
     </div>
 

@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {first} from 'rxjs/operators';
-import {Product} from '../../../models/product';
+import {Product, ProductType} from '../../../models/product';
 import {ProductService} from '../../../services/product.service';
 import {validationMessages} from '../../../models/validationMessages';
+import {ProductTypeService} from '../../../services/product-type.service';
 
 @Component({
   selector: 'app-edit-product',
@@ -17,8 +17,14 @@ export class EditProductComponent implements OnInit {
   product: Product;
   editForm: FormGroup;
   validationMessages: any;
+  productTypes: ProductType[] = [];
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private productService: ProductService) { }
+  constructor(private formBuilder: FormBuilder,
+              private router: Router,
+              private productService: ProductService,
+              private productTypeService: ProductTypeService) {
+    this.productTypeService.getAllProductTypes().subscribe(prodTypes => this.productTypes = prodTypes);
+  }
 
   ngOnInit() {
     this.validationMessages = validationMessages;
@@ -31,23 +37,24 @@ export class EditProductComponent implements OnInit {
     this.editForm = this.formBuilder.group({
       id: [],
       name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
-      productType: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
+      productType: ['', [Validators.required]],
     });
     this.productService.getProductById(+productId)
-      .subscribe( data => {
-        this.editForm.setValue(data);
+      .subscribe(data => {
+        const editData = {
+          id: data.id,
+          name: data.name,
+          productType: data.productType.id,
+        };
+        this.editForm.setValue(editData);
       });
   }
 
   onSubmit() {
-    this.productService.updateProduct(this.editForm.value)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.router.navigate(['list-product']);
-        },
-        error => {
-          alert(error);
-        });
+    this.productTypeService.getProductTypeById(this.editForm.value.productType).subscribe(prodType => {
+      this.productService.updateProduct(this.editForm.value, prodType).subscribe(x => {
+        this.router.navigate(['list-product']);
+      });
+    });
   }
 }

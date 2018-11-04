@@ -10,7 +10,6 @@
           <table class="table table-striped">
             <thead>
             <tr>
-              <th>Numero de Identificacion</th>
               <th>Patente</th>
               <th>Conductor</th>
               <th>Container</th>
@@ -19,7 +18,6 @@
             </thead>
             <tbody>
             <tr *ngFor="let truck of trucks">
-              <td>{{truck.id}}</td>
               <td>{{truck.licensePlate}}</td>
               <td>{{truck.driver}}</td>
               <td>{{truck.container.id}}</td>

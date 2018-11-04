@@ -31,13 +31,15 @@ export class AddProductComponent implements OnInit {
     this.addForm = this.formBuilder.group({
       id: [],
       name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
-      productType: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
+      productType: ['', [Validators.required]],
     });
   }
 
   onSubmit() {
     if (this.addForm.dirty && this.addForm.valid) {
-      this.productService.createProduct(this.addForm.value).subscribe(data => this.router.navigate(['list-product']));
+      this.productTypeService.getProductTypeById(this.addForm.value.productType).subscribe( pType => {
+        this.productService.createProduct(this.addForm.value, pType);
+      });
     }
   }
 

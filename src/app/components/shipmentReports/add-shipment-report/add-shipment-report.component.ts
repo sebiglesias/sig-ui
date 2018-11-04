@@ -46,16 +46,9 @@ export class AddShipmentReportComponent implements OnInit {
 
   onSubmit() {
     const shipmentReport = this.addForm.value;
-    const navyCompanyById = this.companyService.getCompanyById(shipmentReport.navyCompany);
-    const providerCompanyById = this.companyService.getCompanyById(shipmentReport.provider);
-    navyCompanyById.subscribe(ord => {
-      shipmentReport.navyCompany = ord;
-      providerCompanyById.subscribe( truck => {
-          shipmentReport.provider = truck;
-          this.shipmentReportService.createShipmentReport(shipmentReport)
-            .subscribe( data => {
-              this.router.navigate(['list-shipment-report']);
-            });
+    this.companyService.getCompanyById(shipmentReport.navyCompany).subscribe(ord => {
+      this.companyService.getCompanyById(shipmentReport.provider).subscribe( truck => {
+          this.shipmentReportService.createShipmentReport(shipmentReport, ord, truck);
         }
       );
     });

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
@@ -7,7 +7,6 @@ import {Company} from '../../../models/company';
 import {ShipmentReportService} from '../../../services/shipment-report.service';
 import {CompanyService} from '../../../services/company.service';
 import {validationMessages} from '../../../models/validationMessages';
-
 
 @Component({
   selector: 'app-edit-shipment-report',
@@ -24,7 +23,8 @@ export class EditShipmentReportComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private shipmentReportService: ShipmentReportService,
-              private companyService: CompanyService) { }
+              private companyService: CompanyService) {
+  }
 
   ngOnInit() {
     this.validationMessages = validationMessages;
@@ -51,10 +51,10 @@ export class EditShipmentReportComponent implements OnInit {
       deliveryPlace: ['', Validators.required],
     });
     this.shipmentReportService.getShipmentReportById(Number(shipmentId))
-      .subscribe( (data: ShipmentReport) => {
+      .subscribe((data: ShipmentReport) => {
         const shipmentData = {
           id: data.id,
-          date: data.date,
+          date: data.introduced,
           terminal: data.terminal,
           port: data.port,
           navyCompany: data.navyCompany.id,
@@ -69,14 +69,18 @@ export class EditShipmentReportComponent implements OnInit {
   }
 
   onSubmit() {
-    this.shipmentReportService.updateShipmentReport(this.editForm.value)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.router.navigate(['list-shipment-report']);
-        },
-        error => {
-          alert(error);
-        });
+    this.companyService.getCompanyById(this.editForm.value.navyCompany).subscribe(navyCompany => {
+      this.companyService.getCompanyById(this.editForm.value.provider).subscribe(provider => {
+        this.shipmentReportService.updateShipmentReport(this.editForm.value, navyCompany, provider)
+          .pipe(first())
+          .subscribe(
+            data => {
+              this.router.navigate(['list-shipment-report']);
+            },
+            error => {
+              alert(error);
+            });
+      });
+    });
   }
 }

@@ -34,14 +34,10 @@ export class AddContainerComponent implements OnInit {
   }
 
   onSubmit() {
-    const container = this.addForm.value;
-    const productById = this.productService.getProductById(Number(container.product));
+    const containerForm = this.addForm.value;
+    const productById = this.productService.getProductById(Number(containerForm.product));
     productById.subscribe(prod => {
-      container.product = prod;
-      this.containerService.createContainer(container)
-        .subscribe( data => {
-          this.router.navigate(['list-container']);
-        });
+      this.containerService.createContainer(containerForm, prod);
     });
   }
 

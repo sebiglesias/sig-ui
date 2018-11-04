@@ -9,6 +9,8 @@ import {Company} from '../../../models/company';
 import {CompanyService} from '../../../services/company.service';
 import {BillOfLoadingService} from '../../../services/bill-of-loading.service';
 import {validationMessages} from '../../../models/validationMessages';
+import {DateFormatter} from '@angular/common/src/pipes/deprecated/intl';
+import {LOCALE_DATA} from '@angular/common/src/i18n/locale_data';
 
 @Component({
   selector: 'app-edit-bill-of-loading',
@@ -46,9 +48,10 @@ export class EditBillOfLoadingComponent implements OnInit {
     });
     this.billOfLoadingService.getBillOfLoadingById(billOfLoadingId)
       .subscribe( data => {
+        const date = new Date(data.date);
         const truckData = {
           id: data.id,
-          date: data.date,
+          date,
           container: data.container.id,
           company: data.company.id
         };
@@ -57,14 +60,18 @@ export class EditBillOfLoadingComponent implements OnInit {
   }
 
   onSubmit() {
-    this.billOfLoadingService.updateBillOfLoading(this.editForm.value)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.router.navigate(['list-bill-of-loading']);
-        },
-        error => {
-          alert(error);
-        });
+    this.containerService.getContainerById(this.editForm.value.container).subscribe( container => {
+      this.companyService.getCompanyById(this.editForm.value.company).subscribe(company => {
+        this.billOfLoadingService.updateBillOfLoading(this.editForm.value, container, company)
+          .pipe(first())
+          .subscribe(
+            data => {
+              this.router.navigate(['list-bill-of-loading']);
+            },
+            error => {
+              alert(error);
+            });
+      });
+    });
   }
 }

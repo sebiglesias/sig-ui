@@ -1,9 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Fine, Shipment} from '../../../models/shipment';
+import {Shipment} from '../../../models/shipment';
 import {ShipmentService} from '../../../services/shipment.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
+import {TruckService} from '../../../services/truck.service';
+import {ContainerService} from '../../../services/container.service';
+import {OrderService} from '../../../services/order.service';
+import {FineService} from '../../../services/fine.service';
 
 @Component({
   selector: 'app-view-shipment',
@@ -20,11 +24,16 @@ export class ViewShipmentComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private router: Router,
-              private shipmentService: ShipmentService) { }
+              private shipmentService: ShipmentService,
+              private orderService: OrderService,
+              private truckService: TruckService,
+              private fineService: FineService,
+              private containerService: ContainerService) {
+  }
 
   ngOnInit() {
     const params1 = this.route.params;
-    this.shipmentService.getShipmentById(Number(params1['_value']['id'])).subscribe( sR => this.shipment = sR);
+    this.shipmentService.getShipmentById(Number(params1['_value']['id'])).subscribe(sR => this.shipment = sR);
     this.editEnterTimeForm = this.formBuilder.group({
       enterTime: ['', Validators.required]
     });
@@ -39,83 +48,61 @@ export class ViewShipmentComponent implements OnInit {
     });
   }
 
-  editFine(fineId: number) { }
-
-  deleteFine(fineId: number) { }
-
-  addFine() { }
+  deleteFine(fineId: number) {
+    this.shipmentService.deleteFine(fineId, this.shipment.id);
+  }
 
   submitEnterTime() {
-    const shipmentToUpdate: Shipment = {
-      id: this.shipment.id,
-      container: this.shipment.container,
-      truck: this.shipment.truck,
-      enterTime: this.editEnterTimeForm.value['enterTime'],
-      leaveTime: this.shipment.leaveTime,
-      order: this.shipment.order,
-      fine: this.shipment.fine
-    };
-    this.shipmentService.updateShipment(shipmentToUpdate)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.shipmentService.getShipmentById(this.shipment.id).subscribe( ship => this.shipment = ship);
-        },
-        error => {
-          alert(error);
+    const shipment = this.editEnterTimeForm.value;
+    const orderById = this.orderService.getOrderById(shipment.order);
+    const truckById = this.truckService.getTruckById(shipment.truck);
+    const containerById = this.containerService.getContainerById(shipment.container);
+    orderById.subscribe(ord => {
+      truckById.subscribe(truck => {
+        containerById.subscribe(container => {
+          this.shipmentService.updateShipment(shipment, ord, truck, container)
+            .pipe(first())
+            .subscribe(
+              data => {
+                this.shipmentService.getShipmentById(this.shipment.id).subscribe(ship => this.shipment = ship);
+              },
+              error => {
+                alert(error);
+              });
         });
+      });
+    });
   }
 
   submitLeaveTime() {
-    const shipmentToUpdate: Shipment = {
-      id: this.shipment.id,
-      container: this.shipment.container,
-      truck: this.shipment.truck,
-      enterTime: this.shipment.enterTime,
-      leaveTime: this.editLeaveTimeForm.value['leaveTime'],
-      order: this.shipment.order,
-      fine: this.shipment.fine
-    };
-    this.shipmentService.updateShipment(shipmentToUpdate)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.shipmentService.getShipmentById(this.shipment.id).subscribe( ship => this.shipment = ship);
-        },
-        error => {
-          alert(error);
+    const shipment = this.editLeaveTimeForm.value;
+    const orderById = this.orderService.getOrderById(shipment.order);
+    const truckById = this.truckService.getTruckById(shipment.truck);
+    const containerById = this.containerService.getContainerById(shipment.container);
+    orderById.subscribe(ord => {
+      truckById.subscribe(truck => {
+        containerById.subscribe(container => {
+          this.shipmentService.updateShipment(shipment, ord, truck, container)
+            .pipe(first())
+            .subscribe(
+              data => {
+                this.shipmentService.getShipmentById(this.shipment.id).subscribe(ship => this.shipment = ship);
+              },
+              error => {
+                alert(error);
+              });
         });
+      });
+    });
   }
 
   submitAddFine() {
     const value = this.addFineForm.value;
-    let fines;
-    if (this.shipment.fine && this.shipment.fine.length > 0) {
-      const fineLength = this.shipment.fine.length;
-      const lastId = this.shipment.fine[fineLength - 1].id;
-      value.id = lastId + 1;
-      fines = this.shipment.fine.concat(value);
-    } else {
-      value.id = 0;
-      fines = [value];
-    }
-    const shipmentToUpdate: Shipment = {
-      id: this.shipment.id,
-      container: this.shipment.container,
-      truck: this.shipment.truck,
-      enterTime: this.shipment.enterTime,
-      leaveTime: this.shipment.leaveTime,
-      order: this.shipment.order,
-      fine: fines
-    };
-    this.shipmentService.updateShipment(shipmentToUpdate)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.shipmentService.getShipmentById(this.shipment.id).subscribe( ship => this.shipment = ship);
-        },
-        error => {
-          alert(error);
-        });
+    this.fineService.createFine(value).subscribe( fine => {
+      this.shipmentService.getShipmentById(this.shipment.id).subscribe( ship => {
+        ship.fine.concat(fine);
+        this.shipmentService.updateShipment(ship, ship.order, ship.truck, ship.container).subscribe( s => this.shipment = s);
+      });
+    });
   }
 }

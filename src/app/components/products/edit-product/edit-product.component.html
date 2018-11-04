@@ -12,8 +12,10 @@
 
     <div class="form-group">
       <label for="productType">Tipo de producto:</label>
-      <input formControlName="productType" placeholder="Tipo de producto" name="productType" class="form-control" id="productType">
-      <div *ngFor="let validation of validationMessages.productType">
+      <select type="text" formControlName="productType" name="productType" class="form-control" id="productType">
+        <option *ngFor="let productType of productTypes" [value]="productType.id">{{productType.name}}</option>
+      </select>
+      <div *ngFor="let validation of validationMessages.standard">
         <div class="alert alert-danger" *ngIf="editForm.get('productType').hasError(validation.type) && (editForm.get('name').dirty || editForm.get('name').touched)">{{validation.message}}</div>
       </div>
     </div>

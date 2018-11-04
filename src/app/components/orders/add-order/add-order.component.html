@@ -1,5 +1,5 @@
 <div class="col-12">
-  <h2 class="text-center">Agregar un nuevo camion al sistema</h2>
+  <h2 class="text-center">Agregar una nueva orden de compra</h2>
   <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
 
     <div class="form-group">
@@ -35,20 +35,6 @@
       </select>
       <div  *ngFor="let validation of validationMessages.standard">
         <div class="alert alert-danger" *ngIf="addForm.get('company').hasError(validation.type) && (addForm.get('company').dirty || addForm.get('company').touched)">{{validation.message}}</div>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="billOfLoading">Bill Of Loading:</label>
-      <div class="alert alert-danger" *ngIf="billOfLoadings.length === 0">
-        <p>No hay bill of loadings creados.</p>
-        <button class="btn btn-success" (click)="goToBillOfLoading()">Crear un bill of loading</button>
-      </div>
-      <select type="text" formControlName="billOfLoading" name="billOfLoading" class="form-control" id="billOfLoading" *ngIf="billOfLoadings.length > 0">
-        <option *ngFor="let billOfLoading of billOfLoadings" [value]="billOfLoading.id">{{billOfLoading.id}}</option>
-      </select>
-      <div  *ngFor="let validation of validationMessages.standard">
-        <div class="alert alert-danger" *ngIf="addForm.get('billOfLoading').hasError(validation.type) && (addForm.get('billOfLoading').dirty || addForm.get('billOfLoading').touched)">{{validation.message}}</div>
       </div>
     </div>
 

@@ -38,13 +38,8 @@ export class AddTruckComponent implements OnInit {
 
   onSubmit() {
     const truck = this.addForm.value;
-    const containerById = this.containerService.getContainerById(truck.container);
-    containerById.subscribe(prod => {
-      truck.container = prod;
-      this.truckService.createTruck(truck)
-        .subscribe( data => {
-          this.router.navigate(['list-truck']);
-        });
+    this.containerService.getContainerById(truck.container).subscribe(container => {
+      this.truckService.createTruck(truck, container);
     });
   }
 

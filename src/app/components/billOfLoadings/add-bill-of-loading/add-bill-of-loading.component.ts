@@ -44,14 +44,9 @@ export class AddBillOfLoadingComponent implements OnInit {
     const billOfLoading = this.addForm.value;
     const containerById = this.containerService.getContainerById(billOfLoading.container);
     const companyById = this.companyService.getCompanyById(billOfLoading.company);
-    containerById.subscribe(prod => {
-      billOfLoading.container = prod;
+    containerById.subscribe(cont => {
       companyById.subscribe( comp => {
-        billOfLoading.company = comp;
-        this.billOfLoadingService.createBillOfLoading(billOfLoading)
-          .subscribe( data => {
-            this.router.navigate(['list-bill-of-loading']);
-          });
+        this.billOfLoadingService.createBillOfLoading(billOfLoading, cont, comp);
       });
     });
   }
