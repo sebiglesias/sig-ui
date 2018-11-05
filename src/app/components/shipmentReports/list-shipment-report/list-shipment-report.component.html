@@ -26,7 +26,7 @@
             <tbody>
             <tr *ngFor="let shipmentReport of shipmentReports">
               <td>{{shipmentReport.id}}</td>
-              <td>{{shipmentReport.date}}</td>
+              <td>{{shipmentReport.introduced | date: 'dd/MM/yyyy'}}</td>
               <td>{{shipmentReport.navyCompany.name}}</td>
               <td>{{shipmentReport.provider.name}}</td>
               <td>{{shipmentReport.terminal}}</td>

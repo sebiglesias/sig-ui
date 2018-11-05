@@ -27,8 +27,6 @@ export class ShipmentService {
     shipment.order = null;
     shipment.truck = null;
     shipment.container = null;
-    shipment.enterTime = new Date(shipment.enterTime).getDate();
-    shipment.leaveTime = new Date(shipment.leaveTime).getDate();
     this.http.put<Shipment>(this.shipmentUrl, shipment).subscribe( ship => {
       this.updateShipment(ship, order, truck, container).subscribe(x => this.router.navigate(['list-shipment']));
     });

@@ -48,10 +48,10 @@ export class EditBillOfLoadingComponent implements OnInit {
     });
     this.billOfLoadingService.getBillOfLoadingById(billOfLoadingId)
       .subscribe( data => {
-        const date = new Date(data.date);
+        const objDate = new Date(data.date);
         const truckData = {
           id: data.id,
-          date,
+          date: objDate.getFullYear() + '-' + objDate.getMonth() + '-' + String(objDate.getDate() + 1),
           container: data.container.id,
           company: data.company.id
         };

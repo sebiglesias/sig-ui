@@ -4,7 +4,7 @@
 
     <div class="form-group">
       <label for="enterTime">Hora de ingreso:</label>
-      <input type="datetime-local" formControlName="enterTime" name="enterTime" class="form-control" id="enterTime">
+      <input type="datetime-local" formControlName="enterTime" placeholder="{{editForm.enterTime}}" name="enterTime" class="form-control" id="enterTime">
       <div *ngFor="let validation of validationMessages.dateTime">
         <div class="alert alert-danger" *ngIf="editForm.get('enterTime').hasError(validation.type) && (editForm.get('enterTime').dirty || editForm.get('enterTime').touched)">{{validation.message}}</div>
       </div>
@@ -12,7 +12,7 @@
 
     <div class="form-group">
       <label for="leaveTime">Hora de salida:</label>
-      <input type="datetime-local" formControlName="leaveTime" name="leaveTime" class="form-control" id="leaveTime">
+      <input type="datetime-local" formControlName="leaveTime" placeholder="{{editForm.leaveTime}}" name="leaveTime" class="form-control" id="leaveTime">
       <div *ngFor="let validation of validationMessages.dateTime">
         <div class="alert alert-danger" *ngIf="editForm.get('leaveTime').hasError(validation.type) && (editForm.get('leaveTime').dirty || editForm.get('leaveTime').touched)">{{validation.message}}</div>
       </div>

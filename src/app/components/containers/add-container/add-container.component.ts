@@ -27,7 +27,7 @@ export class AddContainerComponent implements OnInit {
     this.productService.getAllProducts().subscribe( prods => this.products = prods);
 
     this.addForm = this.formBuilder.group({
-      id: ['', [Validators.required]],
+      id: ['', [Validators.required, Validators]],
       product: ['', Validators.required],
       footSize: ['', Validators.required],
     });

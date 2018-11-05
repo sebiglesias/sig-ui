@@ -3,10 +3,10 @@
   <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
 
     <div class="form-group">
-      <label for="date">Fecha:</label>
-      <input type="date" formControlName="date" name="date" class="form-control" id="date">
+      <label for="introduced">Fecha:</label>
+      <input type="date" formControlName="introduced" name="introduced" class="form-control" id="introduced">
       <div  *ngFor="let validation of validationMessages.date">
-        <div class="alert alert-danger" *ngIf="editForm.get('date').hasError(validation.type) && (editForm.get('date').dirty || editForm.get('date').touched)">{{validation.message}}</div>
+        <div class="alert alert-danger" *ngIf="editForm.get('introduced').hasError(validation.type) && (editForm.get('introduced').dirty || editForm.get('introduced').touched)">{{validation.message}}</div>
       </div>
     </div>
 

@@ -45,6 +45,7 @@ import {ListProductTypeComponent} from './components/products/product-type/list-
 import {HttpClientModule} from '@angular/common/http';
 import {ProductTypeService} from './services/product-type.service';
 import {FineService} from './services/fine.service';
+import {DateService} from './date.service';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -134,7 +135,8 @@ const routes: Routes = [
     BillOfLoadingService,
     ShipmentService,
     ShipmentReportService,
-    FineService
+    FineService,
+    DateService
   ],
   bootstrap: [AppComponent]
 })

@@ -7,6 +7,7 @@ import {Company} from '../../../models/company';
 import {ShipmentReportService} from '../../../services/shipment-report.service';
 import {CompanyService} from '../../../services/company.service';
 import {validationMessages} from '../../../models/validationMessages';
+import {DateService} from '../../../date.service';
 
 @Component({
   selector: 'app-edit-shipment-report',
@@ -23,6 +24,7 @@ export class EditShipmentReportComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private shipmentReportService: ShipmentReportService,
+              private dateService: DateService,
               private companyService: CompanyService) {
   }
 
@@ -40,7 +42,7 @@ export class EditShipmentReportComponent implements OnInit {
     }
     this.editForm = this.formBuilder.group({
       id: [],
-      date: ['', Validators.required],
+      introduced: ['', Validators.required],
       terminal: ['', Validators.required],
       port: ['', Validators.required],
       navyCompany: ['', Validators.required],
@@ -54,7 +56,7 @@ export class EditShipmentReportComponent implements OnInit {
       .subscribe((data: ShipmentReport) => {
         const shipmentData = {
           id: data.id,
-          date: data.introduced,
+          introduced: this.dateService.getDateToString(new Date(data.introduced)),
           terminal: data.terminal,
           port: data.port,
           navyCompany: data.navyCompany.id,

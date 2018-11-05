@@ -8,6 +8,7 @@ import {TruckService} from '../../../services/truck.service';
 import {ContainerService} from '../../../services/container.service';
 import {OrderService} from '../../../services/order.service';
 import {FineService} from '../../../services/fine.service';
+import {DateService} from '../../../date.service';
 
 @Component({
   selector: 'app-view-shipment',
@@ -28,23 +29,28 @@ export class ViewShipmentComponent implements OnInit {
               private orderService: OrderService,
               private truckService: TruckService,
               private fineService: FineService,
+              private dateService: DateService,
               private containerService: ContainerService) {
   }
 
   ngOnInit() {
     const params1 = this.route.params;
-    this.shipmentService.getShipmentById(Number(params1['_value']['id'])).subscribe(sR => this.shipment = sR);
-    this.editEnterTimeForm = this.formBuilder.group({
-      enterTime: ['', Validators.required]
-    });
-    this.editLeaveTimeForm = this.formBuilder.group({
-      leaveTime: ['', Validators.required]
-    });
-    this.addFineForm = this.formBuilder.group({
-      id: ['', Validators.required],
-      reason: ['', Validators.required],
-      amount: ['', Validators.required],
-      currency: ['', Validators.required],
+    this.shipmentService.getShipmentById(Number(params1['_value']['id'])).subscribe(sR => {
+      this.shipment = sR;
+      this.editEnterTimeForm = this.formBuilder.group({
+        enterTime: ['', Validators.required]
+      });
+      this.editEnterTimeForm.setValue({ enterTime: this.dateService.getDateToISOString(new Date(this.shipment.enterTime))});
+      this.editLeaveTimeForm = this.formBuilder.group({
+        leaveTime: ['', Validators.required]
+      });
+      this.editLeaveTimeForm.setValue({ leaveTime: this.dateService.getDateToISOString(new Date(this.shipment.leaveTime))});
+      this.addFineForm = this.formBuilder.group({
+        id: ['', Validators.required],
+        reason: ['', Validators.required],
+        amount: ['', Validators.required],
+        currency: ['', Validators.required],
+      });
     });
   }
 
@@ -58,7 +64,7 @@ export class ViewShipmentComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          this.shipmentService.getShipmentById(this.shipment.id).subscribe(ship => this.shipment = ship);
+          this.shipmentService.getShipmentById(this.shipment.id).subscribe(x => window.location.reload());
         },
         error => {
           alert(error);
@@ -71,7 +77,7 @@ export class ViewShipmentComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          this.shipmentService.getShipmentById(this.shipment.id).subscribe(ship => this.shipment = ship);
+          this.shipmentService.getShipmentById(this.shipment.id).subscribe(x => window.location.reload());
         },
         error => {
           alert(error);

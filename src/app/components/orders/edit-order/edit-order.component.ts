@@ -10,6 +10,7 @@ import {CompanyService} from '../../../services/company.service';
 import {BillOfLoadingService} from '../../../services/bill-of-loading.service';
 import {OrderService} from '../../../services/order.service';
 import {validationMessages} from '../../../models/validationMessages';
+import {DateService} from '../../../date.service';
 
 @Component({
   selector: 'app-edit-order',
@@ -28,6 +29,7 @@ export class EditOrderComponent implements OnInit {
               private router: Router,
               private productService: ProductService,
               private companyService: CompanyService,
+              private dateService: DateService,
               private orderService: OrderService) {
   }
 
@@ -52,7 +54,7 @@ export class EditOrderComponent implements OnInit {
         const truckData = {
           id: data.id,
           product: data.product.id,
-          date: data.date,
+          date: this.dateService.getDateToString(new Date(data.date)),
           company: data.company.id,
         };
         this.editForm.setValue(truckData);

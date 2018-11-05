@@ -11,6 +11,7 @@ import {TruckService} from '../../../services/truck.service';
 import {ContainerService} from '../../../services/container.service';
 import {ShipmentService} from '../../../services/shipment.service';
 import {validationMessages} from '../../../models/validationMessages';
+import {DateService} from '../../../date.service';
 
 
 @Component({
@@ -32,6 +33,7 @@ export class EditShipmentComponent implements OnInit {
               private truckService: TruckService,
               private containerService: ContainerService,
               private shipmentService: ShipmentService,
+              private dateService: DateService,
               private orderService: OrderService) { }
 
   ngOnInit() {
@@ -57,8 +59,8 @@ export class EditShipmentComponent implements OnInit {
       .subscribe( data => {
         const shipmentData = {
           id: data.id,
-          enterTime: data.enterTime,
-          leaveTime: data.leaveTime,
+          enterTime: this.dateService.getDateToISOString(new Date(data.enterTime)),
+          leaveTime: this.dateService.getDateToISOString(new Date(data.leaveTime)),
           order: data.order.id,
           truck: data.truck.id,
           container: data.container.id

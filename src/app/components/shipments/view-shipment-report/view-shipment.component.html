@@ -13,11 +13,11 @@
       </div>
       <ul class="list-group list-group-flush">
         <li class="list-group-item">
-          Horario de Ingreso: {{shipment && shipment.enterTime}}
+          Horario de Ingreso: {{shipment && (shipment.enterTime | date: 'dd/MM/yyyy hh:mm')}}
           <button class="btn btn-success" data-toggle="modal" data-target="#enterTimeModal"><i class="fas fa-edit">Editar</i></button>
         </li>
         <li class="list-group-item">
-          Horario de Salida: {{shipment && shipment.leaveTime}}
+          Horario de Salida: {{shipment && (shipment.leaveTime | date: 'dd/MM/yyyy hh:mm')}}
           <button class="btn btn-success" data-toggle="modal" data-target="#leaveTimeModal"><i class="fas fa-edit">Editar</i></button>
         </li>
       </ul>
@@ -57,7 +57,7 @@
           </div>
           <div class="modal-body">
             <label for="enterTime">Hora de ingreso:</label>
-            <input type="datetime-local" formControlName="enterTime" name="enterTime" class="form-control" id="enterTime" [value]="shipment.enterTime">
+            <input type="datetime-local" formControlName="enterTime" name="enterTime" class="form-control" id="enterTime" placeholder="{{editEnterTimeForm.enterTime}}">
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
