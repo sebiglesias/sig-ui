@@ -53,55 +53,42 @@ export class ViewShipmentComponent implements OnInit {
   }
 
   submitEnterTime() {
-    const shipment = this.editEnterTimeForm.value;
-    const orderById = this.orderService.getOrderById(shipment.order);
-    const truckById = this.truckService.getTruckById(shipment.truck);
-    const containerById = this.containerService.getContainerById(shipment.container);
-    orderById.subscribe(ord => {
-      truckById.subscribe(truck => {
-        containerById.subscribe(container => {
-          this.shipmentService.updateShipment(shipment, ord, truck, container)
-            .pipe(first())
-            .subscribe(
-              data => {
-                this.shipmentService.getShipmentById(this.shipment.id).subscribe(ship => this.shipment = ship);
-              },
-              error => {
-                alert(error);
-              });
+    this.shipment.enterTime = this.editLeaveTimeForm.value.enterTime;
+    this.shipmentService.updateShipment(this.shipment, this.shipment.order, this.shipment.truck, this.shipment.container)
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.shipmentService.getShipmentById(this.shipment.id).subscribe(ship => this.shipment = ship);
+        },
+        error => {
+          alert(error);
         });
-      });
-    });
   }
 
   submitLeaveTime() {
-    const shipment = this.editLeaveTimeForm.value;
-    const orderById = this.orderService.getOrderById(shipment.order);
-    const truckById = this.truckService.getTruckById(shipment.truck);
-    const containerById = this.containerService.getContainerById(shipment.container);
-    orderById.subscribe(ord => {
-      truckById.subscribe(truck => {
-        containerById.subscribe(container => {
-          this.shipmentService.updateShipment(shipment, ord, truck, container)
-            .pipe(first())
-            .subscribe(
-              data => {
-                this.shipmentService.getShipmentById(this.shipment.id).subscribe(ship => this.shipment = ship);
-              },
-              error => {
-                alert(error);
-              });
+    this.shipment.leaveTime = this.editLeaveTimeForm.value.leaveTime;
+    this.shipmentService.updateShipment(this.shipment, this.shipment.order, this.shipment.truck, this.shipment.container)
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.shipmentService.getShipmentById(this.shipment.id).subscribe(ship => this.shipment = ship);
+        },
+        error => {
+          alert(error);
         });
-      });
-    });
   }
 
   submitAddFine() {
     const value = this.addFineForm.value;
     this.fineService.createFine(value).subscribe( fine => {
       this.shipmentService.getShipmentById(this.shipment.id).subscribe( ship => {
-        ship.fine.concat(fine);
-        this.shipmentService.updateShipment(ship, ship.order, ship.truck, ship.container).subscribe( s => this.shipment = s);
+        if (ship.fines) {
+          ship.fines = ship.fines.concat(fine);
+        } else {
+          ship.fines = [fine];
+        }
+        this.shipmentService.updateShipment(ship, ship.order, ship.truck, ship.container)
+          .subscribe(x => window.location.reload());
       });
     });
   }

@@ -13,6 +13,7 @@ export class FineService {
   }
 
   createFine(fine: Fine): Observable<Fine> {
+    fine.id = null;
     return this.http.put<Fine>(this.fineUrl, fine);
   }
 
@@ -28,8 +29,8 @@ export class FineService {
     return this.http.post<Fine>(this.fineUrl, fineToUpdate);
   }
 
-  deleteFine(fineToDelete: String) {
-    this.http.delete<Fine>(this.fineUrl + '/' + fineToDelete);
+  deleteFine(fineToDelete: String): Observable<Fine> {
+    return this.http.delete<Fine>(this.fineUrl + '/' + fineToDelete);
   }
 
 }

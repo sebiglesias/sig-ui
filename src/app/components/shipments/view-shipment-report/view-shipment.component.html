@@ -1,19 +1,23 @@
 <div class="modal-header">
-  <h2 class="jumbotron">Informe container: {{shipment.container.id}} con {{shipment.container.product.name}}</h2>
+  <h2 class="jumbotron" *ngIf="shipment">
+    Informe container:
+    {{ shipment && shipment.container && shipment.container.id}} con
+    {{shipment && shipment.container && shipment.container.product && shipment.container.product.name}}
+  </h2>
 </div>
 <div class="modal-body row">
   <div class="col-md-6">
-    <div class="card">
+    <div class="card" *ngIf="shipment">
       <div class="card-header">
         Horarios de entrada y salida
       </div>
       <ul class="list-group list-group-flush">
         <li class="list-group-item">
-          Horario de Ingreso: {{shipment.enterTime}}
+          Horario de Ingreso: {{shipment && shipment.enterTime}}
           <button class="btn btn-success" data-toggle="modal" data-target="#enterTimeModal"><i class="fas fa-edit">Editar</i></button>
         </li>
         <li class="list-group-item">
-          Horario de Salida: {{shipment.leaveTime}}
+          Horario de Salida: {{shipment && shipment.leaveTime}}
           <button class="btn btn-success" data-toggle="modal" data-target="#leaveTimeModal"><i class="fas fa-edit">Editar</i></button>
         </li>
       </ul>
@@ -21,7 +25,7 @@
   </div>
   <div class="col-md-6">
     <button class="btn btn-success" data-toggle="modal" data-target="#fineModal">Agregar multa</button>
-    <table class="table table-striped" *ngIf="shipment.fine">
+    <table class="table table-striped" *ngIf="shipment && shipment.fines">
       <thead>
       <tr>
         <th>Motivo de Multa</th>
@@ -30,9 +34,9 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let fine of shipment.fine">
-        <td>{{fine.reason}}</td>
-        <td>{{fine.amount}} {{fine.currency}}</td>
+      <tr *ngFor="let fine of shipment.fines">
+        <td>{{fine && fine.reason}}</td>
+        <td>{{fine && fine.amount}} {{fine && fine.currency}}</td>
         <td>
           <button class="btn btn-red" (click)="deleteFine(fine.id)"><i class="fas fa-trash"></i></button>
         </td>
@@ -41,7 +45,7 @@
     </table>
   </div>
   <!-- Edit enterTime modal -->
-  <div class="modal fade" id="enterTimeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="enterTimeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" *ngIf="shipment">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <form [formGroup]="editEnterTimeForm" (ngSubmit)="submitEnterTime()">
@@ -64,7 +68,7 @@
     </div>
   </div>
   <!-- Edit leaveTime modal -->
-  <div class="modal fade" id="leaveTimeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="leaveTimeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" *ngIf="shipment">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <form [formGroup]="editLeaveTimeForm" (ngSubmit)="submitLeaveTime()">
@@ -87,7 +91,7 @@
     </div>
   </div>
   <!-- Add fine modal -->
-  <div class="modal fade" id="fineModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="fineModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" *ngIf="shipment">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <form [formGroup]="addFineForm" (ngSubmit)="submitAddFine()">

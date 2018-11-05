@@ -13,8 +13,8 @@ export class Shipment {
   id: number;
   container: Container;
   truck: Truck;
-  enterTime: string;
-  leaveTime: string;
+  enterTime: number;
+  leaveTime: number;
   order: Order;
-  fine: Fine[];
+  fines: Fine[];
 }

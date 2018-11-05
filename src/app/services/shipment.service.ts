@@ -27,8 +27,8 @@ export class ShipmentService {
     shipment.order = null;
     shipment.truck = null;
     shipment.container = null;
-    shipment.enterTime = new Date(String(shipment.enterTime)).toISOString();
-    shipment.leaveTime = new Date(String(shipment.leaveTime)).toISOString();
+    shipment.enterTime = new Date(shipment.enterTime).getDate();
+    shipment.leaveTime = new Date(shipment.leaveTime).getDate();
     this.http.put<Shipment>(this.shipmentUrl, shipment).subscribe( ship => {
       this.updateShipment(ship, order, truck, container).subscribe(x => this.router.navigate(['list-shipment']));
     });
@@ -46,27 +46,20 @@ export class ShipmentService {
     shipmentToUpdate.order = order;
     shipmentToUpdate.truck = truck;
     shipmentToUpdate.container = container;
-    shipmentToUpdate.enterTime = new Date(String(shipmentToUpdate.enterTime)).toISOString();
-    shipmentToUpdate.leaveTime = new Date(String(shipmentToUpdate.leaveTime)).toISOString();
+    shipmentToUpdate.enterTime = new Date(shipmentToUpdate.enterTime).getMilliseconds();
+    shipmentToUpdate.leaveTime = new Date(shipmentToUpdate.leaveTime).getMilliseconds();
     return this.http.post<Shipment>(this.shipmentUrl, shipmentToUpdate);
   }
 
   deleteFine(fineId: number, shipmentId: number) {
     this.getShipmentById(shipmentId).subscribe( shipment => {
-      shipment.fine = shipment.fine.filter(fine => String(fine.id) !== String(fineId));
+      if (shipment.fines) {
+        shipment.fines = shipment.fines.filter(fine => String(fine.id) !== String(fineId));
+      }
       this.updateShipment(shipment, shipment.order, shipment.truck, shipment.container).subscribe( ship => {
-        this.fineService.deleteFine(String(fineId));
+        this.fineService.deleteFine(String(fineId))
+          .subscribe(x => this.router.navigate(['view-shipment/' + String(shipmentId)]));
       });
     });
   }
-}
-
-class ShipmentToUpdate {
-  id: number;
-  container: number;
-  truck: number;
-  enterTime: DateTimeFormat;
-  leaveTime: DateTimeFormat;
-  order: number;
-  fine: number[];
 }
