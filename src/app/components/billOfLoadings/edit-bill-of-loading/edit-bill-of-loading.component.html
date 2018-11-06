@@ -14,7 +14,7 @@
 
     <div class="form-group">
       <label for="date">Fecha:</label>
-      <input type="date" formControlName="date" class="form-control" placeholder="{{editForm.date}}" name="date" id="date">
+      <input type="date" formControlName="date" class="form-control" placeholder="{{editForm['date']}}" name="date" id="date">
       <div *ngFor="let validation of validationMessages.date">
         <div class="alert alert-danger" *ngIf="editForm.get('date').hasError(validation.type) && (editForm.get('date').dirty || editForm.get('date').touched)">{{validation.message}}</div>
       </div>

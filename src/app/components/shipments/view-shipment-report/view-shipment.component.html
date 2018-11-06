@@ -57,7 +57,7 @@
           </div>
           <div class="modal-body">
             <label for="enterTime">Hora de ingreso:</label>
-            <input type="datetime-local" formControlName="enterTime" name="enterTime" class="form-control" id="enterTime" placeholder="{{editEnterTimeForm.enterTime}}">
+            <input type="datetime-local" formControlName="enterTime" name="enterTime" class="form-control" id="enterTime" placeholder="{{editEnterTimeForm['enterTime']}}">
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -80,7 +80,7 @@
           </div>
           <div class="modal-body">
             <label for="leaveTime">Hora de ingreso:</label>
-            <input type="datetime-local" formControlName="leaveTime" name="leaveTime" class="form-control" id="leaveTime" placeholder="{{editLeaveTimeForm.leaveTime}}">
+            <input type="datetime-local" formControlName="leaveTime" name="leaveTime" class="form-control" id="leaveTime" placeholder="{{editLeaveTimeForm['leaveTime']}}">
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
