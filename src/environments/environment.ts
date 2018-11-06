@@ -7,4 +7,7 @@ export const environment = {
   production: false
 };
 
-export const dataBaseUrl = 'http://localhost:9000/api';
+// For local use
+// export const dataBaseUrl = 'http://localhost:9000/api';
+
+export const dataBaseUrl = 'https://sig.cerbix.net/api';
