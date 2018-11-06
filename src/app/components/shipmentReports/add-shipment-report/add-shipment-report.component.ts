@@ -31,7 +31,7 @@ export class AddShipmentReportComponent implements OnInit {
 
     this.addForm = this.formBuilder.group({
       id: [],
-      date: ['', Validators.required],
+      introduced: ['', Validators.required],
       terminal: ['', Validators.required],
       port: ['', Validators.required],
       navyCompany: ['', Validators.required],
@@ -48,6 +48,7 @@ export class AddShipmentReportComponent implements OnInit {
     const shipmentReport = this.addForm.value;
     this.companyService.getCompanyById(shipmentReport.navyCompany).subscribe(ord => {
       this.companyService.getCompanyById(shipmentReport.provider).subscribe( truck => {
+        shipmentReport.introduced = new Date(shipmentReport.introduced).getTime();
           this.shipmentReportService.createShipmentReport(shipmentReport, ord, truck);
         }
       );

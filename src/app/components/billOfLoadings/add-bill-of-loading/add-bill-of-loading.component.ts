@@ -46,6 +46,7 @@ export class AddBillOfLoadingComponent implements OnInit {
     const companyById = this.companyService.getCompanyById(billOfLoading.company);
     containerById.subscribe(cont => {
       companyById.subscribe( comp => {
+        billOfLoading.date = new Date(billOfLoading.date).getTime();
         this.billOfLoadingService.createBillOfLoading(billOfLoading, cont, comp);
       });
     });

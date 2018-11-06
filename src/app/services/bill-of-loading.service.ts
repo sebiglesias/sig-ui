@@ -33,6 +33,8 @@ export class BillOfLoadingService {
   updateBillOfLoading(bofToUpdate: BillOfLoading, container: Container, company: Company): Observable<Boolean> {
     bofToUpdate.container = container;
     bofToUpdate.company = company;
+    const d = new Date(bofToUpdate.date);
+    bofToUpdate.date = d.getTime();
     return this.http.post<Boolean>(this.billOfLoadingUrl, bofToUpdate);
   }
 }

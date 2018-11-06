@@ -34,13 +34,15 @@ export class ShipmentReportService {
   updateShipmentReport(shipmentToUpdate: ShipmentReport, navyCompany: Company, provider: Company): Observable<ShipmentReport> {
     shipmentToUpdate.navyCompany = navyCompany;
     shipmentToUpdate.provider = provider;
+    const d = new Date(shipmentToUpdate.introduced);
+    shipmentToUpdate.introduced = d.getTime();
     return this.http.post<ShipmentReport>(this.shipmentReportUrl, shipmentToUpdate);
   }
 }
 
 class ShipmentReportToUpdate {
   id: number;
-  date: Date;
+  introduced: number;
   terminal: string;
   port: string;
   navyCompany: number;

@@ -55,6 +55,8 @@ export class AddShipmentComponent implements OnInit {
     orderById.subscribe(ord => {
       truckById.subscribe( truck => {
           containerById.subscribe( container => {
+            shipment.enterTime = new Date(shipment.enterTime).getTime();
+            shipment.leaveTime = new Date(shipment.leaveTime).getTime();
             this.shipmentService.createShipment(shipment, ord, truck, container);
           });
         }

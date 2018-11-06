@@ -34,6 +34,8 @@ export class OrderService {
   updateOrder(orderToUpdate: Order, product: Product, company: Company): Observable<Order> {
     orderToUpdate.product = product;
     orderToUpdate.company = company;
+    const d = new Date(orderToUpdate.date);
+    orderToUpdate.date = d.getTime();
     return this.http.post<Order>(this.orderUrl, orderToUpdate);
   }
 }

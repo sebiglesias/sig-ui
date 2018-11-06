@@ -23,11 +23,11 @@ export class ShipmentService {
               private fineService: FineService) {
   }
 
-  createShipment(shipment: Shipment, order: Order, truck: Truck, container: Container){
+  createShipment(shipment: Shipment, order: Order, truck: Truck, container: Container) {
     shipment.order = null;
     shipment.truck = null;
     shipment.container = null;
-    this.http.put<Shipment>(this.shipmentUrl, shipment).subscribe( ship => {
+    this.http.put<Shipment>(this.shipmentUrl, shipment).subscribe(ship => {
       this.updateShipment(ship, order, truck, container).subscribe(x => this.router.navigate(['list-shipment']));
     });
   }
@@ -44,17 +44,19 @@ export class ShipmentService {
     shipmentToUpdate.order = order;
     shipmentToUpdate.truck = truck;
     shipmentToUpdate.container = container;
-    shipmentToUpdate.enterTime = new Date(shipmentToUpdate.enterTime).getMilliseconds();
-    shipmentToUpdate.leaveTime = new Date(shipmentToUpdate.leaveTime).getMilliseconds();
+    const eT = new Date(shipmentToUpdate.enterTime);
+    shipmentToUpdate.enterTime = eT.getTime();
+    const lT = new Date(shipmentToUpdate.leaveTime);
+    shipmentToUpdate.leaveTime = lT.getTime();
     return this.http.post<Shipment>(this.shipmentUrl, shipmentToUpdate);
   }
 
   deleteFine(fineId: number, shipmentId: number) {
-    this.getShipmentById(shipmentId).subscribe( shipment => {
+    this.getShipmentById(shipmentId).subscribe(shipment => {
       if (shipment.fines) {
         shipment.fines = shipment.fines.filter(fine => String(fine.id) !== String(fineId));
       }
-      this.updateShipment(shipment, shipment.order, shipment.truck, shipment.container).subscribe( ship => {
+      this.updateShipment(shipment, shipment.order, shipment.truck, shipment.container).subscribe(ship => {
         this.fineService.deleteFine(String(fineId))
           .subscribe(x => this.router.navigate(['view-shipment/' + String(shipmentId)]));
       });

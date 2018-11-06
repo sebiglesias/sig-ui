@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ContainerService} from '../../../services/container.service';
 import {Router} from '@angular/router';
 import {ProductService} from '../../../services/product.service';
@@ -27,7 +27,7 @@ export class AddContainerComponent implements OnInit {
     this.productService.getAllProducts().subscribe( prods => this.products = prods);
 
     this.addForm = this.formBuilder.group({
-      id: ['', [Validators.required, Validators]],
+      id: ['', [Validators.required, ContainerValidator.regex(/[A-Z]{4}[0-9]{7}/)]],
       product: ['', Validators.required],
       footSize: ['', Validators.required],
     });
@@ -43,5 +43,13 @@ export class AddContainerComponent implements OnInit {
 
   goToProductView() {
     this.router.navigate(['add-product']);
+  }
+}
+
+export class ContainerValidator {
+  static regex(pattern: RegExp): Function {
+    return (control: FormControl): {[key: string]: any} => {
+      return control.value.match(pattern) ? null : {pattern: true};
+    };
   }
 }

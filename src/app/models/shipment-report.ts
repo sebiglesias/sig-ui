@@ -2,7 +2,7 @@ import {Company} from './company';
 
 export class ShipmentReport {
   id: number;
-  introduced: Date;
+  introduced: number;
   terminal: string;
   port: string;
   navyCompany: Company;

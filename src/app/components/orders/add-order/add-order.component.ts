@@ -46,6 +46,7 @@ export class AddOrderComponent implements OnInit {
     const order = this.addForm.value;
     this.productService.getProductById(order.product).subscribe(product => {
       this.companyService.getCompanyById(order.company).subscribe(company => {
+        order.date = new Date(order.date).getTime();
         this.orderService.createOrder(order, product, company);
       });
     });

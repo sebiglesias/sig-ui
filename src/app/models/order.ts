@@ -5,6 +5,6 @@ import {Product} from './product';
 export class Order {
   id: number;
   product: Product;
-  date: Date;
+  date: number;
   company: Company;
 }

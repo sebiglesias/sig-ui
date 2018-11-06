@@ -11,6 +11,7 @@ import {BillOfLoadingService} from '../../../services/bill-of-loading.service';
 import {validationMessages} from '../../../models/validationMessages';
 import {DateFormatter} from '@angular/common/src/pipes/deprecated/intl';
 import {LOCALE_DATA} from '@angular/common/src/i18n/locale_data';
+import {DateService} from '../../../date.service';
 
 @Component({
   selector: 'app-edit-bill-of-loading',
@@ -28,6 +29,7 @@ export class EditBillOfLoadingComponent implements OnInit {
               private router: Router,
               private containerService: ContainerService,
               private companyService: CompanyService,
+              private dateService: DateService,
               private billOfLoadingService: BillOfLoadingService) { }
 
   ngOnInit() {
@@ -48,10 +50,9 @@ export class EditBillOfLoadingComponent implements OnInit {
     });
     this.billOfLoadingService.getBillOfLoadingById(billOfLoadingId)
       .subscribe( data => {
-        const objDate = new Date(data.date);
         const truckData = {
           id: data.id,
-          date: objDate.getFullYear() + '-' + objDate.getMonth() + '-' + String(objDate.getDate() + 1),
+          date: this.dateService.getDateToString(new Date(data.date)),
           container: data.container.id,
           company: data.company.id
         };

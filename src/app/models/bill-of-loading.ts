@@ -5,7 +5,7 @@ import {Order} from './order';
 export class BillOfLoading {
   id: number;
   container: Container;
-  date: Date;
+  date: number;
   company: Company;
   order: Order;
 }

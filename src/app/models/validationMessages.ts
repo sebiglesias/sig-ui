@@ -10,7 +10,8 @@ export const validationMessages = {
     { type: 'maxlength', message: 'El tipo del producto puede tener un maximo de 20 caracteres.' }
   ],
   containerId: [
-    { type: 'required', message: 'El identificador del contenedor es un campo obligatorio.' }
+    { type: 'required', message: 'El identificador del contenedor es un campo obligatorio.' },
+    { type: 'pattern', message: 'El identificador no es un numero de contenedor valido ej BICU1234565' }
   ],
   standard: [
     { type: 'required', message: 'Este campo es obligatorio.' }

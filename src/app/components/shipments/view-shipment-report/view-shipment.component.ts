@@ -40,11 +40,11 @@ export class ViewShipmentComponent implements OnInit {
       this.editEnterTimeForm = this.formBuilder.group({
         enterTime: ['', Validators.required]
       });
-      this.editEnterTimeForm.setValue({ enterTime: this.dateService.getDateToISOString(new Date(this.shipment.enterTime))});
+      this.editEnterTimeForm.setValue({ enterTime: this.dateService.getDateToISOString(new Date(sR.enterTime))});
       this.editLeaveTimeForm = this.formBuilder.group({
         leaveTime: ['', Validators.required]
       });
-      this.editLeaveTimeForm.setValue({ leaveTime: this.dateService.getDateToISOString(new Date(this.shipment.leaveTime))});
+      this.editLeaveTimeForm.setValue({ leaveTime: this.dateService.getDateToISOString(new Date(sR.leaveTime))});
       this.addFineForm = this.formBuilder.group({
         id: ['', Validators.required],
         reason: ['', Validators.required],
@@ -59,7 +59,7 @@ export class ViewShipmentComponent implements OnInit {
   }
 
   submitEnterTime() {
-    this.shipment.enterTime = this.editLeaveTimeForm.value.enterTime;
+    this.shipment.enterTime = new Date(this.editEnterTimeForm.value.enterTime).getTime();
     this.shipmentService.updateShipment(this.shipment, this.shipment.order, this.shipment.truck, this.shipment.container)
       .pipe(first())
       .subscribe(
@@ -72,7 +72,7 @@ export class ViewShipmentComponent implements OnInit {
   }
 
   submitLeaveTime() {
-    this.shipment.leaveTime = this.editLeaveTimeForm.value.leaveTime;
+    this.shipment.leaveTime = new Date(this.editLeaveTimeForm.value.leaveTime).getTime();
     this.shipmentService.updateShipment(this.shipment, this.shipment.order, this.shipment.truck, this.shipment.container)
       .pipe(first())
       .subscribe(
