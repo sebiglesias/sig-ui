@@ -1,0 +1,22 @@
+<button mat-raised-button color="primary">
+  Generar un nuevo pedido
+</button>
+<mat-card class="my-card">
+  <mat-card-title>Pedido #45678 - Fecha: 11/10/2018</mat-card-title>
+  <mat-card-content>
+    <mat-horizontal-stepper>
+      <ng-template matStepperIcon="edit">
+        <mat-icon>done</mat-icon>
+      </ng-template>
+      <mat-step state="order">
+        <ng-template matStepLabel>Asignar Orden de compra</ng-template>
+      </mat-step>
+      <mat-step state="reception">
+        <ng-template matStepLabel>Organizar Recepcion</ng-template>
+      </mat-step>
+      <mat-step state="container">
+        <ng-template matStepLabel>Containers</ng-template>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </mat-card-content>
+</mat-card>

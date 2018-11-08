@@ -1,12 +1,10 @@
 export class Product {
   id: number;
   name: string;
-  productType: ProductType;
 }
 
-export class ProductType {
+export class ProductQuantity {
   id: number;
-  name: string;
-  color: string;
-  material: string;
+  product: Product;
+  quantityInTons: number;
 }
