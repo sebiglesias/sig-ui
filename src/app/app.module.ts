@@ -25,7 +25,6 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatDialogModule} from '@angular/material/dialog';
 import { ProductDialogComponent } from './components/product-dialog/product-dialog.component';
-import {ArchwizardModule} from 'angular-archwizard';
 import { CreatePurchaseDialogComponent } from './components/create-purchase-dialog/create-purchase-dialog.component';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import {ProductService} from 'app/services/product.service';
@@ -74,7 +73,6 @@ const routes: Routes = [
     MatFormFieldModule,
     MatInputModule,
     MatDialogModule,
-    ArchwizardModule,
     MatSnackBarModule,
   ],
   providers: [
