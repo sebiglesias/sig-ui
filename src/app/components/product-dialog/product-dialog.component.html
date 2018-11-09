@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>Editar producto</h2>
+<mat-dialog-content>
+  <form [formGroup]="editForm" (ngSubmit)="edit()">
+    <mat-form-field>
+      <input class="input-full-width" formControlName="name" name="name" matInput maxlength="50" placeholder="Nombre del producto" />
+      <mat-hint *ngIf="editForm.value['name']"> {{editForm.value['name'].length}} / 50</mat-hint>
+    </mat-form-field>
+    <button class="mat-raised-button" type="submit">Editar Producto</button>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button class="mat-raised-button" (click)="close()">Cerrar</button>
+</mat-dialog-actions>

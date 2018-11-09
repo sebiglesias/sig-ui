@@ -1,22 +1,22 @@
-<button mat-raised-button color="primary">
+<button mat-raised-button color="primary" (click)="createNewProduct()">
   Generar un nuevo pedido
 </button>
-<mat-card class="my-card">
-  <mat-card-title>Pedido #45678 - Fecha: 11/10/2018</mat-card-title>
+<mat-card class="my-card" *ngFor="let purchase of purchaseOrders">
+  <mat-card-title mat-line>
+    Pedido #{{purchase.id}} - Fecha: {{purchase.date}}
+    <button mat-flat-button color="accent">Ver detalle de pedido</button>
+  </mat-card-title>
   <mat-card-content>
-    <mat-horizontal-stepper>
-      <ng-template matStepperIcon="edit">
-        <mat-icon>done</mat-icon>
-      </ng-template>
-      <mat-step state="order">
-        <ng-template matStepLabel>Asignar Orden de compra</ng-template>
-      </mat-step>
-      <mat-step state="reception">
-        <ng-template matStepLabel>Organizar Recepcion</ng-template>
-      </mat-step>
-      <mat-step state="container">
-        <ng-template matStepLabel>Containers</ng-template>
-      </mat-step>
-    </mat-horizontal-stepper>
+    <app-purchase-progress-bar [step]="getStepNumber(purchase)"></app-purchase-progress-bar>
+    <!--<aw-wizard navBarLayout="large-filled-symbols" [disableNavigationBar]="true" navigationMode="semi-strict">-->
+      <!--<aw-wizard-step stepTitle="Orden de Compra" stepId="1" [navigationSymbol]="{ symbol: '1'}"></aw-wizard-step>-->
+      <!--<aw-wizard-step stepTitle="Recepción en Puerto" stepId="2" [navigationSymbol]="{ symbol: '2'}"></aw-wizard-step>-->
+      <!--<aw-wizard-step stepTitle="Recepción en Planta" stepId="3" [navigationSymbol]="{ symbol: '3'}"></aw-wizard-step>-->
+      <!--<aw-wizard-step stepTitle="Descarga Contenedor" stepId="4" [navigationSymbol]="{ symbol: '4'}"></aw-wizard-step>-->
+      <!--<aw-wizard-step stepTitle="Descarga Bloque" stepId="5" [navigationSymbol]="{ symbol: '5'}"></aw-wizard-step>-->
+      <!--<aw-wizard-step stepTitle="Inspección" stepId="6" [navigationSymbol]="{ symbol: '6'}"></aw-wizard-step>-->
+      <!--<aw-wizard-step stepTitle="Devolución Contenedor" stepId="7" [navigationSymbol]="{ symbol: '7'}"></aw-wizard-step>-->
+      <!--<aw-wizard-completion-step stepTitle="Finalizado" stepId="8" [navigationSymbol]="{ symbol: '8'}"></aw-wizard-completion-step>-->
+    <!--</aw-wizard>-->
   </mat-card-content>
 </mat-card>

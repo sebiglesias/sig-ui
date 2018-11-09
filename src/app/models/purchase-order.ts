@@ -1,11 +1,16 @@
 import {Delivery} from './delivery';
 import {ProviderCompany} from './company';
-import {ProductQuantity} from './product';
+import {Product} from './product';
 
 export class PurchaseOrder {
   id: string;
-  products: ProductQuantity[];
+  product: Product;
   provider: ProviderCompany;
-  deliveries: Delivery[];
+  delivery: Delivery;
   date: number;
+  quantityInTons: number;
+
+  constructor(id: string) {
+    this.id = id;
+  }
 }

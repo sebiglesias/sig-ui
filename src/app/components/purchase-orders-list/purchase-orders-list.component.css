@@ -1,3 +1,7 @@
 .my-card {
   margin-top: 20px;
 }
+
+.done {
+  background: greenyellow !important;
+}

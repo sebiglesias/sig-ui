@@ -1,0 +1,12 @@
+<div class="container-fluid">
+  <ul class="list-unstyled multi-steps">
+    <li [ngClass]="{'is-active' : step===0}">Orden de Compra</li>
+    <li [ngClass]="{'is-active' : step===1}">Recepción en Puerto</li>
+    <li [ngClass]="{'is-active' : step===2}">Recepción en Planta</li>
+    <li [ngClass]="{'is-active' : step===3}">Descarga Contenedor</li>
+    <li [ngClass]="{'is-active' : step===4}">Descarga Bloque</li>
+    <li [ngClass]="{'is-active' : step===5}">Inspección</li>
+    <li [ngClass]="{'is-active' : step===6}">Devolución Contenedor</li>
+    <li [ngClass]="{'is-active' : step===7}">Finalizado</li>
+  </ul>
+</div>

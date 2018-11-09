@@ -1,0 +1,38 @@
+<mat-card>
+  <mat-card-title>Agregar un nuevo Producto</mat-card-title>
+  <mat-card-content>
+    <form class="my-form" [formGroup]="addForm" (ngSubmit)="createProduct()">
+      <mat-form-field class="input-full-width">
+        <input name="name" maxlength="50" placeholder="Nombre del nuevo producto" formControlName="name" matInput/>
+        <mat-hint align="end" *ngIf="addForm.value['name']">{{addForm.value['name'].length}} / 50</mat-hint>
+      </mat-form-field>
+      <button type="submit" mat-button color="primary" [disabled]="!addForm.valid">Agregar Producto</button>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+<mat-card class="my-card">
+  <mat-card-title>Lista de productos existentes</mat-card-title>
+  <mat-card-subtitle>Productos ya creados</mat-card-subtitle>
+  <mat-card-content>
+    <mat-table #table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Numero de identificacion interno </mat-header-cell>
+        <mat-cell *matCellDef="let prod">{{prod.id}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre del producto </mat-header-cell>
+        <mat-cell *matCellDef="let prod">{{prod.name}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="button">
+        <mat-header-cell *matHeaderCellDef> Opciones </mat-header-cell>
+        <mat-cell *matCellDef="let prod"><button mat-button color="secondary" (click)="openEditDialog(prod)">Editar</button></mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="['id', 'name', 'button']"></mat-header-row>
+      <mat-row *matRowDef="let myRowData; columns:['id', 'name', 'button']"></mat-row>
+    </mat-table>
+  </mat-card-content>
+</mat-card>

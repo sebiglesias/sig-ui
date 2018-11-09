@@ -5,3 +5,11 @@ table {
   margin-top: 20px;
   width: 100%;
 }
+
+body {
+  margin: 0 !important;
+}
+
+.my-card {
+  margin-top: 20px;
+}
