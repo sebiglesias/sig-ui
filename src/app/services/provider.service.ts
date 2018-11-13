@@ -2,39 +2,30 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import {ProviderCompany} from '../models/company';
+import {environment} from '../../environments/environment';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class ProviderService {
 
-  providers: ProviderCompany[];
+  providerCompany = environment.dataBaseUrl + '/Company';
 
-  constructor() {
-    this.providers = JSON.parse(localStorage.getItem('providers'));
-  }
+  constructor(private http: HttpClient) {}
 
-  createNewProvider(name: string): Observable<boolean> {
-    if (this.providers === undefined || this.providers == null || this.providers.length === 0) {
-      this.providers = [new ProviderCompany(0, name)];
-    } else {
-      this.providers = this.providers.concat(new ProviderCompany(this.providers.length, name));
-    }
-    localStorage.setItem('providers', JSON.stringify(this.providers));
-    return Observable.of(true);
+  createNewProvider(name: string): Observable<ProviderCompany> {
+    return this.http.put<ProviderCompany>(this.providerCompany, {name: name});
   }
 
   editProvider(id: number, newName: string): Observable<boolean> {
-    this.providers = this.providers.map( prod => {
-      if (prod.id === id) {
-        prod.name = newName;
-      }
-      return prod;
-    });
-    localStorage.setItem('providers', JSON.stringify(this.providers));
-    return Observable.of(true);
+    return this.http.post<boolean>(this.providerCompany, {id: id, name: newName});
   }
 
   getProviders(): Observable<ProviderCompany[]> {
-    return Observable.of(this.providers);
+    return this.http.get<ProviderCompany[]>(this.providerCompany);
+  }
+
+  getProviderCompanyById(id: number): Observable<ProviderCompany> {
+    return this.http.get<ProviderCompany>(this.providerCompany + '/' + String(id));
   }
 
 }

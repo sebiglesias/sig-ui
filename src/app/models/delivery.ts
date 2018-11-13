@@ -11,4 +11,8 @@ export class Delivery {
   damageFine: number;
   returnDate: number;
   lateReturnFine: number;
+
+  constructor(id: number) {
+    this.id = id;
+  }
 }

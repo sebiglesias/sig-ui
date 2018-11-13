@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {PurchaseOrder} from '../../models/purchase-order';
+import {ActivatedRoute} from '@angular/router';
+import {PurchaseOrderService} from '../../services/purchase-order.service';
+import {StepperService} from '../../services/stepper.service';
 
 @Component({
   selector: 'app-purchase-view',
@@ -7,9 +11,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PurchaseViewComponent implements OnInit {
 
-  constructor() { }
+  purchase: PurchaseOrder;
+  info: boolean;
+  constructor(private route: ActivatedRoute, private purchaseService: PurchaseOrderService, private stepper: StepperService) { }
 
-  ngOnInit() {
+  getStepNumber(purchaseOrder: PurchaseOrder): number {
+    return this.stepper.getStepNumber(purchaseOrder);
   }
 
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.purchaseService.getPurchaseById(params['id']).subscribe( p => this.purchase = p);
+    });
+    this.info = true;
+  }
+
+  changeInfo() {
+    this.info = !this.info;
+  }
 }

@@ -74,7 +74,7 @@ export class ProviderComponent implements OnInit, AfterViewInit {
     this.router.navigateByUrl(currentUrl)
       .then(() => {
         this.router.navigated = false;
-        this.router.navigate([this.router.url]).then(y => this.alertRef.open('Se creó el proveedor'));
+        this.router.navigate([this.router.url]).then(y => this.alertRef.open('Se creó el proveedor', 'Cerrar'));
       });
   }
 }

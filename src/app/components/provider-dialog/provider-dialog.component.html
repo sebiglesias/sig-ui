@@ -1,13 +1,10 @@
 <h2 mat-dialog-title>Editar proveedor</h2>
 <mat-dialog-content>
-  <form [formGroup]="editForm" (ngSubmit)="edit()">
+  <form [formGroup]="editForm" (ngSubmit)="edit()" class="my-form">
     <mat-form-field>
       <input class="input-full-width" formControlName="name" name="name" matInput maxlength="50" placeholder="Nombre del proveedor" />
       <mat-hint *ngIf="editForm.value['name']"> {{editForm.value['name'].length}} / 50</mat-hint>
     </mat-form-field>
-    <button class="mat-raised-button" type="submit">Editar Proveedor</button>
+    <button mat-raised-button type="submit" color="accent">Editar Proveedor</button>
   </form>
 </mat-dialog-content>
-<mat-dialog-actions>
-  <button class="mat-raised-button" (click)="close()">Cerrar</button>
-</mat-dialog-actions>

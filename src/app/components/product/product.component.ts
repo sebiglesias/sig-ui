@@ -73,7 +73,7 @@ export class ProductComponent implements OnInit, AfterViewInit {
     this.router.navigateByUrl(currentUrl)
       .then(() => {
         this.router.navigated = false;
-        this.router.navigate([this.router.url]).then(y => this.alertRef.open('Se creó el producto'));
+        this.router.navigate([this.router.url]).then(y => this.alertRef.open('Se creó el producto', 'Cerrar'));
       });
   }
 }

@@ -1,3 +1,13 @@
 <mat-card>
+  <mat-card-title *ngIf="purchase"> Pedido #{{purchase.id}}</mat-card-title>
+  <mat-card-content>
+    <app-purchase-progress-bar [step]="getStepNumber(purchase)" mat-line></app-purchase-progress-bar>
 
+    <button mat-raised-button color="primary" class="my-view-button" *ngIf="info && getStepNumber(purchase) < 7" mat-line (click)="changeInfo()">Continuar con pedido</button>
+    <button mat-raised-button color="primary" class="my-view-button" *ngIf="!info" mat-line (click)="changeInfo()">Volver a resumen de pedido</button>
+
+    <app-purchase-forms [purchase]="purchase" *ngIf="!info && getStepNumber(purchase) < 7"></app-purchase-forms>
+
+    <app-purchase-info [purchase]="purchase" *ngIf="info" mat-line></app-purchase-info>
+  </mat-card-content>
 </mat-card>

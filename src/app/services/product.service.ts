@@ -2,39 +2,31 @@ import {Injectable} from '@angular/core';
 import {Product} from '../models/product';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
+import {environment} from '../../environments/environment';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class ProductService {
 
-  products: Product[];
+  productUrl = environment.dataBaseUrl + '/Product';
 
-  constructor() {
-    this.products = JSON.parse(localStorage.getItem('products'));
+  constructor(private http: HttpClient) {
   }
 
-  createNewProduct(name: string): Observable<boolean> {
-    if (this.products === undefined || this.products == null || this.products.length === 0) {
-      this.products = [new Product(0, name)];
-    } else {
-      this.products = this.products.concat(new Product(this.products.length, name));
-    }
-    localStorage.setItem('products', JSON.stringify(this.products));
-    return Observable.of(true);
+  createNewProduct(name: string): Observable<Product> {
+    return this.http.put<Product>(this.productUrl, {name: name});
   }
 
   editProduct(id: number, newName: string): Observable<boolean> {
-    this.products = this.products.map( prod => {
-      if (prod.id === id) {
-        prod.name = newName;
-      }
-      return prod;
-    });
-    localStorage.setItem('products', JSON.stringify(this.products));
-    return Observable.of(true);
+    return this.http.post<boolean>(this.productUrl, {id: id, name: newName});
   }
 
   getProducts(): Observable<Product[]> {
-    return Observable.of(this.products);
+    return this.http.get<Product[]>(this.productUrl);
+  }
+
+  getProductById(id: number): Observable<Product> {
+    return this.http.get<Product>(this.productUrl + '/' + String(id));
   }
 
 }

@@ -35,6 +35,7 @@ export class ProviderDialogComponent implements OnInit {
   edit() {
     if (this.editForm.valid) {
       this.providerService.editProvider(this.editForm.value.id, this.editForm.value.name).subscribe(x => {
+        this.close();
         this.onRefresh();
       });
     }
@@ -50,7 +51,7 @@ export class ProviderDialogComponent implements OnInit {
     this.router.navigateByUrl(currentUrl)
       .then(() => {
         this.router.navigated = false;
-        this.router.navigate([this.router.url]).then(y => this.alertRef.open('Se editó el proveedor'));
+        this.router.navigate([this.router.url]).then(y => this.alertRef.open('Se editó el proveedor', 'Cerrar'));
       });
   }
 }

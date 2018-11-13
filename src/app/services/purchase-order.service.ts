@@ -1,28 +1,29 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {PurchaseOrder} from '../models/purchase-order';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
+import {environment} from '../../environments/environment';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class PurchaseOrderService {
 
-  purchaseOrders: PurchaseOrder[] = [];
-  constructor() {
-    this.purchaseOrders = JSON.parse(localStorage.getItem('purchaseOrders'));
-  }
+  purchaseUrl = environment.dataBaseUrl + '/Order';
+  constructor(private http: HttpClient) {}
 
-  createNewPurchase(): Observable<boolean> {
-    const po = new PurchaseOrder(Math.random().toString());
-    if (this.purchaseOrders === undefined || this.purchaseOrders === null || this.purchaseOrders.length === 0) {
-      this.purchaseOrders = [po];
-    } else {
-      this.purchaseOrders = this.purchaseOrders.concat(po);
-    }
-    localStorage.setItem('purchaseOrders', JSON.stringify(this.purchaseOrders));
-    return Observable.of(true);
+  createNewPurchase(): Observable<PurchaseOrder> {
+    return this.http.put<PurchaseOrder>(this.purchaseUrl, {});
   }
 
   getPurchases(): Observable<PurchaseOrder[]> {
-    return Observable.of(this.purchaseOrders);
+    return this.http.get<PurchaseOrder[]>(this.purchaseUrl);
+  }
+
+  getPurchaseById(purchaseId: string): Observable<PurchaseOrder> {
+    return this.http.get<PurchaseOrder>(this.purchaseUrl + '/' + purchaseId);
+  }
+
+  updatePurchase(purchaseToUpdate: PurchaseOrder): Observable<boolean> {
+    return this.http.post<boolean>(this.purchaseUrl, purchaseToUpdate);
   }
 }

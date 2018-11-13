@@ -18,7 +18,7 @@
   text-align: center;
   display: table-cell;
   position: relative;
-  color: tomato;
+  color: #0cee48;
 }
 .multi-steps > li:before {
   content: "";
@@ -28,7 +28,7 @@
   content: "✓";
   display: block;
   margin: 0 auto 4px;
-  background-color: #fff;
+  background-color: rgba(21, 255, 77, 0.37);
   width: 36px;
   height: 36px;
   line-height: 32px;
@@ -36,14 +36,14 @@
   font-weight: bold;
   border-width: 2px;
   border-style: solid;
-  border-color: tomato;
+  border-color: #0cee48;
   border-radius: 50%;
 }
 .multi-steps > li:after {
   content: "";
   height: 2px;
   width: 100%;
-  background-color: tomato;
+  background-color: #15ff4d;
   position: absolute;
   top: 16px;
   left: 50%;
@@ -54,7 +54,7 @@
 }
 .multi-steps > li.is-active:before {
   background-color: #fff;
-  border-color: tomato;
+  border-color: #0cee48;
 }
 .multi-steps > li.is-active ~ li {
   color: #808080;

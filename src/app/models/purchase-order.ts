@@ -14,3 +14,10 @@ export class PurchaseOrder {
     this.id = id;
   }
 }
+
+export class PurchaseOrderForm {
+  product: string;
+  provider: string;
+  date: number;
+  quantityInTons: number;
+}

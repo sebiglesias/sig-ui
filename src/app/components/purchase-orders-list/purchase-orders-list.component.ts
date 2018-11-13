@@ -3,6 +3,8 @@ import {PurchaseOrder} from '../../models/purchase-order';
 import {MatDialog, MatDialogConfig} from '@angular/material';
 import {CreatePurchaseDialogComponent} from '../create-purchase-dialog/create-purchase-dialog.component';
 import {PurchaseOrderService} from '../../services/purchase-order.service';
+import {Router} from '@angular/router';
+import {StepperService} from '../../services/stepper.service';
 
 @Component({
   selector: 'app-purchase-orders-list',
@@ -13,27 +15,10 @@ export class PurchaseOrdersListComponent implements OnInit {
 
   purchaseOrders: PurchaseOrder[];
 
-  getStepNumber(purchaseOrder: PurchaseOrder) {
-    if (purchaseOrder.date === undefined) {
-      return 0;
-    } else if (purchaseOrder.delivery === undefined) {
-      return 1;
-    } else if (purchaseOrder.delivery.arrivalToPlant === undefined) {
-      return 2;
-    } else if (purchaseOrder.delivery.containerDischargeEnd === undefined) {
-      return 3;
-    } else if (purchaseOrder.delivery.blockDischargeEnd === undefined) {
-      return 4;
-    } else if (purchaseOrder.delivery.damageFine === undefined) {
-      return 5;
-    } else if (purchaseOrder.delivery.lateReturnFine === undefined) {
-      return 6;
-    } else {
-      return 7;
-    }
-  }
-
-  constructor(public dialog: MatDialog, private purchaseService: PurchaseOrderService) {
+  constructor(public dialog: MatDialog,
+              private router: Router,
+              private purchaseService: PurchaseOrderService,
+              private stepper: StepperService) {
     this.purchaseService.getPurchases().subscribe( list => this.purchaseOrders = list);
   }
 
@@ -49,5 +34,13 @@ export class PurchaseOrdersListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
+  }
+
+  goToView(purchase: PurchaseOrder) {
+    this.router.navigate(['ordenes/' + purchase.id]);
+  }
+
+  getStepNumber(purchaseOrder: PurchaseOrder) {
+    return this.stepper.getStepNumber(purchaseOrder);
   }
 }

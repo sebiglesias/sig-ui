@@ -1,22 +1,11 @@
 <button mat-raised-button color="primary" (click)="createNewProduct()">
   Generar un nuevo pedido
 </button>
-<mat-card class="my-card" *ngFor="let purchase of purchaseOrders">
+<mat-card class="my-card" *ngFor="let purchase of purchaseOrders" (click)="goToView(purchase)">
   <mat-card-title mat-line>
-    Pedido #{{purchase.id}} - Fecha: {{purchase.date}}
-    <button mat-flat-button color="accent">Ver detalle de pedido</button>
+    Pedido #{{purchase.id}} - Fecha: {{purchase.date | date: 'dd/MM/yyyy'}}
   </mat-card-title>
-  <mat-card-content>
+  <mat-card-content class="purchase-card">
     <app-purchase-progress-bar [step]="getStepNumber(purchase)"></app-purchase-progress-bar>
-    <!--<aw-wizard navBarLayout="large-filled-symbols" [disableNavigationBar]="true" navigationMode="semi-strict">-->
-      <!--<aw-wizard-step stepTitle="Orden de Compra" stepId="1" [navigationSymbol]="{ symbol: '1'}"></aw-wizard-step>-->
-      <!--<aw-wizard-step stepTitle="Recepción en Puerto" stepId="2" [navigationSymbol]="{ symbol: '2'}"></aw-wizard-step>-->
-      <!--<aw-wizard-step stepTitle="Recepción en Planta" stepId="3" [navigationSymbol]="{ symbol: '3'}"></aw-wizard-step>-->
-      <!--<aw-wizard-step stepTitle="Descarga Contenedor" stepId="4" [navigationSymbol]="{ symbol: '4'}"></aw-wizard-step>-->
-      <!--<aw-wizard-step stepTitle="Descarga Bloque" stepId="5" [navigationSymbol]="{ symbol: '5'}"></aw-wizard-step>-->
-      <!--<aw-wizard-step stepTitle="Inspección" stepId="6" [navigationSymbol]="{ symbol: '6'}"></aw-wizard-step>-->
-      <!--<aw-wizard-step stepTitle="Devolución Contenedor" stepId="7" [navigationSymbol]="{ symbol: '7'}"></aw-wizard-step>-->
-      <!--<aw-wizard-completion-step stepTitle="Finalizado" stepId="8" [navigationSymbol]="{ symbol: '8'}"></aw-wizard-completion-step>-->
-    <!--</aw-wizard>-->
   </mat-card-content>
 </mat-card>

@@ -1,5 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  dataBaseUrl: 'https://sig-bk.cerbix.net/api'
 };
-
-export const dataBaseUrl = 'https://sig-bk.cerbix.net/api';
