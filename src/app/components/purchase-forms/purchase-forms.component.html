@@ -1,0 +1,142 @@
+<div *ngIf="getStepNumber(purchase) === 0">
+  <mat-card>
+    <mat-card-title>Carga de orden de compra</mat-card-title>
+    <mat-card-content>
+      <div *ngIf="!products || products.length === 0">
+        <h1>Para cargar la información de una orden de compra se necesita tener cargado en el sistema
+          productos y proveedores.</h1>
+        <button mat-raised-button (click)="router.navigate(['/productos'])">
+          Ir a listado de productos
+        </button>
+        <button mat-raised-button (click)="router.navigate(['/proveedores'])">
+          Ir a listado de proveedores
+        </button>
+      </div>
+      <form [formGroup]="purchaseForm" (ngSubmit)="purchaseFormDialog()" class="form-container"
+            *ngIf="products && products.length > 0">
+        <mat-form-field>
+          <mat-select placeholder="Producto" formControlName="product">
+            <mat-option *ngFor="let prod of products" [value]="prod.id">{{prod.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="number" placeholder="Cantidad de producto (en toneladas)"
+                 formControlName="quantityInTons"/>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="date" placeholder="Fecha" formControlName="date">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="Proveedor" formControlName="provider">
+            <mat-option *ngFor="let prov of providers" [value]="prov.id">{{prov.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button mat-raised-button color="accent">Registrar orden de compra</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div *ngIf="getStepNumber(purchase) === 1">
+  <mat-card>
+    <mat-card-title>Carga de recepcion de contenedor para el producto: {{purchase.product.name}}</mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="portForm" (ngSubmit)="portFormDialog()" class="form-container">
+        <mat-form-field>
+          <input matInput type="text" placeholder="Código de contenedor" formControlName="container"/>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="text" placeholder="Patente de camión en que llega" formControlName="licensePlate"/>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="text" placeholder="Nombre completo del conductor" formControlName="driverFullName"/>
+        </mat-form-field>
+        <button mat-raised-button color="accent">Registrar información para la recepción del contenedor</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div *ngIf="getStepNumber(purchase) === 2">
+  <mat-card>
+    <mat-card-title>Carga de hora de arribo a planta para el contenedor: {{purchase.delivery.container}}
+    </mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="plantForm" (ngSubmit)="plantFormDialog()" class="form-container">
+        <mat-form-field>
+          <input matInput type="datetime-local" placeholder="Momento de arribo a planta"
+                 formControlName="arrivalToPlant"/>
+        </mat-form-field>
+        <button mat-raised-button color="accent">Registrar hora de arribo a planta</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div *ngIf="getStepNumber(purchase) === 3">
+  <mat-card>
+    <mat-card-title>Carga de hora de descarga de contenedor {{purchase.delivery.container}} del camion
+      {{purchase.delivery.licensePlate}}
+    </mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="containerDownloadForm" (ngSubmit)="containerDownloadFormDialog()" class="form-container">
+        <mat-form-field>
+          <input matInput type="datetime-local" placeholder="Hora de comienzo de descarga"
+                 formControlName="containerDischargeStart"/>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="datetime-local" placeholder="Hora de fin de descarga"
+                 formControlName="containerDischargeEnd"/>
+        </mat-form-field>
+        <button mat-raised-button color="accent">Registrar tiempo de descarga de contenedor</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div *ngIf="getStepNumber(purchase) === 4">
+  <mat-card>
+    <mat-card-title>Carga de hora de descarga de bloque del contenedor {{purchase.delivery.container}} con producto
+      {{purchase.product.name}}
+    </mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="blockDownloadForm" (ngSubmit)="blockDownloadFormDialog()" class="form-container">
+        <mat-form-field>
+          <input matInput type="datetime-local" placeholder="Hora de comienzo de descarga"
+                 formControlName="blockDischargeStart"/>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="datetime-local" placeholder="Hora de fin de descarga"
+                 formControlName="blockDischargeEnd"/>
+        </mat-form-field>
+        <button mat-raised-button color="accent">Registrar tiempo de descarga de bloque</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div *ngIf="getStepNumber(purchase) === 5">
+  <mat-card>
+    <mat-card-title>Inspección del {{purchase.delivery.container}}</mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="inspectionForm" (ngSubmit)="inspectionFormDialog()" class="form-container">
+        <label>Se encontraron daños en la inspeccion del contenedor {{purchase.delivery.container}}? </label>
+        <mat-radio-group formControlName="damageFine">
+          <mat-radio-button matInput [value]="5000">Sí</mat-radio-button>
+          <mat-radio-button matInput [value]="0">No</mat-radio-button>
+        </mat-radio-group>
+        <button mat-raised-button color="accent">Registrar inspección</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div *ngIf="getStepNumber(purchase) === 6">
+  <mat-card>
+    <mat-card-title>Devolución del {{purchase.delivery.container}}</mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="giveBackForm" (ngSubmit)="giveBackFormDialog()" class="form-container">
+        <label>La devolucion del contenedor {{purchase.delivery.container}} se realizó a tiempo? </label>
+        <mat-radio-group formControlName="lateReturnFine">
+          <mat-radio-button [value]="0">Sí</mat-radio-button>
+          <mat-radio-button [value]="5000">No</mat-radio-button>
+        </mat-radio-group>
+        <button mat-raised-button color="accent">Registrar devolución</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

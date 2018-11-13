@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>{{data.title}}</h2>
+<mat-dialog-content>
+  <mat-list>
+    <mat-list-item *ngFor="let item of data.items"><p><strong>{{item.title}}:</strong> {{item.value}} </p></mat-list-item>
+  </mat-list>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button class="mat-raised-button" color="primary" [mat-dialog-close]="false">Quiero corregir algo</button>
+  <button class="mat-raised-button" color="accent" [mat-dialog-close]="true">Confirmar elección</button>
+</mat-dialog-actions>

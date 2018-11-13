@@ -1,0 +1,93 @@
+<mat-card>
+  <mat-card-title *ngIf="purchase">Resumen del Pedido #{{purchase.id}}</mat-card-title>
+  <mat-card-content>
+    <div *ngIf="getStepNumber(purchase) === 0">
+      No hay información cargada para este pedido
+    </div>
+    <div *ngIf="purchase && getStepNumber(purchase) > 0 && purchase.product">
+      <h2>1. Orden de compra</h2>
+      <mat-list>
+        <mat-list-item>
+          <h4>Producto: {{purchase.product.name}}</h4>
+        </mat-list-item>
+        <mat-list-item>
+          <h4>Cantidad de producto: {{purchase.quantityInTons}} toneladas</h4>
+        </mat-list-item>
+        <mat-list-item>
+          <h4>Fecha: {{purchase.date | date: 'dd/MM/yyyy'}}</h4>
+        </mat-list-item>
+        <mat-list-item>
+          <h4>Proveedor: {{purchase.provider.name}} </h4>
+        </mat-list-item>
+      </mat-list>
+    </div>
+    <div *ngIf="purchase && getStepNumber(purchase) > 1 && purchase.delivery">
+      <h2>2. Recepcion en puerto</h2>
+      <mat-list>
+        <mat-list-item>
+          <h4>Código de contenedor: {{purchase.delivery.container}}</h4>
+        </mat-list-item>
+        <mat-list-item>
+          <h4>Patente del camión que lo entrega: {{purchase.delivery.licensePlate}} </h4>
+        </mat-list-item>
+        <mat-list-item>
+          <h4>Nombre completo del conductor: {{purchase.delivery.driverFullName}} </h4>
+        </mat-list-item>
+      </mat-list>
+    </div>
+    <div *ngIf="purchase && getStepNumber(purchase) > 2 && purchase.delivery">
+      <h2>3. Recepcion en planta</h2>
+      <mat-list>
+        <mat-list-item>
+          <h4>Horario de Arribo a planta: {{purchase.delivery.arrivalToPlant | date: 'dd/MM/yyyy HH:mm'}}</h4>
+        </mat-list-item>
+      </mat-list>
+    </div>
+    <div *ngIf="purchase && getStepNumber(purchase) > 3 && purchase.delivery">
+      <h2>4. Descarga Contenedor</h2>
+      <mat-list>
+        <mat-list-item>
+          <h4>Horario de comienzo de descarga de contenedor: {{purchase.delivery.containerDischargeStart | date: 'dd/MM/yyyy HH:mm'}}</h4>
+        </mat-list-item>
+        <mat-list-item>
+          <h4>Horario de fin de descarga de contenedor: {{purchase.delivery.containerDischargeEnd  | date: 'dd/MM/yyyy HH:mm'}}</h4>
+        </mat-list-item>
+        <mat-list-item>
+          <h4>Tiempo de descarga de contenedor total: {{(purchase.delivery.containerDischargeEnd - purchase.delivery.containerDischargeStart)  | date: 'dd/MM/yyyy HH:mm'}}</h4>
+        </mat-list-item>
+      </mat-list>
+    </div>
+    <div *ngIf="purchase && getStepNumber(purchase) > 4 && purchase.delivery">
+      <h2>5. Descarga bloque</h2>
+      <mat-list>
+        <mat-list-item>
+          <h4>Horario de comienzo de descarga de bloque: {{purchase.delivery.blockDischargeStart | date: 'dd/MM/yyyy HH:mm'}}</h4>
+        </mat-list-item>
+        <mat-list-item>
+          <h4>Horario de fin de descarga de bloque: {{purchase.delivery.blockDischargeEnd | date: 'dd/MM/yyyy HH:mm'}}</h4>
+        </mat-list-item>
+        <mat-list-item>
+          <h4>Tiempo de descarga de bloque total: {{purchase.delivery.blockDischargeEnd - purchase.delivery.blockDischargeStart | date: 'dd/MM/yyyy HH:mm'}}</h4>
+        </mat-list-item>
+      </mat-list>
+    </div>
+    <div *ngIf="purchase && getStepNumber(purchase) > 5 && purchase.delivery">
+      <h2>6. Inspeccion</h2>
+      <mat-list>
+        <mat-list-item>
+          <h4 *ngIf="purchase.delivery.damageFine">Se encontraron daños</h4>
+          <h4 *ngIf="!purchase.delivery.damageFine">No se encontraron daños</h4>
+        </mat-list-item>
+      </mat-list>
+    </div>
+    <div *ngIf="purchase && getStepNumber(purchase) > 6 && purchase.delivery">
+      <h2>7. Devolucion Container</h2>
+      <mat-list>
+        <mat-list-item>
+          <h4 *ngIf="purchase.delivery.damageFine">No se devolvió el contenedor a tiempo</h4>
+          <h4 *ngIf="!purchase.delivery.damageFine">Se devolvió el contenedor a tiempo</h4>
+        </mat-list-item>
+      </mat-list>
+    </div>
+  </mat-card-content>
+</mat-card>
