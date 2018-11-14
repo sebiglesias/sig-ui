@@ -2,7 +2,7 @@
   <mat-card>
     <mat-card-title>Carga de orden de compra</mat-card-title>
     <mat-card-content>
-      <div *ngIf="!products || products.length === 0">
+      <div *ngIf="!products || products.length === 0 || !providers || providers.length === 0">
         <h1>Para cargar la información de una orden de compra se necesita tener cargado en el sistema
           productos y proveedores.</h1>
         <button mat-raised-button (click)="router.navigate(['/productos'])">
@@ -24,9 +24,6 @@
                  formControlName="quantityInTons"/>
         </mat-form-field>
         <mat-form-field>
-          <input matInput type="date" placeholder="Fecha" formControlName="date">
-        </mat-form-field>
-        <mat-form-field>
           <mat-select placeholder="Proveedor" formControlName="provider">
             <mat-option *ngFor="let prov of providers" [value]="prov.id">{{prov.name}}</mat-option>
           </mat-select>
@@ -42,7 +39,8 @@
     <mat-card-content>
       <form [formGroup]="portForm" (ngSubmit)="portFormDialog()" class="form-container">
         <mat-form-field>
-          <input matInput type="text" placeholder="Código de contenedor" formControlName="container"/>
+          <input matInput type="text" placeholder="Código de contenedor" formControlName="container" pattern="[A-Z]{4}[0-9]{7}"/>
+          <mat-error *ngIf="portForm.controls['container'].errors">El código de contenedor se conforma por 4 letras mayúsculas seguidas por 7 números</mat-error>
         </mat-form-field>
         <mat-form-field>
           <input matInput type="text" placeholder="Patente de camión en que llega" formControlName="licensePlate"/>
@@ -50,7 +48,7 @@
         <mat-form-field>
           <input matInput type="text" placeholder="Nombre completo del conductor" formControlName="driverFullName"/>
         </mat-form-field>
-        <button mat-raised-button color="accent">Registrar información para la recepción del contenedor</button>
+        <button mat-raised-button color="accent" [disabled]="!portForm.valid">Registrar información para la recepción del contenedor</button>
       </form>
     </mat-card-content>
   </mat-card>
@@ -64,8 +62,9 @@
         <mat-form-field>
           <input matInput type="datetime-local" placeholder="Momento de arribo a planta"
                  formControlName="arrivalToPlant"/>
+          <mat-error *ngIf="plantForm && plantForm.errors">La fecha tiene que ser posterior a la fecha de la orden de compra</mat-error>
         </mat-form-field>
-        <button mat-raised-button color="accent">Registrar hora de arribo a planta</button>
+        <button mat-raised-button color="accent" [disabled]="plantForm && !plantForm.valid">Registrar hora de arribo a planta</button>
       </form>
     </mat-card-content>
   </mat-card>

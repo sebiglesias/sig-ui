@@ -1,5 +1,5 @@
 <mat-card>
-  <mat-card-title *ngIf="purchase">Resumen del Pedido #{{purchase.id}}</mat-card-title>
+  <mat-card-title *ngIf="purchase">Resumen del Pedido #{{purchase.id}} con fecha {{purchase.date | date: 'dd/MM/yyyy'}}</mat-card-title>
   <mat-card-content>
     <div *ngIf="getStepNumber(purchase) === 0">
       No hay información cargada para este pedido
@@ -12,9 +12,6 @@
         </mat-list-item>
         <mat-list-item>
           <h4>Cantidad de producto: {{purchase.quantityInTons}} toneladas</h4>
-        </mat-list-item>
-        <mat-list-item>
-          <h4>Fecha: {{purchase.date | date: 'dd/MM/yyyy'}}</h4>
         </mat-list-item>
         <mat-list-item>
           <h4>Proveedor: {{purchase.provider.name}} </h4>
@@ -52,9 +49,6 @@
         <mat-list-item>
           <h4>Horario de fin de descarga de contenedor: {{purchase.delivery.containerDischargeEnd  | date: 'dd/MM/yyyy HH:mm'}}</h4>
         </mat-list-item>
-        <mat-list-item>
-          <h4>Tiempo de descarga de contenedor total: {{(purchase.delivery.containerDischargeEnd - purchase.delivery.containerDischargeStart)  | date: 'dd/MM/yyyy HH:mm'}}</h4>
-        </mat-list-item>
       </mat-list>
     </div>
     <div *ngIf="purchase && getStepNumber(purchase) > 4 && purchase.delivery">
@@ -66,17 +60,14 @@
         <mat-list-item>
           <h4>Horario de fin de descarga de bloque: {{purchase.delivery.blockDischargeEnd | date: 'dd/MM/yyyy HH:mm'}}</h4>
         </mat-list-item>
-        <mat-list-item>
-          <h4>Tiempo de descarga de bloque total: {{purchase.delivery.blockDischargeEnd - purchase.delivery.blockDischargeStart | date: 'dd/MM/yyyy HH:mm'}}</h4>
-        </mat-list-item>
       </mat-list>
     </div>
     <div *ngIf="purchase && getStepNumber(purchase) > 5 && purchase.delivery">
       <h2>6. Inspeccion</h2>
       <mat-list>
         <mat-list-item>
-          <h4 *ngIf="purchase.delivery.damageFine">Se encontraron daños</h4>
-          <h4 *ngIf="!purchase.delivery.damageFine">No se encontraron daños</h4>
+          <h4 *ngIf="purchase.delivery.damageFine > 0">Se encontraron daños</h4>
+          <h4 *ngIf="purchase.delivery.damageFine === 0">No se encontraron daños</h4>
         </mat-list-item>
       </mat-list>
     </div>
@@ -84,8 +75,8 @@
       <h2>7. Devolucion Container</h2>
       <mat-list>
         <mat-list-item>
-          <h4 *ngIf="purchase.delivery.damageFine">No se devolvió el contenedor a tiempo</h4>
-          <h4 *ngIf="!purchase.delivery.damageFine">Se devolvió el contenedor a tiempo</h4>
+          <h4 *ngIf="purchase.delivery.lateReturnFine > 0">No se devolvió el contenedor a tiempo</h4>
+          <h4 *ngIf="purchase.delivery.lateReturnFine === 0">Se devolvió el contenedor a tiempo</h4>
         </mat-list-item>
       </mat-list>
     </div>

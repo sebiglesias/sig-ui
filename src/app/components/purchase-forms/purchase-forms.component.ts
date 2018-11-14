@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {PurchaseOrder} from '../../models/purchase-order';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {PurchaseOrderService} from '../../services/purchase-order.service';
 import {Product} from '../../models/product';
 import {ProductService} from '../../services/product.service';
@@ -59,13 +59,12 @@ export class PurchaseFormsComponent implements OnInit {
     this.purchaseForm = this.formBuilder.group({
       product: ['', Validators.required],
       quantityInTons: ['', Validators.required],
-      date: ['', Validators.required],
       provider: ['', Validators.required]
     });
     this.portForm = this.formBuilder.group({
-      container: ['', Validators.required],
-      licensePlate: ['', Validators.required],
-      driverFullName: ['', Validators.required]
+      container: ['', [Validators.required, Validators.pattern('[A-Z]{4}[0-9]{7}')]],
+      licensePlate: ['', [Validators.required, Validators.max(30)]],
+      driverFullName: ['', [Validators.required, Validators.minLength(5)]]
     });
     this.plantForm = this.formBuilder.group( {
       arrivalToPlant: ['', Validators.required]
@@ -94,8 +93,7 @@ export class PurchaseFormsComponent implements OnInit {
         items: [
           {title: 'Proveedor', value: this.providers.find(p => p.id === value.provider).name},
           {title: 'Producto', value: this.products.find(p => p.id === value.product).name},
-          {title: 'Cantidad en toneladas', value: value.quantityInTons},
-          {title: 'Fecha', value: value.date},
+          {title: 'Cantidad en toneladas', value: value.quantityInTons}
         ]
       }
     });
@@ -113,8 +111,6 @@ export class PurchaseFormsComponent implements OnInit {
       purchaseToUpdate.quantityInTons = value.quantityInTons;
       purchaseToUpdate.provider = this.providers.find(p => p.id === value.provider);
       purchaseToUpdate.product = this.products.find(p => p.id === value.product);
-      const date = new Date(value.date);
-      purchaseToUpdate.date = date.getTime() - date.getTimezoneOffset();
       this.purchaseOrderService.updatePurchase(purchaseToUpdate).subscribe(result => {
         this.purchaseOrderService.getPurchaseById(this.purchase.id).subscribe(p => {
           this.purchase = p;
@@ -254,5 +250,18 @@ export class PurchaseFormsComponent implements OnInit {
         });
       });
     }
+  }
+}
+
+export class DateValidators {
+  static dateLessThan(dateField1: string, dateField2: string, validatorField: { [key: string]: boolean }): ValidatorFn {
+    return (c: AbstractControl): { [key: string]: boolean } | null => {
+      const date1 = c.get(dateField1).value;
+      const date2 = c.get(dateField2).value;
+      if ((date1 !== null && date2 !== null) && date1 > date2) {
+        return validatorField;
+      }
+      return null;
+    };
   }
 }

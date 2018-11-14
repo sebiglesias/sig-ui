@@ -26,4 +26,8 @@ export class PurchaseOrderService {
   updatePurchase(purchaseToUpdate: PurchaseOrder): Observable<boolean> {
     return this.http.post<boolean>(this.purchaseUrl, purchaseToUpdate);
   }
+
+  deletePurchase(purchase: PurchaseOrder): Observable<boolean> {
+    return this.http.delete<boolean>(this.purchaseUrl + '/' + purchase.id);
+  }
 }
