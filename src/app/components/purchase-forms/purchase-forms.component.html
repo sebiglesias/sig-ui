@@ -39,8 +39,11 @@
     <mat-card-content>
       <form [formGroup]="portForm" (ngSubmit)="portFormDialog()" class="form-container">
         <mat-form-field>
-          <input matInput type="text" placeholder="Código de contenedor" formControlName="container" pattern="[A-Z]{4}[0-9]{7}"/>
-          <mat-error *ngIf="portForm.controls['container'].errors">El código de contenedor se conforma por 4 letras mayúsculas seguidas por 7 números</mat-error>
+          <input matInput type="text" placeholder="Código de contenedor" formControlName="container"
+                 pattern="[A-Z]{4}[0-9]{7}"/>
+          <mat-error *ngIf="portForm.controls['container'].errors">El código de contenedor se conforma por 4 letras
+            mayúsculas seguidas por 7 números
+          </mat-error>
         </mat-form-field>
         <mat-form-field>
           <input matInput type="text" placeholder="Patente de camión en que llega" formControlName="licensePlate"/>
@@ -48,7 +51,9 @@
         <mat-form-field>
           <input matInput type="text" placeholder="Nombre completo del conductor" formControlName="driverFullName"/>
         </mat-form-field>
-        <button mat-raised-button color="accent" [disabled]="!portForm.valid">Registrar información para la recepción del contenedor</button>
+        <button mat-raised-button color="accent" [disabled]="!portForm.valid">Registrar información para la recepción
+          del contenedor
+        </button>
       </form>
     </mat-card-content>
   </mat-card>
@@ -62,9 +67,13 @@
         <mat-form-field>
           <input matInput type="datetime-local" placeholder="Momento de arribo a planta"
                  formControlName="arrivalToPlant"/>
-          <mat-error *ngIf="plantForm && plantForm.errors">La fecha tiene que ser posterior a la fecha de la orden de compra</mat-error>
         </mat-form-field>
-        <button mat-raised-button color="accent" [disabled]="plantForm && !plantForm.valid">Registrar hora de arribo a planta</button>
+        <mat-error *ngIf="plantForm && !plantForm.valid">La fecha tiene que ser posterior a la fecha de la orden de
+          compra
+        </mat-error>
+        <button mat-raised-button color="accent" [disabled]="plantForm && !plantForm.valid">Registrar hora de arribo a
+          planta
+        </button>
       </form>
     </mat-card-content>
   </mat-card>
@@ -84,7 +93,13 @@
           <input matInput type="datetime-local" placeholder="Hora de fin de descarga"
                  formControlName="containerDischargeEnd"/>
         </mat-form-field>
-        <button mat-raised-button color="accent">Registrar tiempo de descarga de contenedor</button>
+        <mat-error *ngIf="containerDownloadForm && !containerDownloadForm.valid">
+          Ambas fechas deben ser posteriores a la fecha del pedido, y la fecha de fin debe ser posterior a la de
+          comienzo
+        </mat-error>
+        <button mat-raised-button color="accent" [disabled]="containerDownloadForm && !containerDownloadForm.valid">
+          Registrar tiempo de descarga de contenedor
+        </button>
       </form>
     </mat-card-content>
   </mat-card>
@@ -104,7 +119,13 @@
           <input matInput type="datetime-local" placeholder="Hora de fin de descarga"
                  formControlName="blockDischargeEnd"/>
         </mat-form-field>
-        <button mat-raised-button color="accent">Registrar tiempo de descarga de bloque</button>
+        <mat-error *ngIf="blockDownloadForm && !blockDownloadForm.valid">
+          Ambas fechas deben ser posteriores a la fecha del pedido, y la fecha de fin debe ser posterior a la de
+          comienzo
+        </mat-error>
+        <button mat-raised-button color="accent" [disabled]="blockDownloadForm && !blockDownloadForm.valid">
+          Registrar tiempo de descarga de bloque
+        </button>
       </form>
     </mat-card-content>
   </mat-card>

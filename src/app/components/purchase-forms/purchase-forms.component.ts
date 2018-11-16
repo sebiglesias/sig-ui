@@ -67,22 +67,54 @@ export class PurchaseFormsComponent implements OnInit {
       driverFullName: ['', [Validators.required, Validators.minLength(5)]]
     });
     this.plantForm = this.formBuilder.group( {
-      arrivalToPlant: ['', Validators.required]
+      arrivalToPlant: ['', [Validators.required, this.validateArrivalToPlant]]
     });
     this.containerDownloadForm = this.formBuilder.group({
       containerDischargeEnd: ['', Validators.required],
       containerDischargeStart: ['', Validators.required],
-    });
+    }, { validator: this.checkIfEndDateAfterStartDateCont });
     this.blockDownloadForm = this.formBuilder.group({
       blockDischargeEnd: ['', Validators.required],
       blockDischargeStart: ['', Validators.required]
-    });
+    }, { validator: this.checkIfEndDateAfterStartDateBlock });
     this.inspectionForm = this.formBuilder.group({
       damageFine: ['', Validators.required]
     });
     this.giveBackForm = this.formBuilder.group({
       lateReturnFine: ['', Validators.required]
     });
+  }
+
+  validateArrivalToPlant = (control: FormControl) => {
+    const arrivalToPlant = control.value;
+    const invalid = new Date(arrivalToPlant).getTime() < this.purchase.date;
+    return invalid ? {'arrivalToPlant': true} : null;
+  }
+
+  checkIfEndDateAfterStartDateCont = (control: AbstractControl) => {
+    const start = control.get('containerDischargeStart').value;
+    const end = control.get('containerDischargeEnd').value;
+    if (!start || !end) {
+      return null;
+    }
+    const startBeforeOrder = new Date(start).getTime() < this.purchase.date;
+    const endBeforeOrder = new Date(end).getTime() < this.purchase.date;
+    const endBeforeStart = new Date(end).getTime() < new Date(start).getTime();
+    const invalid = startBeforeOrder || endBeforeOrder || endBeforeStart;
+    return invalid ? {'invalidDates': true} : null;
+  }
+
+  checkIfEndDateAfterStartDateBlock = (control: AbstractControl) => {
+    const start = control.get('blockDischargeStart').value;
+    const end = control.get('blockDischargeEnd').value;
+    if (!start || !end) {
+      return null;
+    }
+    const startBeforeOrder = new Date(start).getTime() < this.purchase.date;
+    const endBeforeOrder = new Date(end).getTime() < this.purchase.date;
+    const endBeforeStart = new Date(end).getTime() < new Date(start).getTime();
+    const invalid = startBeforeOrder || endBeforeOrder || endBeforeStart;
+    return invalid ? {'invalidDates': true} : null;
   }
 
   purchaseFormDialog() {
