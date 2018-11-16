@@ -100,7 +100,8 @@ export class PurchaseFormsComponent implements OnInit {
     const startBeforeOrder = new Date(start).getTime() < this.purchase.date;
     const endBeforeOrder = new Date(end).getTime() < this.purchase.date;
     const endBeforeStart = new Date(end).getTime() < new Date(start).getTime();
-    const invalid = startBeforeOrder || endBeforeOrder || endBeforeStart;
+    const contBeforeArrival = new Date(start).getTime() < this.purchase.delivery.arrivalToPlant;
+    const invalid = startBeforeOrder || endBeforeOrder || endBeforeStart || contBeforeArrival;
     return invalid ? {'invalidDates': true} : null;
   }
 
@@ -113,7 +114,8 @@ export class PurchaseFormsComponent implements OnInit {
     const startBeforeOrder = new Date(start).getTime() < this.purchase.date;
     const endBeforeOrder = new Date(end).getTime() < this.purchase.date;
     const endBeforeStart = new Date(end).getTime() < new Date(start).getTime();
-    const invalid = startBeforeOrder || endBeforeOrder || endBeforeStart;
+    const blockBeforeCont = new Date(start).getTime() < this.purchase.delivery.containerDischargeEnd;
+    const invalid = startBeforeOrder || endBeforeOrder || endBeforeStart || blockBeforeCont;
     return invalid ? {'invalidDates': true} : null;
   }
 

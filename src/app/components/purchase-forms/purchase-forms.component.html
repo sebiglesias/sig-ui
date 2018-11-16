@@ -95,7 +95,7 @@
         </mat-form-field>
         <mat-error *ngIf="containerDownloadForm && !containerDownloadForm.valid">
           Ambas fechas deben ser posteriores a la fecha del pedido, y la fecha de fin debe ser posterior a la de
-          comienzo
+          comienzo. Y debe comenzar luego del arribo a planta.
         </mat-error>
         <button mat-raised-button color="accent" [disabled]="containerDownloadForm && !containerDownloadForm.valid">
           Registrar tiempo de descarga de contenedor
@@ -121,7 +121,7 @@
         </mat-form-field>
         <mat-error *ngIf="blockDownloadForm && !blockDownloadForm.valid">
           Ambas fechas deben ser posteriores a la fecha del pedido, y la fecha de fin debe ser posterior a la de
-          comienzo
+          comienzo. Y debe comenzar luego del fin de descarga del contenedor.
         </mat-error>
         <button mat-raised-button color="accent" [disabled]="blockDownloadForm && !blockDownloadForm.valid">
           Registrar tiempo de descarga de bloque
