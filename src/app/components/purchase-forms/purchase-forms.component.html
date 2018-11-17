@@ -94,7 +94,7 @@
                  formControlName="containerDischargeEnd"/>
         </mat-form-field>
         <mat-error *ngIf="containerDownloadForm && !containerDownloadForm.valid">
-          Ambas fechas deben ser posteriores a la fecha del pedido, y la fecha de fin debe ser posterior a la de
+          Ambas fechas deben ser posteriores a la fecha del pedido {{this.purchase.date | date: 'dd/MM/yyyy'}}, y la fecha de fin debe ser posterior a la de
           comienzo. Y debe comenzar luego del arribo a planta.
         </mat-error>
         <button mat-raised-button color="accent" [disabled]="containerDownloadForm && !containerDownloadForm.valid">
@@ -120,7 +120,7 @@
                  formControlName="blockDischargeEnd"/>
         </mat-form-field>
         <mat-error *ngIf="blockDownloadForm && !blockDownloadForm.valid">
-          Ambas fechas deben ser posteriores a la fecha del pedido, y la fecha de fin debe ser posterior a la de
+          Ambas fechas deben ser posteriores a la fecha del pedido {{this.purchase.date | date: 'dd/MM/yyyy'}}, y la fecha de fin debe ser posterior a la de
           comienzo. Y debe comenzar luego del fin de descarga del contenedor.
         </mat-error>
         <button mat-raised-button color="accent" [disabled]="blockDownloadForm && !blockDownloadForm.valid">
