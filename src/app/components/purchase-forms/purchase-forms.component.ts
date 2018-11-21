@@ -148,6 +148,7 @@ export class PurchaseFormsComponent implements OnInit {
       this.purchaseOrderService.updatePurchase(purchaseToUpdate).subscribe(result => {
         this.purchaseOrderService.getPurchaseById(this.purchase.id).subscribe(p => {
           this.purchase = p;
+          this.onRefresh();
           this.alertRef.open('Se agregó la información de orden de compra al pedido', 'Cerrar');
         });
       });
@@ -186,6 +187,7 @@ export class PurchaseFormsComponent implements OnInit {
           this.purchaseOrderService.updatePurchase(purchaseToUpdate).subscribe(result => {
             this.purchaseOrderService.getPurchaseById(this.purchase.id).subscribe(p => {
               this.purchase = p;
+              this.onRefresh();
               this.alertRef.open('Se agregó la información de recepción pedido', 'Cerrar');
             });
           });
@@ -220,6 +222,7 @@ export class PurchaseFormsComponent implements OnInit {
       this.deliveryService.editDelivery(deliveryToUpdate).subscribe(result => {
         this.purchaseOrderService.getPurchaseById(this.purchase.id).subscribe(p => {
           this.purchase = p;
+          this.onRefresh();
           this.alertRef.open('Se agregó la hora de arribo a planta', 'Cerrar');
         });
       });
@@ -284,6 +287,20 @@ export class PurchaseFormsComponent implements OnInit {
         });
       });
     }
+  }
+
+  onRefresh() {
+    this.router.routeReuseStrategy.shouldReuseRoute = function() {
+      return false;
+    };
+
+    const currentUrl = this.router.url + '?';
+
+    this.router.navigateByUrl(currentUrl)
+      .then(() => {
+        this.router.navigated = false;
+        this.router.navigate([this.router.url]).then(x => console.log('refresh'));
+      });
   }
 }
 
